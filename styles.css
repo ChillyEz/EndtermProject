@@ -164,9 +164,9 @@ footer {
 .hero-card {
     max-width: 150px;
     background-color: rgba(18, 18, 18, 0.85);
-    padding: 10аpx;
+    padding: 10px;
     text-align: center;
-    transition: transform 0.3s ease-in-out;;
+    transition: transform 0.3s ease-in-out;
 }
 
 .hero-card:hover {
@@ -187,3 +187,64 @@ hero-name {
     width: 100%;
     margin: 0 auto;
 }
+
+.esports-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+td, th {
+    border: 1px solid #e5e5e5;
+    margin-top: 20px;
+    text-align: center;
+    transition: all 0.3s ease-in-out;
+}
+
+td:hover ,th:hover{
+    scale: 1.05;
+    background-color: rgba(255, 69, 0, 0.60);
+    background-blend-mode:difference;
+    box-shadow: 0 0 10px #2bff00
+}
+
+
+.item-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 10px;
+    padding: 10px;
+}
+
+.item-card {
+    max-width: 150px;
+    background-color: rgba(18, 18, 18, 0.85);
+    padding: 10px;
+    text-align: center;
+    transition: transform 0.3s ease-in-out;
+    position: relative;
+}
+
+.item-image img {
+    max-width: 100%;
+    height: auto;
+}
+
+.item-card:hover {
+    background-color: rgba(90, 255, 40, 0.95);
+    scale: 1.05;
+    transition: all 0.3s ease-in-out;
+    box-shadow: 0 0 10px #2bff00
+}
+
+.item-discription {
+    visibility: hidden;
+    position: absolute;
+    transition: opacity 0.3s ease-in-out;
+    display: flex;
+}
+
+.item-card:hover .item-discription {
+        visibility: visible;
+        background-color: rgba(104, 104, 104, 0.85);
+}
+

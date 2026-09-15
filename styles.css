@@ -11,12 +11,35 @@
 :root {
     --primary-color: #e5e5e5;
     --secondary-color: #121212;
-    --accent-color: #ff0000;
     --font-family: "DotaFont", sans-serif;
     --font-family-2: "DotaFont2", sans-serif;
     --container-max-width: 1100px;
     --background: url(images/dota2_preview.jpeg.webp);
     --block-background: url(images/seamless-pattern-carbon-weave-texture-260nw-1229331478.png);
+    
+    /* Backgrounds */
+    --color-background-main: 25, 25, 25;
+    --color-background-panel: 36, 40, 43;
+    --color-background-panel-light: 45, 49, 52;
+
+    /* Borders */
+    --color-border-dark: 18, 20, 22;
+    --color-border: 85, 87, 89;
+
+    /* Dota accents */
+    --color-accent-red: 157, 48, 29;
+    --color-accent-red-dark: 93, 20, 18;
+    --color-accent-green: 41, 76, 14;
+    --color-accent-blue: 46, 75, 96;
+    --color-accent-gold: 155, 87, 29;
+
+    /* Spaces, padding, margin etc */
+    --radius: 12px;
+    --radius-x2: 24px;
+    --space-1: 8px;
+    --space-2: 12px;
+    --space-3: 16px;
+    --space-4: 24px;
 }
 
 .page-shell {
@@ -33,8 +56,14 @@
 
 header {
     display: flex;
-    font-size: x-large;
+    align-items: center;
+    background-color: rgba(var(--color-background-panel), 0.8);
+    padding: var(--space-2);
+    gap : var(--space-3);
+    border-radius: var(--radius-x2);
+    backdrop-filter: blur(3px);
 }
+
 header .logo {
     margin-left: 3%;
     display: inline-block;
@@ -61,7 +90,8 @@ header .logo {
 }
 
 .navbar a:hover {
-    transition: all 0.3s ease-in-out;
+    transition: scale 0.3s ease-in-out;
+    box-shadow: 0 0 10px rgb(var(--color-accent-red));
     scale: 1.05;
 }
 
@@ -70,29 +100,29 @@ aside {
     text-align: center;
     position: sticky;
     width: 220px;
-    margin-right: 10px;
-    padding: 10px;
-    position: sticky;
+    margin-right: var(--space-2);
+    padding: var(--space-2);
     top: 16px;
-
+    background-color: rgba(var(--color-background-panel), 0.8);
+    border-radius: var(--radius);
+    backdrop-filter: blur(3px);
 }
 
 aside::before {
     content:"";
     position: absolute;
     display: block;
-    background-image: var(--block-background);
-    background-repeat: repeat;
     inset: 0;
-    opacity: 0.85;
     z-index: -1;
 }
 
 main {
     flex: 1;
-    padding: 10px;
+    padding: var(--space-2);
     position: relative;
-
+    background-color: rgba(var(--color-background-panel), 0.8);
+    backdrop-filter: blur(3px);
+    border-radius: var(--radius);
 }
 
 
@@ -100,10 +130,7 @@ main::before {
     content:"";
     position: absolute;
     display: block;
-    background-image: var(--block-background);
-    background-repeat: repeat;
     inset: 0;
-    opacity: 0.85;
     z-index: -1;
 }
 
@@ -122,6 +149,7 @@ body {
     background-position: center top;
     font-family: var(--font-family);
     margin: 0;
+    line-height: 1.5;
     
 }
 
@@ -157,29 +185,29 @@ footer {
 .hero-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-    gap: 10px;
-    padding: 10px;
+    gap: var(--space-3);
+    padding: var(--space-2);
 }
 
 .hero-card {
     max-width: 150px;
-    background-color: rgba(18, 18, 18, 0.85);
-    padding: 10px;
+    background-color: rgb(var(--color-background-panel));
+    padding: var(--space-2);
     text-align: center;
     transition: transform 0.3s ease-in-out;
 }
 
 .hero-card:hover {
-    background-color: rgba(90, 255, 40, 0.95);
+    background-color: rgb(var(--color-accent-green));
     scale: 1.05;
     transition: all 0.3s ease-in-out;
-    box-shadow: ;
+    box-shadow: 0 0 10px rgb(var(--color-accent-green));
 }
 .hero-discription {
     font-family: var(--font-family-2);
 }
 
-hero-name {
+.hero-name {
     font-family: var(--font-family-2);
 }
 
@@ -194,31 +222,45 @@ hero-name {
 }
 
 td, th {
-    border: 1px solid #e5e5e5;
+    border: 1px solid rgb(var(--color-border));
     margin-top: 20px;
     text-align: center;
     transition: all 0.3s ease-in-out;
 }
 
-td:hover ,th:hover{
+tr {
+    border: 1px solid rgb(var(--color-border));
+    margin-top: 20px;
+    text-align: center;
+    transition: all 0.3s ease-in-out;
+}
+
+tr:hover {
+    scale: 1.05;    
+    background-color: rgba(92, 245, 54, 0.678);
+    background-blend-mode:difference;
+    box-shadow: 0 0 15px var(--color-accent-green);
+}
+
+/* td:hover ,th:hover{
     scale: 1.05;
     background-color: rgba(255, 69, 0, 0.60);
     background-blend-mode:difference;
     box-shadow: 0 0 10px #2bff00
-}
+} */
 
 
 .item-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-    gap: 10px;
-    padding: 10px;
+    gap: var(--space-3);
+    padding: var(--space-2);
 }
 
 .item-card {
     max-width: 150px;
-    background-color: rgba(18, 18, 18, 0.85);
-    padding: 10px;
+    background-color: rgb(var(--color-background-panel));
+    padding: var(--space-2);
     text-align: center;
     transition: transform 0.3s ease-in-out;
     position: relative;
@@ -230,10 +272,10 @@ td:hover ,th:hover{
 }
 
 .item-card:hover {
-    background-color: rgba(90, 255, 40, 0.95);
+    background-color: rgb(var(--color-accent-green));
     scale: 1.05;
     transition: all 0.3s ease-in-out;
-    box-shadow: 0 0 10px #2bff00
+    box-shadow: 0 0 10px rgb(var(--color-accent-green));
 }
 
 .item-discription {
@@ -245,6 +287,6 @@ td:hover ,th:hover{
 
 .item-card:hover .item-discription {
         visibility: visible;
-        background-color: rgba(104, 104, 104, 0.85);
+        background-color: rgb(var(--color-background-panel-light));
 }
 

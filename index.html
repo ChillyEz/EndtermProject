@@ -8,7 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="styles.css">
     <link rel="icon" href="images/icon.png">
-    <script src="script.js"></script>
+    <script src="script.js" defer></script>
 </head>
 <body>
     <div class="page-shell">
@@ -16,7 +16,7 @@
         <a href="index.html" class="logo">
             <img src="images/icon.png" alt="Logo" class="logo"></img>
         </a>
-        <div class="logo">Dota 2 Wikitionary</div>
+        <div class="logo"><h1>Dota 2 Wikitionary</h1></div>
     </header>
     <div class="overlay"></div>
     <div class="container">
@@ -33,8 +33,90 @@
     </aside>
 
         <main>
-            <h2>Welcome to the Dota 2 Wiki</h2>
-            <p>Here you can find anything about Dota 2. Explore the world of Dota 2!</p>
+            <h1>Welcome to the Dota 2 Wiki</h1>
+            <p>
+                Dota 2 is a multiplayer online battle arena game developed by Valve.
+                Two teams of five players compete against each other, with the main
+                objective being to destroy the enemy Ancient.
+            </p>
+            <p>
+                Every player controls a unique hero with their own abilities and
+                playstyle. Heroes become stronger during the match by gaining
+                experience and gold, which can be used to purchase items.
+            </p>
+
+            <hr>
+
+            <h2>What You Can Find in This Wiki</h2>
+            
+            <p>
+                This wiki provides information about the main elements of Dota 2.
+                You can explore:
+            </p>
+
+            <ul>
+                <li>Heroes and their abilities</li>
+                <li>Items and their effects</li>
+                <li>The Dota 2 map and its important locations</li>
+                <li>Professional esports and major tournaments</li>
+            </ul>
+            
+            <h2>Basic Gameplay</h2>
+
+            <p>
+                A typical Dota 2 match consists of several important stages. New
+                players can focus on these basic steps:
+            </p>
+            
+            <ol>
+                <li>Choose a hero that fits your preferred playstyle.</li>
+                <li>Learn the hero's abilities and basic mechanics.</li>
+                <li>Collect gold and purchase useful items.</li>
+                <li>Work together with your teammates.</li>
+                <li>Destroy enemy structures and eventually the Ancient.</li>
+            </ol>
+
+            <hr>
+
+            <h2>About the Team Member</h2>
+            <p>This is a simple website about Dota 2, created by a only Amir Baiseitov. SE-2505</p>
+            <p>
+                The website is designed as a small Dota 2 wiki where users can
+                explore information about heroes, items, the game map, and the
+                competitive scene.
+            </p>
+
+            <h2>Contact the Wiki Team</h2>
+
+            <form class="contact-form" id="contact-form">
+
+                <label for="name">Name</label>
+                <input type="text" id="name" name="name" placeholder="Enter your name">
+
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" placeholder="Enter your email">
+
+                <label for="topic">Topic</label>
+                <select id="topic" name="topic">
+                    <option value="feedback">Website Feedback</option>
+                    <option value="heroes">Hero Information</option>
+                    <option value="items">Item Information</option>
+                    <option value="map">Map Information</option>
+                    <option value="other">Other</option>
+                </select>
+
+                <label for="message">Message</label>
+                <textarea
+                    id="message"
+                    name="message"
+                    placeholder="Write your message..."
+                    rows="5"></textarea>
+
+                <button type="submit">Send Message</button>
+
+            </form>
+
+
         </main>
     </div>
 

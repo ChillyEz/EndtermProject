@@ -45,7 +45,9 @@
 .page-shell {
     display: flex;
     flex-direction: column;
-    min-width: min(var(--container-max-width, 100%), calc(100% - 3rem));
+    /* min-width: min(var(--container-max-width, 100%), calc(100% - 3rem)); */
+    width: calc(100% - 3rem);
+    max-width: var(--container-max-width);
     margin: 1rem auto;
 }
 
@@ -62,16 +64,22 @@ header {
     gap : var(--space-3);
     border-radius: var(--radius-x2);
     backdrop-filter: blur(3px);
-}
+};
 
-header .logo {
-    margin-left: 3%;
+a .logo {
     display: inline-block;
     width: 100px;
     height: 100px;
 
 }
 
+a img.logo {
+    text-align: center;
+    display: inline-block;
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+}
 
 .navbar {
     color: #e5e5e5;
@@ -87,12 +95,14 @@ header .logo {
     text-align: center;
     font-size: large;
     padding-block: 10px;
+    text-decoration: none;
 }
 
 .navbar a:hover {
     transition: scale 0.3s ease-in-out;
     box-shadow: 0 0 10px rgb(var(--color-accent-red));
     scale: 1.05;
+    color: rgb(var(--color-accent-red), 0.75);    
 }
 
 
@@ -106,6 +116,12 @@ aside {
     background-color: rgba(var(--color-background-panel), 0.8);
     border-radius: var(--radius);
     backdrop-filter: blur(3px);
+}
+
+@media (max-width: 768px) {
+  aside {
+    width: 110px;
+  }
 }
 
 aside::before {
@@ -133,13 +149,13 @@ main {
 }
 
 
-main::before {
+/* main::before {
     content:"";
     position: absolute;
     display: block;
     inset: 0;
     z-index: -1;
-}
+} */
 
 .container {
     display: flex;
@@ -174,7 +190,12 @@ footer {
     display: block;
     text-align: center;
 }
-
+footer p {
+    margin: 0;
+    padding: var(--space-2);
+    font-size: small;
+    font-weight: small;
+}
 
 #dota2-map {
     max-width: 100%;
@@ -299,6 +320,7 @@ tr:hover {
 .item-discription {
     visibility: hidden;
     position: absolute;
+    font-size: small;
     transition: opacity 0.3s ease-in-out;
     display: flex;
 }
@@ -308,3 +330,56 @@ tr:hover {
         background-color: rgb(var(--color-background-panel-light));
 }
 
+.contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+    max-width: 400px;
+    margin: var(--space-4) auto;
+    padding: var(--space-4);
+    background: linear-gradient(rgba(var(--color-background-panel-light), 0.92), rgba(var(--color-background-panel), 0.92));
+    border: 1px solid rgb(var(--color-border));
+    border-top: 2px solid rgb(var(--color-accent-red));
+    border-radius: 2px;
+}
+
+.contact-form input, .contact-form select, .contact-form textarea {
+    padding: var(--space-2);
+    border: 1px solid rgb(var(--color-border));
+    border-radius: 2px;
+    background-color: rgba(var(--color-background-panel), 0.8);
+    color: var(--primary-color);
+}
+
+.contact-form button {
+    margin-top: var(--space-2);
+    padding: 11px 20px;
+    font-size: 15px;
+    color: rgb(var(--color-text-main));
+    background:linear-gradient(rgb(var(--color-accent-red)),rgb(var(--color-accent-red-dark)));
+    border: 1px solid rgb(var(--color-accent-red-dark));
+    border-radius: 2px;
+    cursor: pointer;
+    transition: background-color 0.2s, transform 0.1s;
+}
+
+.contact-form input:focus,
+.contact-form select:focus,
+.contact-form textarea:focus {
+    background-color: rgba(var(--color-background-panel-light), 0.95);
+    border-color: rgb(var(--color-accent-red));
+}
+
+
+.contact-form button:hover {
+    background: linear-gradient(rgb(var(--color-accent-red)),rgb(var(--color-accent-red)));
+}
+
+.contact-form button:active {
+    transform: translateY(1px);
+}
+
+.contact-form label {
+    font-size: 14px;
+    color: rgb(var(--color-text-main));
+}

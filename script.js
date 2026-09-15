@@ -1,3 +1,4 @@
+if (window.location.pathname.endsWith("heroes.html")) {
 const form = document.querySelector("#hero-form");
 
 function addHeroCard() {
@@ -37,3 +38,14 @@ form.addEventListener("submit", function (event) {
     console.log("Form submitted");
     addHeroCard();
 });
+}
+
+if (window.location.pathname.endsWith("index.html")) {
+    const form = document.querySelector("#contact-form");
+
+    form.addEventListener("submit", function (event) {
+        event.preventDefault();
+        console.log("Form for contact submitted");
+        alert("Thank you for your message! We will get back to you soon.");
+    });
+}

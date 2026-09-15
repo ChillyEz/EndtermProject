@@ -116,6 +116,13 @@ aside::before {
     z-index: -1;
 }
 
+aside a {
+    margin-top: 0;
+    font-family: var(--font-family-2);
+    border-radius: 5px;
+}
+
+
 main {
     flex: 1;
     padding: var(--space-2);
@@ -215,6 +222,17 @@ footer {
     width: 100%;
     margin: 0 auto;
 }
+
+.tenor-gif-embed a{
+    width: 100%;
+    margin: 0 auto;
+}
+
+.tenor-gif-embed img{
+    width: 100%;
+    margin: 0 auto;
+}
+
 
 .esports-table {
     width: 100%;

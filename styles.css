@@ -383,3 +383,57 @@ tr:hover {
     font-size: 14px;
     color: rgb(var(--color-text-main));
 }
+
+
+-------
+
+.hero-form {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+    max-width: 400px;
+    margin: var(--space-4) auto;
+    padding: var(--space-4);
+    background: linear-gradient(rgba(var(--color-background-panel-light), 0.92), rgba(var(--color-background-panel), 0.92));
+    border: 1px solid rgb(var(--color-border));
+    border-top: 2px solid rgb(var(--color-accent-red));
+    border-radius: 2px;
+}
+
+.hero-form input {
+    padding: var(--space-2);
+    border: 1px solid rgb(var(--color-border));
+    border-radius: 2px;
+    background-color: rgba(var(--color-background-panel), 0.8);
+    color: var(--primary-color);
+}
+
+.hero-form button {
+    margin-top: var(--space-2);
+    padding: 11px 20px;
+    font-size: 15px;
+    color: rgb(var(--color-text-main));
+    background:linear-gradient(rgb(var(--color-accent-red)),rgb(var(--color-accent-red-dark)));
+    border: 1px solid rgb(var(--color-accent-red-dark));
+    border-radius: 2px;
+    cursor: pointer;
+    transition: background-color 0.2s, transform 0.1s;
+}
+
+.hero-form input:focus,
+.hero-form select:focus,
+.hero-form textarea:focus {
+    background-color: rgba(var(--color-background-panel-light), 0.95);
+    border-color: rgb(var(--color-accent-red));
+}
+
+
+
+.hero-form button:hover {
+    background: linear-gradient(rgb(var(--color-accent-red)),rgb(var(--color-accent-red)));
+}
+
+.hero-form button:active {
+    transform: translateY(1px);
+}
+

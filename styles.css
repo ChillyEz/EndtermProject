@@ -14,7 +14,7 @@
     --font-family: "DotaFont", sans-serif;
     --font-family-2: "DotaFont2", sans-serif;
     --container-max-width: 1100px;
-    --background: url(images/dota2_preview.jpeg.webp);
+    --background: url(images/background/background.png);
     --block-background: url(images/seamless-pattern-carbon-weave-texture-260nw-1229331478.png);
     
     /* Backgrounds */
@@ -43,11 +43,18 @@
 }
 
 .page-shell {
-    display: flex;
-    flex-direction: column;
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    grid-template-columns: 220px 1fr;
+    grid-template-areas: 
+        "header header"
+        "aside main"
+        "footer footer";
+    gap: var(--space-2);
     /* min-width: min(var(--container-max-width, 100%), calc(100% - 3rem)); */
     width: calc(100% - 3rem);
     max-width: var(--container-max-width);
+    min-width: 0;
     margin: 1rem auto;
 }
 
@@ -57,8 +64,8 @@
 
 
 header {
-    display: flex;
     align-items: center;
+    grid-area: header;
     background-color: rgba(var(--color-background-panel), 0.8);
     padding: var(--space-2);
     gap : var(--space-3);
@@ -110,6 +117,7 @@ aside {
     text-align: center;
     position: sticky;
     width: 220px;
+    grid-area: aside;
     margin-right: var(--space-2);
     padding: var(--space-2);
     top: 16px;
@@ -119,10 +127,21 @@ aside {
 }
 
 @media (max-width: 768px) {
+  .page-shell {
+    grid-template-columns: 110px 1fr;
+  }
+  
+ 
+}
+
+
+@media (max-width: 768px) {
   aside {
     width: 110px;
+    margin-right: var(--space-1);
   }
-}
+  }
+  
 
 aside::before {
     content:"";
@@ -140,7 +159,7 @@ aside a {
 
 
 main {
-    flex: 1;
+    grid-area: main;
     padding: var(--space-2);
     position: relative;
     background-color: rgba(var(--color-background-panel), 0.8);
@@ -148,6 +167,9 @@ main {
     border-radius: var(--radius);
 }
 
+main p {
+    font-size: small;
+}
 
 /* main::before {
     content:"";
@@ -157,14 +179,8 @@ main {
     z-index: -1;
 } */
 
-.container {
-    display: flex;
-    align-items: stretch;
-}
 
 body { 
-    display: flex;
-    flex-direction: column;
     background-color: #121212;
     color: #e5e5e5;
     background-image: var(--background);
@@ -187,7 +203,7 @@ body {
 }
 
 footer {
-    display: block;
+    grid-area: footer;
     text-align: center;
 }
 footer p {
@@ -290,31 +306,51 @@ tr:hover {
 
 
 .item-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
     gap: var(--space-3);
     padding: var(--space-2);
+    display: flex;
+    align-items: stretch;
+    flex-wrap: wrap;
+    overflow: visible;
 }
 
 .item-card {
-    max-width: 150px;
+    width: 180px;
+    min-height: 320px;
     background-color: rgb(var(--color-background-panel));
+    border : 1px solid rgb(var(--color-border-dark));
     padding: var(--space-2);
     text-align: center;
-    transition: transform 0.3s ease-in-out;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
     position: relative;
+    z-index: 1;
+}
+
+.item-name {
+    min-height: 54px;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.item-image {
+    margin: var(--space-2) 0;
 }
 
 .item-image img {
-    max-width: 100%;
-    height: auto;
+    width: 96px;
+    height: 96px;
+    object-fit: cover;
+    display: block;
+    margin: 0 auto;
+    border: 1px solid rgb(var(--color-border));
 }
 
 .item-card:hover {
+    transform: translateY(-4px);
     background-color: rgb(var(--color-accent-green));
-    scale: 1.05;
-    transition: all 0.3s ease-in-out;
-    box-shadow: 0 0 10px rgb(var(--color-accent-green));
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.6);
 }
 
 .item-discription {
@@ -326,9 +362,183 @@ tr:hover {
 }
 
 .item-card:hover .item-discription {
+        font-family: var(--font-family-2);
+        font-size: 13px;
         visibility: visible;
-        background-color: rgb(var(--color-background-panel-light));
+        color: rgb(var(--color-text-secondary));
 }
+
+.item-basic{
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.item-button {
+    margin-top: auto;
+    padding: 8px 14px;
+    font-family: var(--font-family-2);
+    font-size: 13px;
+    color: rgb(var(--color-text-main));
+    background:linear-gradient(rgb(var(--color-accent-red)),rgb(var(--color-accent-red-dark)));
+    border: 1px solid rgb(var(--color-accent-red-dark));
+    border-radius: 2px;
+    cursor: pointer;
+    transition: background 0.2s ease;
+}
+
+.item-button:hover {
+    background: rgb(var(--color-accent-red));
+}
+
+.item-details {
+    position: absolute;
+    left: 0;
+    top: calc(100% + 10px);
+    width: 330px;
+    padding: var(--space-2);
+    background:linear-gradient(rgba(var(--color-background-panel-light), 0.98),rgba(var(--color-background-main), 0.98));
+    border: 1px solid rgb(var(--color-border-dark));
+    border-left: 3px solid rgb(var(--color-accent-gold));
+    box-shadow:0 8px 25px rgba(0, 0, 0, 0.75);
+    text-align: left;
+    display: none;
+}
+
+.item-card.details-open {
+    z-index: 1000;
+}
+
+.item-card.details-open .item-details {
+    z-index: 1000;
+    display: block;
+    margin-bottom: 350px;
+}
+
+.item-details-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: var(--space-1);
+    border-bottom: 1px solid rgb(var(--color-border));
+}
+
+.item-details-header h3 {
+    margin: 0;
+    font-size: 18px;
+}
+
+.item-cost {
+    display: block;
+    margin-top: 4px;
+    color: rgb(var(--color-accent-gold));
+    font-weight: bold;
+}
+
+.close-item {
+    width: 25px;
+    height: 25px;
+    padding: 0;
+    color: rgb(var(--color-text-secondary));
+    background: transparent;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.close-item:hover {
+    color: rgb(var(--color-accent-red));
+}
+
+.close-item {
+    width: 25px;
+    height: 25px;
+    padding: 0;
+    color: rgb(var(--color-text-secondary));
+    background: transparent;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.close-item:hover {
+    color: rgb(var(--color-accent-red));
+}
+
+.item-stats {
+    padding: var(--space-2) 0;
+}
+
+.item-stats p {
+    margin: 2px 0;
+    color: rgb(var(--color-text-main));
+    font-family: var(--font-family-2);
+    font-size: 14px;
+}
+
+.item-ability {
+    margin-top: var(--space-2);
+    padding: var(--space-2);
+    background-color:rgba(var(--color-background-panel-light), 0.8);
+    border-left: 3px solid rgb(var(--color-accent-blue));
+}
+
+.item-ability h4 {
+    margin: 0 0 var(--space-1);
+    color: rgb(var(--color-text-main));
+    font-size: 14px;
+}
+
+.item-ability p {
+    margin: var(--space-1) 0;
+    color: rgb(var(--color-text-secondary));
+    font-family: var(--font-family-2);
+    font-size: 13px;
+}
+
+.item-ability {
+    margin-top: var(--space-2);
+    padding: var(--space-2);
+    background-color:rgba(var(--color-background-panel-light), 0.8);
+    border-left: 3px solid rgb(var(--color-accent-blue));
+}
+
+.item-ability h4 {
+    margin: 0 0 var(--space-1);
+    color: rgb(var(--color-text-main));
+    font-size: 14px;
+}
+
+.item-ability p {
+    margin: var(--space-1) 0;
+    color: rgb(var(--color-text-secondary));
+    font-family: var(--font-family-2);
+    font-size: 13px;
+}
+
+.active-ability {
+    background:linear-gradient( rgba(55, 55, 110, 0.8),rgba(var(--color-background-panel-light), 0.8));
+    border-left-color: rgb(var(--color-accent-blue));
+}
+
+.passive-ability {
+    border-left-color: rgb(var(--color-accent-green));
+}
+
+.item-lore {
+    margin-top: var(--space-3);
+    padding: var(--space-2);
+    color: rgb(var(--color-text-secondary));
+    font-family: var(--font-family-2);
+    font-size: 12px;
+    font-style: italic;
+    border-top: 1px solid rgb(var(--color-border-dark));
+}
+
+
+
+
+
 
 .contact-form {
     display: flex;
@@ -339,7 +549,7 @@ tr:hover {
     padding: var(--space-4);
     background: linear-gradient(rgba(var(--color-background-panel-light), 0.92), rgba(var(--color-background-panel), 0.92));
     border: 1px solid rgb(var(--color-border));
-    border-top: 2px solid rgb(var(--color-accent-red));
+    border-top: 2px solid rgb(var(--color-accent-gold));
     border-radius: 2px;
 }
 

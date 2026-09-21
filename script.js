@@ -49,3 +49,30 @@ if (window.location.pathname.endsWith("index.html")) {
         alert("Thank you for your message! We will get back to you soon.");
     });
 }
+
+const itemButtons = document.querySelectorAll(".item-button");
+const closeButtons = document.querySelectorAll(".close-item");
+
+itemButtons.forEach(function (button) {
+    button.addEventListener("click", function () {
+
+        document.querySelectorAll(".item-card.details-open")
+            .forEach(function (card) {
+                card.classList.remove("details-open");
+            });
+
+        const card = button.closest(".item-card");
+        card.classList.add("details-open");
+    });
+}); 
+
+
+closeButtons.forEach(function (button) {
+
+    button.addEventListener("click", function () {
+        const card = button.closest(".item-card");
+        card.classList.remove("details-open");
+
+    });
+
+});

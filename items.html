@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="styles.css">
     <link rel="icon" href="images/icon.png">
-    <script src="script.js"></script>
+    <script src="script.js" defer></script>
 </head>
 <body>
     <div class="page-shell">
@@ -19,7 +19,6 @@
 </header>
 
 <div class="overlay"></div>
-<div class="container">
     <aside>
         <h2>Sidebar</h2>
         <nav class="navbar">
@@ -36,28 +35,420 @@
         <h2>Items</h2>
         <div class="item-grid">
             <article class="item-card">
-                <h3 class="item-name">Tango</h3>
-                <div class="item-image" >  <img src="images/item-icons/tango.jpg" alt="tango"> </div>
-                <p class="item-discription">Comes with 3 charges. Can be used on an allied hero to give them one Tango.</p>
-            </article>
+
+    <div class="item-basic">
+
+        <h3 class="item-name">TANGO</h3>
+
+        <div class="item-image">
+            <img src="images/item-icons/tango.jpg" alt="Tango">
+        </div>
+
+        <p class="item-description">
+            Comes with 3 charges. Can be used on an allied hero to give them one Tango.
+        </p>
+
+        <button class="item-button" type="button">
+            View Details
+        </button>
+
+    </div>
+
+
+    <div class="item-details">
+
+        <div class="item-details-header">
+
+            <div>
+                <h3>Tango</h3>
+                <span class="item-cost">90</span>
+            </div>
+
+            <button class="close-item" type="button">
+                ×
+            </button>
+
+        </div>
+
+
+        <div class="item-stats">
+
+        </div>
+
+
+        <section class="item-ability active-ability">
+
+            <h4>Devour</h4>
+
+            <p>
+                Consumes a target tree to gain 7 health regeneration for 16 seconds. Consuming an Ironwood Tree doubles the heal amount.
+            </p>
+
+            <p>
+                <strong>Cast Range: Affected by Cast Range bonuses.</strong>
+                165
+            </p>
+
+        </section>
+
+        <p class="item-lore">
+            Forage to survive on the battlefield.
+        </p>
+
+    </div>
+
+</article>
             <article class="item-card">
-                <h3 class="item-name">Iron Branch</h3>
-                <div class="item-image" >  <img src="images/item-icons/iron-branch.jpg" alt="iron branch"> </div>
-                <p class="item-discription">A seemingly ordinary branch, its ironlike qualities are bestowed upon the bearer.</p>
-            </article>
-            <article class="item-card">
-                <h3 class="item-name">Faerie fire</h3>
-                <div class="item-image" >  <img src="images/item-icons/faerie-fire.jpg" alt="faerie fire"> </div>
-                <p class="item-discription">The ethereal flames from the ever-burning ruins of Kindertree ignite across realities.</p>
-            </article>
-            <article class="item-card">
-                <h3 class="item-name">Stick</h3>
-                <div class="item-image" >  <img src="images/item-icons/stick.jpg" alt="stick"> </div>
-                <p class="item-discription">A simple piece of wood used to channel nothing, it is favored by idiots.</p>
-            </article>
+
+    <div class="item-basic">
+
+        <h3 class="item-name">BLOODTHORN</h3>
+
+        <div class="item-image">
+            <img src="images/item-icons/bloodthorn.jpg" alt="Bloodthorn">
+        </div>
+
+        <p class="item-description">
+            A powerful item that provides intelligence, attack speed,
+            damage and magic resistance.
+        </p>
+
+        <button class="item-button" type="button">
+            View Details
+        </button>
+
+    </div>
+
+
+    <div class="item-details">
+
+        <div class="item-details-header">
+
+            <div>
+                <h3>Bloodthorn</h3>
+                <span class="item-cost">6800</span>
+            </div>
+
+            <button class="close-item" type="button">
+                ×
+            </button>
+
+        </div>
+
+
+        <div class="item-stats">
+
+            <p>+20 Intelligence</p>
+            <p>+60 Attack Speed</p>
+            <p>+50 Damage</p>
+            <p>+5 Mana Regeneration</p>
+            <p>+20 Magic Resistance</p>
+
+        </div>
+
+
+        <section class="item-ability active-ability">
+
+            <h4>
+                Active: Soul Rend
+            </h4>
+
+            <p>
+                Silences a target for 5 seconds. At the end of the silence,
+                an additional 30% of all damage taken during the silence
+                will be dealt to the target as magical damage.
+            </p>
+
+            <p>
+                All attacks on the silenced target will have True Strike
+                and 100% chance to critically strike for 130% damage.
+            </p>
+
+            <p>
+                <strong>Range:</strong> 900
+            </p>
+
+        </section>
+
+
+        <section class="item-ability passive-ability">
+
+            <h4>
+                Passive: Mage Slayer
+            </h4>
+
+            <p>
+                Places a debuff when you attack enemies, causing them
+                to do 35% less spell damage for 6 seconds.
+            </p>
+
+        </section>
+
+
+        <p class="item-lore">
+            A reviled blade that bites deeper with each wriggle
+            of its victim's final throes.
+        </p>
+
+    </div>
+
+</article>
+
+<article class="item-card">
+
+    <div class="item-basic">
+
+        <h3 class="item-name">
+            BLACK KING BAR
+        </h3>
+
+        <div class="item-image">
+            <img
+                src="/images/item-icons/black_king_bar.jpg"
+                alt="BLACK KING BAR"
+            >
+        </div>
+
+        <p class="item-description">
+            Grants debuff immunity, a basic dispel, and high magic resistance.
+        </p>
+
+        <button class="item-button" type="button">
+            View Details
+        </button>
+
+    </div>
+
+
+    <div class="item-details">
+
+        <div class="item-details-header">
+
+            <div>
+
+                <h3>
+                    BLACK KING BAR
+                </h3>
+
+                <span class="item-cost">
+                    4050
+                </span>
+
+            </div>
+
+            <button class="close-item" type="button">
+                ×
+            </button>
+
+        </div>
+
+
+        <div class="item-stats">
+
+            <p>
+                +10 Strength
+            </p>
+
+            <p>
+                +24 Attack Damage
+            </p>
+
+        </div>
+
+        <section class="item-ability active-ability">
+
+            <h4>
+                Avatar
+            </h4>
+
+            <p>
+                Applies a Basic Dispel. Grants 60% Magic resistance and immunity to pure and reflected damage. For the duration of the effect, any negative effect from enemy spells has no effect.
+            </p>
+
+            <p>
+                <strong>
+                    Duration:
+                </strong>
+                9/8/7/6
+            </p>
+            <p>
+                <strong>
+                    Dispel Type:
+                </strong>
+                Basic Dispel
+            </p>
+
+        </section>
+
+        <p class="item-lore">
+            A powerful staff imbued with the strength of giants.
+        </p>
+
+    </div>
+
+</article>
+
+<article class="item-card">
+
+    <div class="item-basic">
+
+
+        <h3 class="item-name">
+            BLINK DAGGER
+        </h3>
+
+        <div class="item-image">
+            <img
+                src="/images/item-icons/blink_dagger.png"
+                alt="BLINK DAGGER"
+            >
+        </div>
+
+        <p class="item-description">
+            Instantly teleports your hero to a target location
+        </p>
+
+        <button class="item-button" type="button">
+            View Details
+        </button>
+
+    </div>
+
+
+    <div class="item-details">
+
+
+        <div class="item-details-header">
+
+            <div>
+
+                <h3>
+                    BLINK DAGGER
+                </h3>
+
+                <span class="item-cost">
+                    2250
+                </span>
+
+            </div>
+
+            <button class="close-item" type="button">
+                ×
+            </button>
+
+        </div>
+
+
+        <section class="item-ability active-ability">
+
+            <h4>
+                Blink
+            </h4>
+
+            <p>
+                Teleport to a target point up to 1200 units away.
+            </p>
+
+            <p>
+                Blink Dagger cannot be used for 3 seconds after taking damage from an enemy hero or Roshan.
+            </p>
+
+
+        </section>
+
+
+        <p class="item-lore">
+            The fabled dagger used by the fastest assassin ever to walk the lands.
+        </p>
+
+    </div>
+
+</article>
+<article class="item-card">
+
+    <div class="item-basic">
+
+        <h3 class="item-name">
+            MONKEY KING BAR
+        </h3>
+
+
+        <div class="item-image">
+            <img
+                src="/images/item-icons/Monkey_King_Bar.jpg"
+                alt="MONKEY KING BAR"
+            >
+        </div>
+
+
+        <p class="item-description">
+            grants attack damage, attack speed, and a passive chance to pierce evasion while dealing bonus magical damage.
+        </p>
+
+
+        <button class="item-button" type="button">
+            View Details
+        </button>
+
+    </div>
+
+
+    <div class="item-details">
+
+        <div class="item-details-header">
+
+            <div>
+
+                <h3>
+                    MONKEY KING BAR
+                </h3>
+
+                <span class="item-cost">
+                    4700
+                </span>
+
+            </div>
+
+            <button class="close-item" type="button">
+                ×
+            </button>
+
+        </div>
+
+        <div class="item-stats">
+
+            <p>
+                +40 Attack Damage
+            </p>
+
+            <p>
+                +45 Attack Speed
+            </p>
+
+        </div>
+
+
+        <section class="item-ability passive-ability">
+
+            <h4>
+                Pierce
+            </h4>
+
+            <p>
+                Grants each attack a 80% chance to pierce through evasion and deal 70 bonus magical damage.
+            </p>
+
+        </section>
+
+        <p class="item-lore">
+            A powerful staff used by a master warrior.
+        </p>
+
+    </div>
+
+</article>
         </div>
     </main>
-</div>
 <footer>
     <p>&copy; 2026 My Website. All rights reserved. Amir Baiseitov</p>
 </footer>

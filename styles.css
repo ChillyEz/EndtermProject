@@ -127,14 +127,17 @@
 
 
 header {
+    display: flex;
     align-items: center;
     grid-area: header;
+
     background-color: rgba(var(--color-background-panel), 0.8);
     padding: var(--space-2);
-    gap : var(--space-3);
+    gap: var(--space-3);
+
     border-radius: var(--radius-x2);
     backdrop-filter: blur(3px);
-};
+}
 
 header a {
     display: inline-block;
@@ -158,10 +161,11 @@ a img.logo {
 
 .navbar {
     color: #e5e5e5;
-    display: block;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
     position: sticky;
     top: 16px;
-    
 }
 
 .navbar a{
@@ -301,44 +305,6 @@ footer p {
     padding: var(--space-2);
 }
 
-.hero-card {
-    max-width: 150px;
-    background-color: rgb(var(--color-background-panel));
-    padding: var(--space-2);
-    text-align: center;
-    transition: transform 0.3s ease-in-out;
-}
-
-.hero-card:hover {
-    background-color: rgb(var(--color-accent-green));
-    scale: 1.05;
-    transition: all 0.3s ease-in-out;
-    box-shadow: 0 0 10px rgb(var(--color-accent-green));
-}
-.hero-discription {
-    font-family: var(--font-family-2);
-}
-
-.hero-name {
-    font-family: var(--font-family-2);
-}
-
-.tenor-gif-embed {
-    width: 100%;
-    margin: 0 auto;
-}
-
-.tenor-gif-embed a{
-    width: 100%;
-    margin: 0 auto;
-}
-
-.tenor-gif-embed img{
-    width: 100%;
-    margin: 0 auto;
-}
-
-
 .esports-table {
     width: 100%;
     border-collapse: collapse;
@@ -371,7 +337,6 @@ tr:hover {
     background-blend-mode:difference;
     box-shadow: 0 0 10px #2bff00
 } */
-
 
 .item-grid {
     gap: var(--space-3);
@@ -710,54 +675,133 @@ tr:hover {
 
 
 -------
-
-.hero-form {
+.attribute-title {
     display: flex;
-    flex-direction: column;
-    gap: var(--space-2);
-    max-width: 400px;
-    margin: var(--space-4) auto;
-    padding: var(--space-4);
-    background: linear-gradient(rgba(var(--color-background-panel-light), 0.92), rgba(var(--color-background-panel), 0.92));
-    border: 1px solid rgb(var(--color-border));
-    border-top: 2px solid rgb(var(--color-accent-red));
-    border-radius: 2px;
+    align-items: center;
+    gap: 10px;
 }
 
-.hero-form input {
+.attribute-title img {
+    width: 30px;
+    height: 30px;
+    object-fit: contain;
+}
+    
+.hero-gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: var(--space-3);
     padding: var(--space-2);
-    border: 1px solid rgb(var(--color-border));
-    border-radius: 2px;
-    background-color: rgba(var(--color-background-panel), 0.8);
-    color: var(--primary-color);
 }
 
-.hero-form button {
-    margin-top: var(--space-2);
-    padding: 11px 20px;
-    font-size: 15px;
+.hero-card {
+    width: auto;
+    box-sizing: border-box;
+    background-color: rgb(var(--color-background-panel));
+    border: 1px solid rgb(var(--color-border-dark));
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.hero-card img {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 16 / 9;
+    object-fit: contain;
+}
+
+.hero-card h4 {
+    margin: 0;
+    padding: 8px;
+    text-align: center;
     color: rgb(var(--color-text-main));
-    background:linear-gradient(rgb(var(--color-accent-red)),rgb(var(--color-accent-red-dark)));
-    border: 1px solid rgb(var(--color-accent-red-dark));
-    border-radius: 2px;
-    cursor: pointer;
-    transition: background-color 0.2s, transform 0.1s;
 }
 
-.hero-form input:focus,
-.hero-form select:focus,
-.hero-form textarea:focus {
-    background-color: rgba(var(--color-background-panel-light), 0.95);
+.hero-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.6);
+}
+
+.hero-caption {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    padding: 8px;
+    text-align: center;
+    background-color: rgba(0, 0, 0, 0.8);
+    color: rgb(var(--color-text-main));
+    opacity: 0;
+    transition: opacity 0.2s ease;
+}
+
+.hero-card:hover .hero-caption {
+    opacity: 1;
+}
+
+.hero-filters {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 20px 0;
+    padding: 12px;
+    background: rgba(25, 25, 25, 0.95);
+    border: 1px solid rgb(var(--color-border));
+    border-left: 3px solid rgb(var(--color-accent-red));
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+}
+
+#hero-search {
+    width: 280px;
+    height: 38px;
+
+    box-sizing: border-box;
+    padding: 0 12px;
+
+    background-color: rgb(var(--color-background-panel));
+    color: rgb(var(--color-text-main));
+
+    border: 1px solid rgb(var(--color-border));
+    outline: none;
+
+    font-family: var(--font-family);
+    font-size: 14px;
+
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+#hero-search::placeholder {
+    color: rgb(var(--color-text-muted));
+}
+
+#hero-search:focus {
+    border-color: rgb(var(--color-accent-gold));
+    box-shadow: 0 0 6px rgba(var(--color-accent-gold), 0.35);
+}
+
+.hero-filters select {
+    height: 38px;
+
+    padding: 0 32px 0 12px;
+
+    background-color: rgb(var(--color-background-panel));
+    color: rgb(var(--color-text-main));
+
+    border: 1px solid rgb(var(--color-border));
+
+    font-family: var(--font-family);
+    font-size: 14px;
+
+    cursor: pointer;
+    outline: none;
+
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.hero-filters select:hover {
     border-color: rgb(var(--color-accent-red));
 }
 
-
-
-.hero-form button:hover {
-    background: linear-gradient(rgb(var(--color-accent-red)),rgb(var(--color-accent-red)));
+.hero-filters select:focus {
+    border-color: rgb(var(--color-accent-gold));
+    box-shadow: 0 0 6px rgba(var(--color-accent-gold), 0.35);
 }
-
-.hero-form button:active {
-    transform: translateY(1px);
-}
-

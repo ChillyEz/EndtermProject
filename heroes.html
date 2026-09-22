@@ -7,8 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="styles.css">
     <link rel="icon" href="images/icon.png">
-    <script src="script.js" defer></script>
-    <script type="text/javascript" async src="https://tenor.com/embed.js" defer></script>
+    <script src="script.js" type="module" defer></script>
 </head>
 <body>
     <div class="page-shell">
@@ -33,40 +32,30 @@
     </aside>
 
     <main>
-        <h2>Heroes</h2>
-        <form id="hero-form" class="hero-form">
-            <input type="text" id="hero-name" placeholder="Name">
-            <input type="text" id="hero-description" placeholder="Description">
-            <input type="text" id="hero-gif" placeholder="Image URL">
-            <button id="addHero">Add Hero</button>
-        </form>
-        <div class="hero-grid">
-            <article class="hero-card">
-                <h3 class="hero-name">Meepo</h3>
-                <div class="tenor-gif-embed" data-postid="26622823" data-share-method="host" data-aspect-ratio="0.984375" data-width="100%"><a href="https://tenor.com/view/browdotyan-gif-26622823">Browdotyan GIF</a>from <a href="https://tenor.com/search/browdotyan-gifs">Browdotyan GIFs</a></div>
-                <p class="hero-description">Meepo 1</p>
-            </article>
-            <article class="hero-card">
-                <h3 class="hero-name">Meepo</h3>
-                <div class="tenor-gif-embed" data-postid="26622823" data-share-method="host" data-aspect-ratio="0.984375" data-width="100%"><a href="https://tenor.com/view/browdotyan-gif-26622823">Browdotyan GIF</a>from <a href="https://tenor.com/search/browdotyan-gifs">Browdotyan GIFs</a></div>
-                <p class="hero-description">Meepo 2</p>
-            </article>
-            <article class="hero-card">
-                <h3 class="hero-name">Meepo</h3>
-                <div class="tenor-gif-embed" data-postid="26622823" data-share-method="host" data-aspect-ratio="0.984375" data-width="100%"><a href="https://tenor.com/view/browdotyan-gif-26622823">Browdotyan GIF</a>from <a href="https://tenor.com/search/browdotyan-gifs">Browdotyan GIFs</a></div>
-                <p class="hero-description">Meepo 3</p>
-            </article>
-            <article class="hero-card">
-                <h3 class="hero-name">Meepo</h3>
-                <div class="tenor-gif-embed" data-postid="26622823" data-share-method="host" data-aspect-ratio="0.984375" data-width="100%"><a href="https://tenor.com/view/browdotyan-gif-26622823">Browdotyan GIF</a>from <a href="https://tenor.com/search/browdotyan-gifs">Browdotyan GIFs</a></div>
-                <p class="hero-description">Meepo 4</p>
-            </article>
-            <article class="hero-card">
-                <h3 class="hero-name">Meepo</h3>
-                <div class="tenor-gif-embed" data-postid="26622823" data-share-method="host" data-aspect-ratio="0.984375" data-width="100%"><a href="https://tenor.com/view/browdotyan-gif-26622823">Browdotyan GIF</a>from <a href="https://tenor.com/search/browdotyan-gifs">Browdotyan GIFs</a></div>
-                <p class="hero-description">Meepo 5</p>
-            </article>
+        <div class="hero-filters">
+
+        <input
+            type="text"
+            id="hero-search"
+            placeholder="Search heroes...">
+
+    <select id="attribute-filter">
+        <option value="All">All Attributes</option>
+        <option value="Strength">Strength</option>
+        <option value="Agility">Agility</option>
+        <option value="Intelligence">Intelligence</option>
+        <option value="Universal">Universal</option>
+    </select>
+
+    <select id="complexity-filter">
+        <option value="All">All Complexity</option>
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+    </select>
+
         </div>
+        <div id="hero-sections"></div>
     </main>
 <footer>
     <p>&copy; 2026 My Website. All rights reserved. Amir Baiseitov</p>

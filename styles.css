@@ -114,7 +114,6 @@
         "aside main"
         "footer footer";
     gap: var(--space-2);
-    /* min-width: min(var(--container-max-width, 100%), calc(100% - 3rem)); */
     width: calc(100% - 3rem);
     max-width: var(--container-max-width);
     min-width: 0;
@@ -206,7 +205,6 @@ aside {
  
 }
 
-
 @media (max-width: 768px) {
   aside {
     width: 110px;
@@ -237,6 +235,7 @@ main {
     background-color: rgba(var(--color-background-panel), 0.8);
     backdrop-filter: blur(3px);
     border-radius: var(--radius);
+    min-width: 0;
 }
 
 main p {
@@ -778,9 +777,12 @@ tr:hover {
     box-shadow: 0 0 6px rgba(var(--color-accent-gold), 0.35);
 }
 
+.hero-filters input {
+    min-width: 0;
+}
 .hero-filters select {
     height: 38px;
-
+    min-width: 0;
     padding: 0 32px 0 12px;
 
     background-color: rgb(var(--color-background-panel));

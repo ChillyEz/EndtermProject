@@ -1,5 +1,7 @@
 import { heroes } from "./heroes.js";
 
+if (window.location.pathname.endsWith("heroes.html")) {
+
 const heroSections = document.querySelector("#hero-sections");
 const searchInput = document.querySelector("#hero-search");
 const attributeFilter = document.querySelector("#attribute-filter");
@@ -92,7 +94,6 @@ function filterHeroes() {
     renderHeroes(filteredHeroes);
 }
 
-if (window.location.pathname.endsWith("heroes.html")) {
 const form = document.querySelector("#hero-form");
 
 function addHeroCard() {

@@ -33,6 +33,69 @@
     --color-accent-blue: 46, 75, 96;
     --color-accent-gold: 155, 87, 29;
 
+    /* --------------TEST SITE TEXT------------  */
+
+    --color-text-main: 220, 220, 220;
+    --color-text-secondary: 145, 150, 160;
+    --color-text-muted: 100, 110, 120;
+
+    --color-text-green: 165, 205, 75;
+    --color-text-blue: 80, 175, 230;
+    --color-text-gold: 210, 160, 55;
+
+
+
+
+
+
+    /* ---------------------------------------- */
+
+    /* -----------TEST ITEM GRID----------- */
+
+    /* Primary TEXT */
+    --color-text-primary: 220, 220, 220;
+
+    /*  Secondary TEXT */
+    --color-text-secondary: 145, 150, 160;
+
+    /* muted TEXT */
+    --color-text-muted: 105, 110, 120;
+
+    /* Values of attributes */
+    --color-value: 225, 225, 225;
+
+    /* Gold / cost */
+    --color-gold: 210, 150, 45;
+
+    /* active ability background */
+    --color-active-background: 55, 55, 105;
+
+    /* text of active ability */
+    --color-active-text: 210, 210, 225;
+
+    /* active ability accent */
+    --color-active-accent: 45, 170, 210;
+
+    /* passive ability background */
+    --color-passive-background: 45, 48, 50;
+
+    /* passive ability text */
+    --color-passive-text: 215, 215, 215;
+
+    /* accent passive ability */
+    --color-passive-accent: 70, 150, 35;
+
+    /* Lore */
+    --color-lore: 145, 145, 145;
+
+    /* Close button */
+    --color-close: 190, 190, 190;
+
+    /* Close button hover */
+    --color-close-hover: 230, 80, 65;
+
+    /* ---------------------------------------- */
+
     /* Spaces, padding, margin etc */
     --radius: 12px;
     --radius-x2: 24px;
@@ -73,12 +136,17 @@ header {
     backdrop-filter: blur(3px);
 };
 
-a .logo {
+header a {
     display: inline-block;
     width: 100px;
     height: 100px;
-
 }
+
+header .logo{
+    display: inline-block;
+    text-align: center;
+}
+
 
 a img.logo {
     text-align: center;
@@ -107,9 +175,9 @@ a img.logo {
 
 .navbar a:hover {
     transition: scale 0.3s ease-in-out;
-    box-shadow: 0 0 10px rgb(var(--color-accent-red));
+    box-shadow: 0 0 10px rgb(var(--color-text-green));
     scale: 1.05;
-    color: rgb(var(--color-accent-red), 0.75);    
+    color: rgb(var(--color-text-green), 0.75);    
 }
 
 
@@ -332,6 +400,7 @@ tr:hover {
     display: flex;
     align-items: center;
     justify-content: center;
+    color: rgb(var(--color-text-primary));
 }
 
 .item-image {
@@ -349,8 +418,8 @@ tr:hover {
 
 .item-card:hover {
     transform: translateY(-4px);
-    background-color: rgb(var(--color-accent-green));
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.6);
+    background-color: rgb(var(--color-background-panel-light));
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.6);  
 }
 
 .item-discription {
@@ -372,6 +441,10 @@ tr:hover {
     height: 100%;
     display: flex;
     flex-direction: column;
+}
+
+.item-description{
+    color: rgb(var(--color-text-secondary));
 }
 
 .item-button {
@@ -429,10 +502,25 @@ tr:hover {
 }
 
 .item-cost {
-    display: block;
+    display: flex;
     margin-top: 4px;
-    color: rgb(var(--color-accent-gold));
+    color: rgb(var(--color-gold));
     font-weight: bold;
+    align-items: center;
+}
+
+.item-cost img{
+    width: 24px;
+    height: 24px;
+    object-fit: contain;
+}
+
+.stat-name {
+    color: rgb(var(--color-text-secondary));
+}
+
+.stat-value{
+    color: rgb(var(--color-value));
 }
 
 .close-item {
@@ -516,19 +604,45 @@ tr:hover {
     font-size: 13px;
 }
 
+/* Active ability */
 .active-ability {
-    background:linear-gradient( rgba(55, 55, 110, 0.8),rgba(var(--color-background-panel-light), 0.8));
-    border-left-color: rgb(var(--color-accent-blue));
+    background-color: rgb(var(--color-active-background));
+    border-left: 3px solid rgb(var(--color-active-accent));
 }
 
+.active-ability h4 {
+    color: rgb(var(--color-active-text));
+}
+
+.active-ability p {
+    color: rgb(var(--color-text-secondary));
+}
+
+.active-ability p strong{
+    color: rgb(var(--color-text-primary));
+}
+
+/* PASSIVE */
 .passive-ability {
-    border-left-color: rgb(var(--color-accent-green));
+    background-color: rgb(var(--color-passive-background));
+    border-left: 3px solid rgb(var(--color-passive-accent));
 }
 
+.passive-ability h4 {
+    color: rgb(var(--color-passive-text));
+}
+
+.passive-ability p {
+    color: rgb(var(--color-text-secondary));
+}
+
+.passive-ability p strong{
+    color: rgb(var(--color-passive-text));
+}
 .item-lore {
     margin-top: var(--space-3);
     padding: var(--space-2);
-    color: rgb(var(--color-text-secondary));
+    color: rgb(var(--color-lore));
     font-family: var(--font-family-2);
     font-size: 12px;
     font-style: italic;

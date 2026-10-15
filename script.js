@@ -353,7 +353,7 @@ function updateDateTime() {
             year: "numeric",
             month: "long",
             day: "numeric"
-        }.
+        }
     );
     let formattedTime =now.toLocaleTimeString("en-US",
         {

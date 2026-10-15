@@ -22,6 +22,14 @@
     --color-background-panel: 36, 40, 43;
     --color-background-panel-light: 45, 49, 52;
 
+    --color-body-background: 18, 18, 18;
+
+    --color-background: linear-gradient(
+        110deg,
+        rgba(30, 40, 50, 0.95),
+        rgba(18, 24, 32, 0.95)
+    );
+
     /* Borders */
     --color-border-dark: 18, 20, 22;
     --color-border: 85, 87, 89;
@@ -47,8 +55,10 @@
 
 
 
-
-    /* ---------------------------------------- */
+    /* --------hover------navbar------------------ */
+    --color-hover: rgba(255, 255, 255, 0.05);
+    --color-navbar-hover: rgba(255, 255, 255, 0.1);
+    --color-navbar-active: rgba(0, 0, 0, 0.5);
 
     /* -----------TEST ITEM GRID----------- */
 
@@ -105,14 +115,43 @@
     --space-4: 24px;
 }
 
+
+body.light-theme {
+
+    --color-background-main: 235, 238, 242;
+    --color-background-panel: 245, 246, 248;
+    --color-background-panel-light: 225, 230, 235;
+
+    --color-background: linear-gradient(
+        110deg,
+        rgba(245, 247, 250, 0.96),
+        rgba(220, 226, 233, 0.96)
+    );
+
+    --color-text-main: 25, 30, 35;
+    --color-text-secondary: 70, 80, 90;
+    --color-text-muted: 100, 110, 120;
+    
+    --color-border-dark: 185, 190, 200; 
+    --color-border: 160, 170, 180;
+
+    --background: none;
+
+    --color-body-background: 235, 238, 242;
+
+    --color-hover: rgba(0, 0, 0, 0.05);
+    --color-navbar-hover: rgba(0, 0, 0, 0.08);
+    --color-navbar-active: rgba(0, 0, 0, 0.15);
+}
+
 .page-shell {
     display: grid;
     grid-template-rows: auto 1fr auto;
-    grid-template-columns: 220px 1fr;
+    grid-template-columns: 1fr;
     grid-template-areas: 
-        "header header"
-        "aside main"
-        "footer footer";
+        "header"
+        "main"
+        "footer";
     gap: var(--space-2);
     width: calc(100% - 3rem);
     max-width: var(--container-max-width);
@@ -126,22 +165,20 @@
 
 
 header {
+    grid-area: header;
     display: flex;
     align-items: center;
-    grid-area: header;
+    gap: 20px;
 
-    background-color: rgba(var(--color-background-panel), 0.8);
-    padding: var(--space-2);
-    gap: var(--space-3);
+    padding: 12px 20px;
 
-    border-radius: var(--radius-x2);
-    backdrop-filter: blur(3px);
-}
+    background: var(--color-background);
 
-header a {
-    display: inline-block;
-    width: 100px;
-    height: 100px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 12px;
+
+    backdrop-filter: blur(12px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
 }
 
 header .logo{
@@ -158,32 +195,7 @@ a img.logo {
     border-radius: 50%;
 }
 
-.navbar {
-    color: #e5e5e5;
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-2);
-    position: sticky;
-    top: 16px;
-}
-
-.navbar a{
-    display: block;
-    color : #e5e5e5;
-    text-align: center;
-    font-size: large;
-    padding-block: 10px;
-    text-decoration: none;
-}
-
-.navbar a:hover {
-    transition: scale 0.3s ease-in-out;
-    box-shadow: 0 0 10px rgb(var(--color-text-green));
-    scale: 1.05;
-    color: rgb(var(--color-text-green), 0.75);    
-}
-
-
+/* 
 aside {
     text-align: center;
     position: sticky;
@@ -225,21 +237,111 @@ aside a {
     margin-top: 0;
     font-family: var(--font-family-2);
     border-radius: 5px;
+} */
+.top-navbar {
+    display: flex;
+    align-items: center;
+    gap: 8px;
 }
 
+.top-navbar a {
+    color: rgb(var(--color-text-main));
+    text-decoration: none;
+
+    padding: 10px 16px;
+    border-radius: 8px;
+
+    font-size: 15px;
+    white-space: nowrap;
+
+    transition: background-color 0.2s ease;
+}
+
+.top-navbar a:hover {
+    background-color: var(--color-navbar-hover);
+}
+
+.top-navbar a.active {
+    background-color: var(--color-navbar-active);
+}
+
+.register-link {
+    margin-left: auto;
+    padding: 10px 16px;
+    color: rgb(var(--color-text-main));
+    text-decoration: none;
+    border: 1px solid rgb(var(--color-accent-red));
+    border-radius: 8px;
+}
+
+.page-mode {
+    margin-left:auto;
+    padding: 10px 16px;
+    border: 1px solid rgb(var(--color-accent-gold));
+    border-radius: 8px;
+    background-color: var(--color-background);
+    color: var(--color-text-primary);
+}
+
+.menu-toggle {
+    display: none;
+    background: transparent;
+    color: rgb(var(--color-text-main));
+    border: 1px solid rgb(var(--color-border));
+    border-radius: 6px;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+@media (max-width: 768px) {
+
+    header {
+        flex-wrap: wrap;
+    }
+
+    .menu-toggle {
+        display: block;
+        margin-right: auto;
+    }
+
+    .top-navbar {
+        display: none;
+        flex-direction: column;
+        width: 100%;
+        order: 3;
+    }
+
+    .top-navbar.open {
+        display: flex;
+    }
+
+    .top-navbar a {
+        width: 100%;
+        text-align: left;
+    }
+
+    .register-link {
+        order: 4;
+    }
+}
 
 main {
     grid-area: main;
     padding: var(--space-2);
     position: relative;
-    background-color: rgba(var(--color-background-panel), 0.8);
+    background: var(--color-background);
     backdrop-filter: blur(3px);
     border-radius: var(--radius);
     min-width: 0;
 }
 
+
 main p {
     font-size: small;
+}
+
+.main-content {
+    padding: 1rem;
 }
 
 /* main::before {
@@ -252,8 +354,8 @@ main p {
 
 
 body { 
-    background-color: #121212;
-    color: #e5e5e5;
+    background-color: rgb(var(--color-body-background));
+    color: rgb(var(--color-text-main));
     background-image: var(--background);
     background-size: cover;
     background-position: center top;
@@ -349,7 +451,7 @@ tr:hover {
 .item-card {
     width: 180px;
     min-height: 320px;
-    background-color: rgb(var(--color-background-panel));
+    background: rgb(var(--color-background-panel));
     border : 1px solid rgb(var(--color-border-dark));
     padding: var(--space-2);
     text-align: center;
@@ -623,12 +725,25 @@ tr:hover {
     flex-direction: column;
     gap: var(--space-2);
     max-width: 400px;
+    min-width: 350px;
     margin: var(--space-4) auto;
     padding: var(--space-4);
     background: linear-gradient(rgba(var(--color-background-panel-light), 0.92), rgba(var(--color-background-panel), 0.92));
     border: 1px solid rgb(var(--color-border));
-    border-top: 2px solid rgb(var(--color-accent-gold));
+    border-left: 2px solid rgb(var(--color-accent-gold));
     border-radius: 2px;
+}
+
+#close-contact {
+    display: inline-flex;
+    margin-left: auto;
+    background: linear-gradient(rgb(var(--color-accent-red)),rgb(var(--color-accent-red-dark)));
+    border: none;
+    border-radius: 4px;
+}
+
+#close-contact:hover {
+    background: linear-gradient(rgb(var(--color-accent-red)), rgb(var(--color-accent-red)));
 }
 
 .contact-form input, .contact-form select, .contact-form textarea {
@@ -639,7 +754,7 @@ tr:hover {
     color: var(--primary-color);
 }
 
-.contact-form button {
+.contact-send {
     margin-top: var(--space-2);
     padding: 11px 20px;
     font-size: 15px;
@@ -659,7 +774,7 @@ tr:hover {
 }
 
 
-.contact-form button:hover {
+.contact-send:hover {
     background: linear-gradient(rgb(var(--color-accent-red)),rgb(var(--color-accent-red)));
 }
 
@@ -744,7 +859,7 @@ tr:hover {
     gap: 10px;
     margin: 20px 0;
     padding: 12px;
-    background: rgba(25, 25, 25, 0.95);
+    background: rgba(var(--color-background-panel-light), 0.98);
     border: 1px solid rgb(var(--color-border));
     border-left: 3px solid rgb(var(--color-accent-red));
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
@@ -808,3 +923,168 @@ tr:hover {
     border-color: rgb(var(--color-accent-gold));
     box-shadow: 0 0 6px rgba(var(--color-accent-gold), 0.35);
 }
+
+/* -------------------- */
+
+
+.popup-overlay {
+    position: fixed;
+    inset: 0;
+    background-color: rgba(0, 0, 0, 0.7);
+
+    display: none;
+    align-items: center;
+    justify-content: center;
+
+    z-index: 1000;
+}
+
+.popup-overlay.open {
+    display: flex;
+}
+
+#contact-block {
+    background-color: rgb(var(--color-background-panel));
+    border: 1px solid rgb(var(--color-border-dark));
+    margin-bottom: 8px;
+    border-radius: 5px;
+    display: flex;
+    overflow: hidden;
+    align-items: center;
+    width: 100%;
+    margin: 0 auto 8px;
+    height: auto;
+    
+
+}
+
+#open-contact {
+    width: 100%;
+    padding: 18px 20px;
+
+    background-color: transparent;
+    color: rgb(var(--color-text-main));
+
+    border: none;
+    cursor: pointer;
+    text-align: center;
+    font-size: 16px;
+    font-weight: 600;
+
+    transition: background-color 0.2s ease;
+}
+
+#open-contact:hover{
+    background-color: var(--color-hover);
+}
+
+
+#form-errors {
+    color: rgb(var(--color-accent-red));
+    white-space: pre-line;
+}
+
+#form-result {
+    color: rgb(var(--color-text-primary));
+} 
+
+
+.faq {
+    width: 100%;
+    max-width: 900px;
+    margin: 40px auto;
+    padding: 20px;
+}
+
+.faq h2 {
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+.faq-item {
+    background-color: rgb(var(--color-background-panel));
+    border: 1px solid rgb(var(--color-border-dark));
+    margin-bottom: 8px;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.faq-question {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    width: 100%;
+    padding: 18px 20px;
+
+    background-color: transparent;
+    color: rgb(var(--color-text-main));
+
+    border: none;
+    cursor: pointer;
+    text-align: left;
+    font-size: 16px;
+    font-weight: 600;
+
+    transition: background-color 0.2s ease;
+}
+
+.faq-question:hover {
+    background-color: var(--color-hover);
+}
+
+.faq-question::after {
+    content: "▼";
+    color: rgb(var(--color-accent-red));
+    font-size: 12px;
+    margin-left: 15px;
+    transition: transform 0.3s ease;
+}
+
+.faq-item.open .faq-question::after {
+    transform: rotate(180deg);
+}
+
+.faq-answer {
+    max-height: 0;
+    padding: 0 20px;
+    color: rgb(var(--color-text-secondary));
+    transition: max-height 0.3s ease, padding 0.3s ease;
+}
+
+.faq-item.open .faq-answer {
+    max-height: 300px;
+    padding: 0 20px 18px;
+}
+
+.faq-answer p {
+    margin: 0;
+    line-height: 1.6;
+}
+
+
+
+
+.registration-form input:focus {
+    background-color: white;
+    color: black;
+}
+
+
+#register-errors {
+    color: rgb(255, 31, 31);
+    white-space: pre-line;
+}
+
+#register-result {
+    color: rgb(var(--color-text-primary));
+} 
+
+
+/* 
+----------------- */
+
+
+
+
+

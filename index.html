@@ -13,13 +13,39 @@
 <body>
     <div class="page-shell">
     <header>
-        <a href="index.html" class="logo">
-            <img src="images/icon.png" alt="Logo" class="logo"></img>
-        </a>
-        <div class="logo"><h1>Dota 2 Wikitionary</h1></div>
+    <a href="index.html" class="logo">
+        <img src="images/icon.png" class="logo" alt="Dota 2 Wiki">
+    </a>
+
+    <button
+        class="menu-toggle"
+        type="button"
+        aria-label="Toggle navigation"
+        aria-expanded="false"
+        aria-controls="main-navigation">
+        ☰
+    </button>
+    
+    <nav class="top-navbar" aria-label="Main navigation">
+        <a href="index.html" class ="active">Home</a>
+        <a href="heroes.html">Heroes</a>
+        <a href="items.html">Items</a>
+        <a href="esports.html">Esports</a>
+    </nav>
+
+    <button class="page-mode" type="button" aria-label="Toggle Website mode">
+        Dark Mode
+    </button>
+    
+    <a href="register.html" class="register-link">
+        Register
+    </a>
     </header>
+    
+
+    
     <div class="overlay"></div>
-    <aside>
+    <!-- <aside>
         <h2>Sidebar</h2>
         <nav class="navbar">
         <div class="logo"></div>
@@ -29,9 +55,10 @@
             <a href="map.html">Map</a>
             <a href="esports.html">Esports</a>
         </nav>
-    </aside>
+    </aside> -->
 
         <main>
+            <div class="main-content">
             <h1>Welcome to the Dota 2 Wiki</h1>
             <p>
                 Dota 2 is a multiplayer online battle arena game developed by Valve.
@@ -85,11 +112,91 @@
                 competitive scene.
             </p>
 
-            <h2>Contact the Wiki Team</h2>
+            <section class="faq">
+                <h2>Frequently Asked Questions</h2>
+
+
+                <div class="faq-item">
+                    <button class="faq-question" type="button">
+                        What are hero attributes?
+                    </button>
+                    
+                    <div class="faq-answer">
+                        <p>
+                            Heroes are classified by Strength, Agility, Intelligence, and Universal attributes. Each attribute influences how heroes benefit from their stats.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question" type="button">
+                        How can I find a specific hero?
+                    </button>
+                    
+                    <div class="faq-answer">
+                        <p>
+                            Visit the Heroes page and use the search bar or filters to find heroes by name, attribute, or complexity.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question" type="button">
+                        What is the difference between melee and ranged heroes?
+                    </button>
+                    
+                    <div class="faq-answer" >
+                        <p>
+                            Melee heroes attack from a short distance, while ranged heroes can attack enemies from farther away.
+                        </p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <button class="faq-question" type="button">
+                        Where can I find information about items?
+                    </button>
+                    
+                    <div class="faq-answer">
+                        <p>
+                            Open the Items page to explore different items and view their details.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question" type="button">
+                        Where can I learn about Dota 2 esports?
+                    </button>
+                    
+                    <div class="faq-answer">
+                        <p>
+                            Visit the Esports page to explore information about professional teams and tournaments.
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+
+
+
+
+            <div id="contact-block">
+                <button id="open-contact" type="button">Contact Us</button>
+            </div>
+            
+            </div>
+            
+
+        </main>
+            
+        <div class="popup-overlay" id="contact-popup">
+                <div class="popup-content">
 
             <form class="contact-form" id="contact-form">
-
-                <label for="name">Name</label>
+                <button id="close-contact" type="button">×</button>
+                <label for="name">Name</label> 
+                
                 <input type="text" id="name" name="name" placeholder="Enter your name">
 
                 <label for="email">Email</label>
@@ -97,6 +204,7 @@
 
                 <label for="topic">Topic</label>
                 <select id="topic" name="topic">
+                    <option value="" disabled selected hidden>Choose a topic ...</option>
                     <option value="feedback">Website Feedback</option>
                     <option value="heroes">Hero Information</option>
                     <option value="items">Item Information</option>
@@ -110,14 +218,14 @@
                     name="message"
                     placeholder="Write your message..."
                     rows="5"></textarea>
+                <div id="form-errors" role="alert"></div>
+                <div id="form-result" role="status"></div>
 
-                <button type="submit">Send Message</button>
+                <button class="contact-send" type="submit">Send Message</button>
 
             </form>
-
-
-        </main>
-
+                </div>
+            </div>
 
     <footer>
         <p>&copy; 2026 My Website. All rights reserved. Amir Baiseitov</p>

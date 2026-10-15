@@ -97,15 +97,8 @@ function filterHeroes() {
 
 }
 
-if (window.location.pathname.endsWith("index.html")) {
-    const form = document.querySelector("#contact-form");
 
-    form.addEventListener("submit", function (event) {
-        event.preventDefault();
-        console.log("Form for contact submitted");
-        alert("Thank you for your message! We will get back to you soon.");
-    });
-}
+
 
 const itemButtons = document.querySelectorAll(".item-button");
 const closeButtons = document.querySelectorAll(".close-item");
@@ -132,4 +125,182 @@ closeButtons.forEach(function (button) {
 
     });
 
+});
+
+
+
+
+if (window.location.pathname.endsWith("index.html")) {
+    const form = document.querySelector("#contact-form");
+
+    form.addEventListener("submit", function (event) {
+        event.preventDefault();
+        console.log("Form for contact submitted");
+        const inputName = document.getElementById("name").value.trim();
+        const inputEmail = document.getElementById("email").value.trim();
+        const inputTopic = document.getElementById("topic").value.trim();
+        const inputMessage = document.getElementById("message").value.trim();
+        const errors = [];
+
+        if(inputName === "") {
+            errors.push("Name is required");
+        }else if (inputName.length < 2) {
+            errors.push("Name must contain more than 2 symbols");
+        }
+
+
+        const pattern = /^.+@.+\..+$/;   //validation EMail
+
+        if (inputEmail === "") {
+            errors.push("Email is required");
+        } else if (!pattern.test(inputEmail)) {
+            errors.push("Invalid email format");
+        }
+
+        if(inputTopic === "") {
+            errors.push("Choose one of the listed Topic");
+        }
+
+        if(inputMessage === "") {
+            errors.push("Please enter your message");
+        }
+
+
+
+        const formErorrs = document.getElementById("form-errors");
+        const formResult = document.getElementById("form-result");
+        formErorrs.textContent = "";
+        formResult.textContent = "";
+
+        if(errors.length === 0) {
+            formResult.textContent = "Thank you for active participate! Message sent successfully!";
+            form.reset()
+        }else {
+            formErorrs.textContent = errors.join("\n");
+        }
+
+    });
+
+    const closeBtn = document.getElementById("close-contact");
+    const popup = document.getElementById("open-contact");
+    const overlay = document.getElementById("contact-popup");
+
+    closeBtn.addEventListener("click", () =>{
+            overlay.classList.remove("open");
+    });
+
+    popup.addEventListener("click", (event) => {
+        const contactPopup = document.getElementById("contact-popup");
+        contactPopup.classList.add("open");
+    
+    });
+    overlay.addEventListener("click", (event) => {
+        if(event.target === overlay){
+            overlay.classList.remove("open");
+        }
+    });
+
+}
+
+
+
+
+
+const faqButtons= document.querySelectorAll(".faq-question");
+
+faqButtons.forEach((button) => {
+
+    button.addEventListener("click", () => {
+        button.closest(".faq-item").classList.toggle("open");
+   });
+
+});
+
+
+
+const navbarBurger = document.querySelector(".menu-toggle");
+const navbar = document.querySelector(".top-navbar");
+
+if (navbarBurger && navbar) {
+    navbarBurger.addEventListener("click", () => {
+        navbar.classList.toggle("open");
+
+        const isOpen = navbar.classList.contains("open");
+        navbarBurger.setAttribute("aria-expanded", String(isOpen));
+    });
+}
+
+
+
+if (window.location.pathname.endsWith("register.html")) {
+const registerForm = document.getElementById("registration-form"); 
+
+registerForm.addEventListener("submit", (event) => {
+    event.preventDefault();
+
+    const userName = document.getElementById("username").value.trim();
+    const emailRegister = document.getElementById("email").value.trim();
+    const password = document.getElementById("password").value.trim();
+    const confirmPassword = document.getElementById("confirm-password").value.trim();
+
+    const registerErrors = [];
+    
+    const usernamePattern = /^[a-zA-Z]+\d*$/;
+    
+
+    if(userName === ""){
+         registerErrors.push("Username cannot be blank");
+    }else if(userName.length < 2){
+        registerErrors.push("UUsername must contain more than 2 symbols");
+    }
+    else if(!usernamePattern.test(userName)){
+        registerErrors.push("Username must start with a letter and NO special symbols!");
+    }else {
+        console.log("username is ok");
+    }
+
+    const pattern = /^.+@.+\..+$/; 
+    if (emailRegister === "") {
+            registerErrors.push("Email is required");
+    } else if (!pattern.test(emailRegister )) {
+            registerErrors.push("Invalid email format");
+    }
+    
+    
+    if (password === "" || confirmPassword === ""){
+        registerErrors.push("Fill both password and confirm password fields!")
+    }else if(password !== confirmPassword){
+        registerErrors.push("Passwords does not match!");
+    }
+    if(password.length < 8){
+        registerErrors.push("Password length must be at least 8 characters");
+    }if(!/\d/.test(password)){
+        registerErrors.push("Password must contain at least one digit");
+    }
+
+    const ErorrsContent = document.getElementById("register-errors");
+    const ResultContent = document.getElementById("register-result");
+    ErorrsContent.textContent = "";
+    ResultContent.textContent = "";
+
+    if(registerErrors.length === 0) {
+        ResultContent .textContent = "Registration form validated successfully!";
+        registerForm.reset()
+    }else {
+        ErorrsContent.textContent = registerErrors.join("\n");
+    }
+
+});
+}
+
+
+const pageMode = document.querySelector(".page-mode");
+
+pageMode.addEventListener("click", () => {
+    console.log("click mzfcj")
+    document.body.classList.toggle("light-theme");
+
+    const modeText = document.querySelector(".page-mode");
+    const isLight = document.body.classList.contains("light-theme");
+    modeText.textContent = isLight ? "Dark Mode" : "Light Mode";
 });

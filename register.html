@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- Created by Amir Baiseitov SE-2505 AITU Student, @Chilly_25 - Official Developer , Software Engineer and Designer of the website, https://github.com/ChillyEz -->
+     <!-- Also Tiktoker, Liker, YouTuber, Bloger, Future Influencer and Actor in movies :) -->
+    <title>My Website</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="icon" href="images/icon.png">
+    <script src="script.js"  type="module" defer></script>
+</head>
+<body>
+    <div class="page-shell">
+    <header>
+    <a href="index.html" class="logo">
+        <img src="images/icon.png" class="logo" alt="Dota 2 Wiki">
+    </a>
+
+    <button
+        class="menu-toggle"
+        type="button"
+        aria-label="Toggle navigation"
+        aria-expanded="false"
+        aria-controls="main-navigation">
+        ☰
+    </button>
+
+    <nav class="top-navbar" aria-label="Main navigation">
+        <a href="index.html">Home</a>
+        <a href="heroes.html">Heroes</a>
+        <a href="items.html">Items</a>
+        <a href="esports.html">Esports</a>
+    </nav>
+
+    <a href="register.html" class="register-link">
+        Register
+    </a>
+    </header>
+    
+
+    
+    <div class="overlay"></div>
+
+        <main>
+        <div>
+            <form class="contact-form registration-form" id="registration-form" novalidate>
+
+                <label for="username">Username</label> 
+                <input type="text" id="username" name="username" placeholder="Username">
+
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" placeholder="Enter your email">
+
+                <label for="password">Password</label> 
+                <input type="password" id="password" name="password" placeholder="Enter your password">
+
+                <label for="password">Repeat the password</label> 
+                <input type="password" id="confirm-password" name="password" placeholder="Enter your password">
+
+
+                <div id="register-errors" role="alert"></div>
+                <div id="register-result" role="status"></div>
+
+                <button class="contact-send" type="submit">Register</button>
+
+            </form>
+        </div>
+
+        </main>
+            
+
+    <footer>
+        <p>&copy; 2026 My Website. All rights reserved. Amir Baiseitov</p>
+    </footer>
+    </div>  
+</body>
+</html>

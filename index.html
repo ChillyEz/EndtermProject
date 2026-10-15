@@ -34,7 +34,7 @@
     </nav>
 
     <button class="page-mode" type="button" aria-label="Toggle Website mode">
-        Dark Mode
+        Change background
     </button>
     
     <a href="register.html" class="register-link">
@@ -72,6 +72,53 @@
             </p>
 
             <hr>
+
+            <section class="patch-history">
+    <h2>Dota 2 Patch History</h2>
+
+    <article class="current-patch">
+        <h3>Current Patch — 7.41f</h3>
+        <p id="patch-duration"></p>
+    </article>
+
+    <section class="longest-patches">
+        <h3>Longest-lasting patches</h3>
+
+        <div class="patch-entry">
+            <span>7.32</span>
+            <span id="duration-732"></span>
+        </div>
+
+        <div class="patch-entry">
+            <span>7.39</span>
+            <span id="duration-739"></span>
+        </div>
+
+        <div class="patch-entry">
+            <span>7.41 (Current)</span>
+            <span id="duration-741"></span>
+        </div>
+    </section>
+
+    <section class="recent-patches">
+        <h3>Recent Updates</h3>
+
+        <div class="patch-entry">
+            <span>7.41f</span>
+            <span>September 15, 2026</span>
+        </div>
+
+        <div class="patch-entry">
+            <span>7.41e</span>
+            <span>July 31, 2026</span>
+        </div>
+
+        <div class="patch-entry">
+            <span>7.41d</span>
+            <span>June 5, 2026</span>
+        </div>
+    </section>
+</section>
 
             <h2>What You Can Find in This Wiki</h2>
             
@@ -193,7 +240,7 @@
         <div class="popup-overlay" id="contact-popup">
                 <div class="popup-content">
 
-            <form class="contact-form" id="contact-form">
+            <form class="contact-form" id="contact-form" novalidate>
                 <button id="close-contact" type="button">×</button>
                 <label for="name">Name</label> 
                 
@@ -228,7 +275,11 @@
             </div>
 
     <footer>
+        <button id="toggle-time-format" type="button">
+            Switch to 12H
+        </button>
         <p>&copy; 2026 My Website. All rights reserved. Amir Baiseitov</p>
+        <div id="current-datetime"></div>
     </footer>
     </div>  
 </body>

@@ -149,7 +149,7 @@ if (window.location.pathname.endsWith("index.html")) {
         }
 
 
-        const pattern = /^.+@.+\..+$/;   //validation EMail
+        const pattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;   //validation EMail
 
         if (inputEmail === "") {
             errors.push("Email is required");
@@ -206,7 +206,7 @@ if (window.location.pathname.endsWith("index.html")) {
 
 
 
-const faqButtons= document.querySelectorAll(".faq-question");
+const faqButtons = document.querySelectorAll(".faq-question");
 
 faqButtons.forEach((button) => {
 
@@ -245,13 +245,13 @@ registerForm.addEventListener("submit", (event) => {
 
     const registerErrors = [];
     
-    const usernamePattern = /^[a-zA-Z]+\d*$/;
+    const usernamePattern = /^[a-zA-Z][a-zA-Z0-9]*$/;
     
 
     if(userName === ""){
          registerErrors.push("Username cannot be blank");
-    }else if(userName.length < 2){
-        registerErrors.push("UUsername must contain more than 2 symbols");
+    }else if(userName.length < 3){
+        registerErrors.push("Username must contain at least 3 symbols");
     }
     else if(!usernamePattern.test(userName)){
         registerErrors.push("Username must start with a letter and NO special symbols!");
@@ -259,7 +259,7 @@ registerForm.addEventListener("submit", (event) => {
         console.log("username is ok");
     }
 
-    const pattern = /^.+@.+\..+$/; 
+    const pattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (emailRegister === "") {
             registerErrors.push("Email is required");
     } else if (!pattern.test(emailRegister )) {
@@ -294,13 +294,136 @@ registerForm.addEventListener("submit", (event) => {
 }
 
 
+// const pageMode = document.querySelector(".page-mode");
+
+// pageMode.addEventListener("click", () => {
+//     document.body.classList.toggle("light-theme");
+
+//     const modeText = document.querySelector(".page-mode");
+//     const isLight = document.body.classList.contains("light-theme");
+//     modeText.textContent = isLight ? "Dark Mode" : "Light Mode";
+// });
+
+
+const colors = [
+    "#121212",
+    "#303F50",
+    "#354735",
+    "#503535",
+    "#504530"
+];
+
+
+
 const pageMode = document.querySelector(".page-mode");
+let colorIndex = 0;
 
 pageMode.addEventListener("click", () => {
-    console.log("click mzfcj")
-    document.body.classList.toggle("light-theme");
-
-    const modeText = document.querySelector(".page-mode");
-    const isLight = document.body.classList.contains("light-theme");
-    modeText.textContent = isLight ? "Dark Mode" : "Light Mode";
+    const color = `#${Math.floor(Math.random() * 16777216).toString(16).padStart(6, "0")}`;
+    document.body.style.backgroundImage = "none";
+    document.body.style.backgroundColor = colors[colorIndex];
+    // document.body.style.backgroundColor = color;
+    colorIndex = (colorIndex + 1) % colors.length;
 });
+
+
+
+
+const months = [
+    "January", "February", "March", "April",
+    "May", "June", "July", "August",
+    "September", "October", "November", "December"
+];
+
+let is12Hour = false;
+const timeFormatButton = document.getElementById("toggle-time-format");
+
+timeFormatButton.addEventListener("click", () => {
+    is12Hour = !is12Hour;
+
+
+
+    timeFormatButton.textContent = is12Hour ? "Switch to 24H" : "Switch to 12H";
+    updateDateTime();
+});
+function updateDateTime() {
+    const now = new Date();
+    let formattedDate = now.toLocaleDateString("en-US",
+        {
+            year: "numeric",
+            month: "long",
+            day: "numeric"
+        }.
+    );
+    let formattedTime =now.toLocaleTimeString("en-US",
+        {
+            hour: "2-digit",
+            minute:"2-digit",
+            second:"2-digit",
+            hour12: is12Hour
+        }
+    );
+
+    const currentDateTime = document.getElementById("current-datetime");
+
+    currentDateTime.textContent = formattedDate + " | " + formattedTime;
+    
+}
+
+// const now = new Date();
+
+// const year = now.getFullYear();
+// const month = now.getMonth() + 1;
+// const date = now.getDate();
+// const day = now.getDay();
+// const hour = now.getHours();
+// const minute = now.getMinutes();
+// const second = now.getSeconds();
+
+// const monthName = months[now.getMonth()];
+const patch732= new Date("2022-08-24T03:44:00+05:00");
+const patch732end = new Date("2023-04-21T04:48:00+05:00");
+
+const patch739= new Date("2025-05-23T03:08:00+05:00");
+const patch739end = new Date("2025-12-16T05:07:00+05:00");
+
+const patch741 = new Date("2026-03-25T04:43:00+05:00");
+
+const patch741f = new Date("2026-09-15T23:44:00+05:00");
+
+const patch741e = new Date("2026-07-31T04:58:00+05:00");
+const patch741d = new Date("2026-06-05T05:45:00+05:00");
+
+
+function calculatePatchDuration(patchStart, patchEnd, elementId) {
+    const difference = patchEnd - patchStart;
+
+    const days = Math.floor(difference / 86400000);
+    const hours = Math.floor(difference / 3600000) % 24;
+    const minutes = Math.floor(difference / 60000) % 60;
+    const seconds = Math.floor(difference / 1000) % 60;
+
+    const patchDuration = document.getElementById(elementId);
+
+    patchDuration.textContent =
+        `${days} days ${hours} hours ${minutes} minutes ${seconds} seconds`;
+}
+
+function updatePatchDuration(patch) {
+    const now = new Date();
+
+    calculatePatchDuration(patch741f, now, "patch-duration");
+    calculatePatchDuration(patch, now, "duration-741");
+}
+
+updatePatchDuration(patch741);
+setInterval(() => updatePatchDuration(patch741), 1000);
+
+
+calculatePatchDuration(patch732, patch732end, "duration-732");
+calculatePatchDuration(patch739, patch739end, "duration-739");
+
+
+
+setInterval(updateDateTime, 1000);
+

@@ -10,12 +10,11 @@
 
 :root {
     --primary-color: #e5e5e5;
-    --secondary-color: #121212;
+    /* Unused in the current styles: --secondary-color: #121212; */
     --font-family: "DotaFont", sans-serif;
     --font-family-2: "DotaFont2", sans-serif;
     --container-max-width: 1100px;
     --background: url(images/background/background.png);
-    --block-background: url(images/seamless-pattern-carbon-weave-texture-260nw-1229331478.png);
     
     /* Backgrounds */
     --color-background-main: 25, 25, 25;
@@ -37,18 +36,15 @@
     /* Dota accents */
     --color-accent-red: 157, 48, 29;
     --color-accent-red-dark: 93, 20, 18;
-    --color-accent-green: 41, 76, 14;
+    /* Unused in the current styles: --color-accent-green: 41, 76, 14; */
     --color-accent-blue: 46, 75, 96;
     --color-accent-gold: 155, 87, 29;
 
     /* --------------TEST SITE TEXT------------  */
 
     --color-text-main: 220, 220, 220;
-    --color-text-secondary: 145, 150, 160;
-    --color-text-muted: 100, 110, 120;
-
-    --color-text-green: 165, 205, 75;
-    --color-text-blue: 80, 175, 230;
+    /* Unused in the current styles: --color-text-green: 165, 205, 75; */
+    /* Unused in the current styles: --color-text-blue: 80, 175, 230; */
     --color-text-gold: 210, 160, 55;
 
 
@@ -98,11 +94,6 @@
     /* Lore */
     --color-lore: 145, 145, 145;
 
-    /* Close button */
-    --color-close: 190, 190, 190;
-
-    /* Close button hover */
-    --color-close-hover: 230, 80, 65;
 
     /* ---------------------------------------- */
 
@@ -115,6 +106,7 @@
     --space-4: 24px;
 }
 
+/* Archived incomplete light palette. The active Day / Night palette is below.
 
 body.light-theme {
 
@@ -143,6 +135,7 @@ body.light-theme {
     --color-navbar-hover: rgba(0, 0, 0, 0.08);
     --color-navbar-active: rgba(0, 0, 0, 0.15);
 }
+*/
 
 .page-shell {
     display: grid;
@@ -192,52 +185,9 @@ a img.logo {
     display: inline-block;
     width: 100px;
     height: 100px;
-    border-radius: 50%;
 }
 
-/* 
-aside {
-    text-align: center;
-    position: sticky;
-    width: 220px;
-    grid-area: aside;
-    margin-right: var(--space-2);
-    padding: var(--space-2);
-    top: 16px;
-    background-color: rgba(var(--color-background-panel), 0.8);
-    border-radius: var(--radius);
-    backdrop-filter: blur(3px);
-}
 
-@media (max-width: 768px) {
-  .page-shell {
-    grid-template-columns: 110px 1fr;
-  }
-  
- 
-}
-
-@media (max-width: 768px) {
-  aside {
-    width: 110px;
-    margin-right: var(--space-1);
-  }
-  }
-  
-
-aside::before {
-    content:"";
-    position: absolute;
-    display: block;
-    inset: 0;
-    z-index: -1;
-}
-
-aside a {
-    margin-top: 0;
-    font-family: var(--font-family-2);
-    border-radius: 5px;
-} */
 .top-navbar {
     display: flex;
     align-items: center;
@@ -279,8 +229,8 @@ aside a {
     padding: 10px 16px;
     border: 1px solid rgb(var(--color-accent-gold));
     border-radius: 8px;
-    background-color: var(--color-background);
-    color: var(--color-text-primary);
+    background-color: transparent;
+    color: inherit;
 }
 
 .menu-toggle {
@@ -344,13 +294,6 @@ main p {
     padding: 1rem;
 }
 
-/* main::before {
-    content:"";
-    position: absolute;
-    display: block;
-    inset: 0;
-    z-index: -1;
-} */
 
 
 body { 
@@ -383,7 +326,6 @@ footer p {
     margin: 0;
     padding: var(--space-2);
     font-size: small;
-    font-weight: small;
 }
 
 #dota2-map {
@@ -398,14 +340,6 @@ footer p {
     margin: 0 auto;
 }
 
-
-.hero-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-    gap: var(--space-3);
-    padding: var(--space-2);
-}
-
 .esports-table {
     width: 100%;
     border-collapse: collapse;
@@ -413,14 +347,12 @@ footer p {
 
 td, th {
     border: 1px solid rgb(var(--color-border));
-    margin-top: 20px;
     text-align: center;
     transition: all 0.3s ease-in-out;
 }
 
 tr {
     border: 1px solid rgb(var(--color-border));
-    margin-top: 20px;
     text-align: center;
     transition: all 0.3s ease-in-out;
 }
@@ -428,16 +360,10 @@ tr {
 tr:hover {
     scale: 1.05;    
     background-color: rgba(92, 245, 54, 0.678);
-    background-blend-mode:difference;
-    box-shadow: 0 0 15px var(--color-accent-green);
+
 }
 
-/* td:hover ,th:hover{
-    scale: 1.05;
-    background-color: rgba(255, 69, 0, 0.60);
-    background-blend-mode:difference;
-    box-shadow: 0 0 10px #2bff00
-} */
+
 
 .item-grid {
     gap: var(--space-3);
@@ -488,20 +414,6 @@ tr:hover {
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.6);  
 }
 
-.item-discription {
-    visibility: hidden;
-    position: absolute;
-    font-size: small;
-    transition: opacity 0.3s ease-in-out;
-    display: flex;
-}
-
-.item-card:hover .item-discription {
-        font-family: var(--font-family-2);
-        font-size: 13px;
-        visibility: visible;
-        color: rgb(var(--color-text-secondary));
-}
 
 .item-basic{
     height: 100%;
@@ -604,20 +516,6 @@ tr:hover {
     color: rgb(var(--color-accent-red));
 }
 
-.close-item {
-    width: 25px;
-    height: 25px;
-    padding: 0;
-    color: rgb(var(--color-text-secondary));
-    background: transparent;
-    border: none;
-    font-size: 20px;
-    cursor: pointer;
-}
-
-.close-item:hover {
-    color: rgb(var(--color-accent-red));
-}
 
 .item-stats {
     padding: var(--space-2) 0;
@@ -650,25 +548,6 @@ tr:hover {
     font-size: 13px;
 }
 
-.item-ability {
-    margin-top: var(--space-2);
-    padding: var(--space-2);
-    background-color:rgba(var(--color-background-panel-light), 0.8);
-    border-left: 3px solid rgb(var(--color-accent-blue));
-}
-
-.item-ability h4 {
-    margin: 0 0 var(--space-1);
-    color: rgb(var(--color-text-main));
-    font-size: 14px;
-}
-
-.item-ability p {
-    margin: var(--space-1) 0;
-    color: rgb(var(--color-text-secondary));
-    font-family: var(--font-family-2);
-    font-size: 13px;
-}
 
 /* Active ability */
 .active-ability {
@@ -680,9 +559,6 @@ tr:hover {
     color: rgb(var(--color-active-text));
 }
 
-.active-ability p {
-    color: rgb(var(--color-text-secondary));
-}
 
 .active-ability p strong{
     color: rgb(var(--color-text-primary));
@@ -698,9 +574,6 @@ tr:hover {
     color: rgb(var(--color-passive-text));
 }
 
-.passive-ability p {
-    color: rgb(var(--color-text-secondary));
-}
 
 .passive-ability p strong{
     color: rgb(var(--color-passive-text));
@@ -788,7 +661,6 @@ tr:hover {
 }
 
 
--------
 .attribute-title {
     display: flex;
     align-items: center;
@@ -810,26 +682,11 @@ tr:hover {
 
 .hero-card {
     width: auto;
-    box-sizing: border-box;
     background-color: rgb(var(--color-background-panel));
     border: 1px solid rgb(var(--color-border-dark));
     transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
-
-.hero-card img {
-    width: 100%;
-    height: auto;
-    aspect-ratio: 16 / 9;
-    object-fit: contain;
-}
-
-.hero-card h4 {
-    margin: 0;
-    padding: 8px;
-    text-align: center;
-    color: rgb(var(--color-text-main));
-}
 
 .hero-card:hover {
     transform: translateY(-4px);
@@ -837,21 +694,11 @@ tr:hover {
 }
 
 .hero-caption {
-    position: absolute;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    padding: 8px;
     text-align: center;
     background-color: rgba(0, 0, 0, 0.8);
     color: rgb(var(--color-text-main));
-    opacity: 0;
-    transition: opacity 0.2s ease;
 }
 
-.hero-card:hover .hero-caption {
-    opacity: 1;
-}
 
 .hero-filters {
     display: flex;
@@ -869,7 +716,6 @@ tr:hover {
     width: 280px;
     height: 38px;
 
-    box-sizing: border-box;
     padding: 0 12px;
 
     background-color: rgb(var(--color-background-panel));
@@ -946,7 +792,6 @@ tr:hover {
 #contact-block {
     background-color: rgb(var(--color-background-panel));
     border: 1px solid rgb(var(--color-border-dark));
-    margin-bottom: 8px;
     border-radius: 5px;
     display: flex;
     overflow: hidden;
@@ -1080,17 +925,6 @@ tr:hover {
     color: rgb(var(--color-text-primary));
 } 
 
-.patch-columns {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: var(--space-3);
-}
-
-@media (max-width: 768px) {
-    .patch-columns {
-        grid-template-columns: 1fr;
-    }
-}
 
 .patch-history {
     display: grid;
@@ -1104,6 +938,7 @@ tr:hover {
     border-radius: var(--radius);
     background-color: rgba(var(--color-background-panel), 0.9);
     border: 1px solid rgb(var(--color-border));
+    border-left: 3px solid rgb(var(--color-accent-gold));
 }
 
 .patch-entry {
@@ -1135,7 +970,296 @@ tr:hover {
 /* 
 ----------------- */
 
+/* Assignment 5: rating, hero quiz and keyboard focus */
+.community-panel {
+    margin: var(--space-4) 0;
+    padding: var(--space-4);
+    background: rgba(var(--color-background-panel), 0.9);
+    border: 1px solid rgb(var(--color-border));
+    border-left: 3px solid rgb(var(--color-accent-gold));
+    border-radius: var(--radius);
+}
+
+.community-panel h2 {
+    margin: 0 0 var(--space-2);
+}
+
+.interactive-heading {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-2);
+}
+
+.rating-stars {
+    display: flex;
+    gap: 4px;
+}
+
+.rating-star {
+    flex: 0 1 44px;
+    padding: 4px 0;
+    min-width: 0;
+    min-height: 44px;
+    border: none;
+    background: transparent;
+    color: rgb(var(--color-text-muted));
+    font-size: 36px;
+    line-height: 1;
+    cursor: pointer;
+    transition: color 0.2s ease, transform 0.2s ease;
+}
+
+.rating-star.selected {
+    color: rgb(var(--color-text-gold));
+}
+
+.rating-star:hover {
+    transform: translateY(-3px) scale(1.08);
+}
+
+#rating-message, #quiz-progress {
+    color: rgb(var(--color-text-gold));
+}
+
+.quiz-step {
+    min-height: 110px;
+    animation: quiz-step-in 0.25s ease;
+}
+
+.quiz-step[hidden], .quiz-button[hidden] {
+    display: none;
+}
+
+.quiz-step label {
+    display: block;
+    margin-bottom: var(--space-2);
+}
+
+.quiz-step select {
+    width: 100%;
+    max-width: 400px;
+    padding: var(--space-2);
+    font: inherit;
+    font-size: 14px;
+    color: rgb(var(--color-text-main));
+    background: rgb(var(--color-background-panel));
+    border: 1px solid rgb(var(--color-border));
+    border-radius: 4px;
+}
+
+.quiz-actions {
+    display: flex;
+    gap: var(--space-2);
+    margin-top: var(--space-3);
+}
+
+.quiz-button {
+    padding: 10px 16px;
+    font: inherit;
+    font-size: 13px;
+    color: rgb(var(--color-text-main));
+    background: rgb(var(--color-background-panel-light));
+    border: 1px solid rgb(var(--color-border));
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.quiz-next {
+    background: rgb(var(--color-accent-red-dark));
+    border-color: rgb(var(--color-accent-red));
+}
+
+.quiz-button:hover:not(:disabled) {
+    background: rgb(var(--color-accent-red));
+}
+
+.quiz-button:disabled {
+    opacity: 0.45;
+    cursor: default;
+}
 
 
+.quiz-step a {
+    color: rgb(var(--color-text-gold));
+}
+
+.top-navbar a:focus-visible,
+.community-panel :focus-visible {
+    outline: 2px solid rgb(var(--color-text-gold));
+    outline-offset: 4px;
+}
+
+@keyframes quiz-step-in {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@media (max-width: 480px) {
+    .community-panel { padding: var(--space-3); }
+    .rating-star { font-size: clamp(24px, 8vw, 36px); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .quiz-step { animation: none; }
+    .rating-star, .quiz-button { transition: none; }
+    .rating-star:hover { transform: none; }
+}
+
+/* Expanded hero catalog and quiz recommendations */
+.hero-filters {
+    flex-wrap: wrap;
+}
+
+.hero-filters select, .hero-filters input {
+    max-width: 100%;
+}
+
+.hero-portrait {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    overflow: hidden;
+    background: linear-gradient(135deg, rgb(var(--color-background-panel-light)), rgb(var(--color-background-main)));
+}
+
+.hero-initials {
+    position: absolute;
+    inset: 0;
+    display: grid;
+    place-items: center;
+    color: rgb(var(--color-text-gold));
+    font-size: 32px;
+}
+
+.hero-portrait img {
+    position: relative;
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.hero-portrait img[hidden] {
+    display: none;
+}
+
+.hero-card .hero-caption {
+    position: static;
+    opacity: 1;
+    padding: 8px;
+    font-size: 14px;
+}
+
+.hero-card-info {
+    padding: 0 8px;
+    color: rgb(var(--color-text-secondary));
+    text-align: center;
+}
+
+.quiz-step select + label {
+    margin-top: var(--space-3);
+}
+
+#quiz-recommendations {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--space-3);
+    margin: var(--space-3) 0;
+}
+
+.quiz-match {
+    min-width: 0;
+    padding: var(--space-3);
+    border: 1px solid rgb(var(--color-border));
+    border-radius: 6px;
+    background: rgba(var(--color-background-main), 0.6);
+    overflow-wrap: anywhere;
+}
+
+.quiz-match h4 {
+    margin: 0 0 var(--space-2);
+    font-size: 20px;
+}
+
+.quiz-match-score, .quiz-match-reasons {
+    color: rgb(var(--color-text-gold));
+}
+
+.quiz-match-roles, .quiz-match-differences {
+    color: rgb(var(--color-text-secondary));
+}
+
+/* Assignment 5: Day / Night theme. Shared variables update every page. */
+body.light-theme {
+    color-scheme: light;
+    --primary-color: #242b32;
+    --background: none;
+    --color-body-background: 151, 162, 170;
+    --color-background-main: 198, 205, 208;
+    --color-background-panel: 225, 226, 219;
+    --color-background-panel-light: 207, 213, 213;
+    --color-background: linear-gradient(110deg, #cbd2d4, #b8c3c9);
+    --color-border-dark: 120, 135, 144;
+    --color-border: 135, 147, 151;
+    --color-text-main: 28, 35, 42;
+    --color-text-primary: 28, 35, 42;
+    --color-text-secondary: 70, 80, 90;
+    --color-text-muted: 90, 100, 110;
+    --color-text-gold: 120, 75, 0;
+    --color-value: 30, 40, 50;
+    --color-gold: 120, 75, 0;
+    --color-lore: 80, 90, 100;
+    --color-active-background: 220, 230, 250;
+    --color-active-text: 30, 55, 85;
+    --color-active-accent: 45, 100, 150;
+    --color-passive-background: 230, 240, 230;
+    --color-passive-text: 35, 65, 40;
+    --color-passive-accent: 60, 120, 65;
+    --color-hover: rgba(0, 0, 0, 0.05);
+    --color-navbar-hover: rgba(0, 0, 0, 0.08);
+    --color-navbar-active: rgba(0, 0, 0, 0.12);
+}
+
+body.light-theme .overlay { background: transparent; }
+body.light-theme header {
+    border-color: rgb(var(--color-border-dark));
+    box-shadow: 0 8px 24px rgba(30, 42, 50, 0.18);
+}
+body.light-theme .hero-caption { background: rgb(var(--color-background-panel-light)); }
+body.light-theme .item-button,
+body.light-theme .contact-send,
+body.light-theme #close-contact,
+body.light-theme .quiz-next,
+body.light-theme .quiz-button:hover:not(:disabled) { color: #f5f5f5; }
+body.light-theme #register-errors { color: rgb(var(--color-accent-red)); }
+
+.theme-toggle {
+    padding: 10px 14px;
+    min-height: 42px;
+    border: 1px solid rgb(var(--color-border));
+    border-radius: 8px;
+    background: rgb(var(--color-background-panel));
+    color: rgb(var(--color-text-main));
+    font-family: inherit;
+    font-size: 13px;
+    white-space: nowrap;
+    cursor: pointer;
+}
+
+.theme-toggle:hover { background: rgb(var(--color-background-panel-light)); }
+.theme-toggle:focus-visible {
+    outline: 2px solid rgb(var(--color-text-gold));
+    outline-offset: 3px;
+}
+
+header { flex-wrap: wrap; }
+
+@media (max-width: 600px) {
+    #quiz-recommendations { grid-template-columns: 1fr; }
+    .hero-filters input, .hero-filters select { width: 100%; }
+}
 
 

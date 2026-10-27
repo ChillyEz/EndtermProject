@@ -6,6 +6,8 @@ const heroSections = document.querySelector("#hero-sections");
 const searchInput = document.querySelector("#hero-search");
 const attributeFilter = document.querySelector("#attribute-filter");
 const complexityFilter = document.querySelector("#complexity-filter");
+const positionFilter = document.querySelector("#position-filter");
+const attackTypeFilter = document.querySelector("#attack-type-filter");
 
 const attributes = [
     "Strength",
@@ -23,8 +25,12 @@ const attributeImages = {
 function renderHeroes(heroList) {
 
     heroSections.innerHTML = "";
+    document.getElementById("hero-count").textContent = heroList.length
+        ? `${heroList.length} heroes found`
+        : "No heroes match these filters.";
 
     attributes.forEach(function(attribute) {
+        if (!heroList.some((hero) => hero.attribute === attribute)) return;
 
         const section = document.createElement("section");
         section.classList.add("hero-section");
@@ -47,10 +53,14 @@ function renderHeroes(heroList) {
                 const card = document.createElement("article");
                 card.classList.add("hero-card");
 
-                card.innerHTML = `
-                <img src="${hero.image}" alt="${hero.name}">
-                <div class="hero-caption">${hero.name}</div>
-                    `;
+                card.appendChild(createHeroPortrait(hero));
+                const caption = document.createElement("div");
+                caption.className = "hero-caption";
+                caption.textContent = hero.name;
+                const details = document.createElement("p");
+                details.className = "hero-card-info";
+                details.textContent = `${hero.preferredPosition} | Complexity ${hero.complexity}/3`;
+                card.append(caption, details);
 
                 gallery.appendChild(card);
             }
@@ -64,6 +74,8 @@ searchInput.addEventListener("input", filterHeroes);
 attributeFilter.addEventListener("change", filterHeroes);
 
 complexityFilter.addEventListener("change", filterHeroes);
+positionFilter.addEventListener("change", filterHeroes);
+attackTypeFilter.addEventListener("change", filterHeroes);
 
 renderHeroes(heroes);
 
@@ -78,17 +90,37 @@ function filterHeroes() {
         const matchesSearch =
             hero.name.toLowerCase().includes(searchText);
 
-        const matchesAttribute =
-            selectedAttribute === "All" ||
-            hero.attribute === selectedAttribute;
+        // Filter the hero catalog by the category selected by the user.
+        let matchesAttribute;
+        switch (selectedAttribute) {
+            case "Strength":
+                matchesAttribute = hero.attribute === "Strength";
+                break;
+            case "Agility":
+                matchesAttribute = hero.attribute === "Agility";
+                break;
+            case "Intelligence":
+                matchesAttribute = hero.attribute === "Intelligence";
+                break;
+            case "Universal":
+                matchesAttribute = hero.attribute === "Universal";
+                break;
+            default:
+                matchesAttribute = true;
+        }
 
         const matchesComplexity =
             selectedComplexity === "All" ||
             hero.complexity === Number(selectedComplexity);
 
+        const matchesPosition = positionFilter.value === "All" ||
+            hero.positions.includes(positionFilter.value);
+        const matchesAttackType = attackTypeFilter.value === "All" ||
+            hero.attackType.includes(attackTypeFilter.value);
+
         return matchesSearch &&
                matchesAttribute &&
-               matchesComplexity;
+               matchesComplexity && matchesPosition && matchesAttackType;
     });
 
     renderHeroes(filteredHeroes);
@@ -130,7 +162,7 @@ closeButtons.forEach(function (button) {
 
 
 
-if (window.location.pathname.endsWith("index.html")) {
+if (document.getElementById("contact-form")) {
     const form = document.querySelector("#contact-form");
 
     form.addEventListener("submit", function (event) {
@@ -294,17 +326,6 @@ registerForm.addEventListener("submit", (event) => {
 }
 
 
-// const pageMode = document.querySelector(".page-mode");
-
-// pageMode.addEventListener("click", () => {
-//     document.body.classList.toggle("light-theme");
-
-//     const modeText = document.querySelector(".page-mode");
-//     const isLight = document.body.classList.contains("light-theme");
-//     modeText.textContent = isLight ? "Dark Mode" : "Light Mode";
-// });
-
-
 const colors = [
     "#121212",
     "#303F50",
@@ -312,19 +333,21 @@ const colors = [
     "#503535",
     "#504530"
 ];
+const lightColors = ["#f0f3f7", "#e3edf7", "#e5f1e4", "#f5e6e6", "#f5efdc"];
 
 
 
 const pageMode = document.querySelector(".page-mode");
 let colorIndex = 0;
 
+if (pageMode) {
 pageMode.addEventListener("click", () => {
-    const color = `#${Math.floor(Math.random() * 16777216).toString(16).padStart(6, "0")}`;
+    const palette = document.body.classList.contains("light-theme") ? lightColors : colors;
     document.body.style.backgroundImage = "none";
-    document.body.style.backgroundColor = colors[colorIndex];
-    // document.body.style.backgroundColor = color;
-    colorIndex = (colorIndex + 1) % colors.length;
+    document.body.style.backgroundColor = palette[colorIndex];
+    colorIndex = (colorIndex + 1) % palette.length;
 });
+}
 
 
 
@@ -338,6 +361,7 @@ const months = [
 let is12Hour = false;
 const timeFormatButton = document.getElementById("toggle-time-format");
 
+if (timeFormatButton) {
 timeFormatButton.addEventListener("click", () => {
     is12Hour = !is12Hour;
 
@@ -346,6 +370,7 @@ timeFormatButton.addEventListener("click", () => {
     timeFormatButton.textContent = is12Hour ? "Switch to 24H" : "Switch to 12H";
     updateDateTime();
 });
+}
 function updateDateTime() {
     const now = new Date();
     let formattedDate = now.toLocaleDateString("en-US",
@@ -353,7 +378,7 @@ function updateDateTime() {
             year: "numeric",
             month: "long",
             day: "numeric"
-        }.
+        }
     );
     let formattedTime =now.toLocaleTimeString("en-US",
         {
@@ -416,14 +441,350 @@ function updatePatchDuration(patch) {
     calculatePatchDuration(patch, now, "duration-741");
 }
 
-updatePatchDuration(patch741);
-setInterval(() => updatePatchDuration(patch741), 1000);
+if (document.getElementById("patch-duration")) {
+    updatePatchDuration(patch741);
+    setInterval(() => updatePatchDuration(patch741), 1000);
+    calculatePatchDuration(patch732, patch732end, "duration-732");
+    calculatePatchDuration(patch739, patch739end, "duration-739");
+}
 
 
-calculatePatchDuration(patch732, patch732end, "duration-732");
-calculatePatchDuration(patch739, patch739end, "duration-739");
+
+if (document.getElementById("current-datetime")) {
+    updateDateTime();
+    setInterval(updateDateTime, 1000);
+}
 
 
+// Arrow navigation between menu links, with wrapping at both ends.
+if (navbar) {
+    const menuLinks = Array.from(navbar.querySelectorAll("a"));
 
-setInterval(updateDateTime, 1000);
+    navbar.addEventListener("keydown", (event) => {
+        const currentIndex = menuLinks.indexOf(document.activeElement);
+        const isMobile = window.matchMedia("(max-width: 768px)").matches;
+        let direction;
 
+        switch (event.key) {
+            case "ArrowRight":
+            case "ArrowDown":
+                if (event.key === "ArrowDown" && !isMobile) return;
+                direction = 1;
+                break;
+            case "ArrowLeft":
+            case "ArrowUp":
+                if (event.key === "ArrowUp" && !isMobile) return;
+                direction = -1;
+                break;
+            default:
+                return;
+        }
+
+        if (currentIndex === -1) return;
+        event.preventDefault();
+        const nextIndex = (currentIndex + direction + menuLinks.length) % menuLinks.length;
+        menuLinks[nextIndex].focus();
+    });
+}
+
+
+// One audio player prevents sounds from overlapping
+const ratingSounds = {
+    1: "heroes/sounds/Ui_magic_immune.mp3.mpeg",
+    2: "heroes/sounds/Ui_deny_mana.mp3.mpeg",
+    3: "heroes/sounds/Ui_ping_rune.mp3.mpeg",
+    4: "heroes/sounds/Ui_coins.mp3.mpeg",
+    5: "heroes/sounds/Ui_coins_big.mp3.mpeg"
+};
+const quizSounds = {
+    next: "heroes/sounds/Ui_panorama_panorama_select_md_01.mp3.mpeg",
+    back: "heroes/sounds/Ui_panorama_panorama_misc_click_02.mp3.mpeg",
+    result: "heroes/sounds/Ui_panorama_panorama_hero_transition_01.mp3.mpeg"
+};
+const actionSound = new Audio();
+actionSound.volume = 0.4;
+let soundEnabled = true;
+
+function playActionSound(source) {
+    if (!soundEnabled || !source) return;
+    actionSound.pause();
+    actionSound.currentTime = 0;
+    actionSound.src = source;
+    actionSound.play().catch(() => {});
+}
+
+const soundToggle = document.getElementById("sound-toggle");
+if (soundToggle) {
+    soundToggle.addEventListener("click", () => {
+        soundEnabled = !soundEnabled;
+        soundToggle.textContent = soundEnabled ? "Sound: On" : "Sound: Off";
+        soundToggle.setAttribute("aria-pressed", String(soundEnabled));
+        if (!soundEnabled) {
+            actionSound.pause();
+            actionSound.currentTime = 0;
+        }
+    });
+}
+
+
+const ratingStars = document.querySelectorAll(".rating-star");
+const ratingMessage = document.getElementById("rating-message");
+
+ratingStars.forEach((star) => {
+    star.addEventListener("click", () => {
+        const rating = Number(star.dataset.rating);
+        ratingStars.forEach((button) => {
+            button.classList.toggle("selected", Number(button.dataset.rating) <= rating);
+            button.setAttribute("aria-pressed", String(button === star));
+        });
+        ratingMessage.textContent = `Thank you! You rated this site ${rating} out of 5 stars.`;
+        playActionSound(ratingSounds[rating]);
+    });
+});
+
+
+// Shared portrait: missing local files show the hero's initials until images are added.
+function createHeroPortrait(hero) {
+    const portrait = document.createElement("div");
+    portrait.className = "hero-portrait";
+    const initials = document.createElement("span");
+    initials.className = "hero-initials";
+    initials.textContent = hero.name.split(/[\s-]+/).map((word) => word[0]).slice(0, 2).join("");
+    initials.setAttribute("aria-hidden", "true");
+    const image = document.createElement("img");
+    image.alt = hero.name;
+    image.loading = "lazy";
+    image.addEventListener("error", () => {
+        image.hidden = true;
+    }, { once: true });
+    image.src = hero.image;
+    portrait.append(initials, image);
+    return portrait;
+}
+
+// Multi-step hero quiz: position discovery and weighted recommendations.
+const quiz = document.getElementById("hero-quiz");
+if (quiz) {
+    const steps = quiz.querySelectorAll(".quiz-step");
+    const questionCount = steps.length - 1;
+    const nextButton = document.getElementById("quiz-next");
+    const backButton = document.getElementById("quiz-back");
+    const progress = document.getElementById("quiz-progress");
+    const positions = ["Carry", "Mid", "Offlane", "Soft Support", "Hard Support"];
+    const styleLabels = {
+        Farm: "Farming", Burst: "Burst damage", Initiate: "Initiation",
+        Roam: "Roaming", Protect: "Protecting allies", Push: "Pushing"
+    };
+
+    const heroQuiz = {
+        step: 0,
+        answers: {},
+
+        getPositions() {
+            if (this.answers.position !== "Auto") return [this.answers.position];
+
+            // Points follow the five positions above. Both answers contribute.
+            const teamPoints = {
+                Farm: [3, 1, 0, 0, 0], Burst: [1, 3, 0, 1, 0],
+                Initiate: [0, 1, 3, 2, 0], Roam: [0, 2, 1, 3, 0],
+                Protect: [0, 0, 1, 2, 3], Push: [2, 2, 3, 0, 0]
+            };
+            const lanePoints = {
+                Farm: [3, 1, 0, 0, 0], Solo: [0, 3, 1, 0, 0],
+                Pressure: [0, 0, 3, 1, 0], Roam: [0, 1, 0, 3, 0],
+                Protect: [0, 0, 0, 1, 3]
+            };
+            return positions.map((position, index) => ({
+                position,
+                score: teamPoints[this.answers.playstyle][index] +
+                    lanePoints[this.answers.earlyGame][index]
+            })).filter((entry) => entry.score > 0)
+                .sort((a, b) => b.score - a.score)
+                .slice(0, 2).map((entry) => entry.position);
+        },
+
+        getRecommendations() {
+            const preferredPositions = this.getPositions();
+            let selectedAttribute;
+            switch (this.answers.attribute) {
+                case "Strength": selectedAttribute = "Strength"; break;
+                case "Agility": selectedAttribute = "Agility"; break;
+                case "Intelligence": selectedAttribute = "Intelligence"; break;
+                case "Universal": selectedAttribute = "Universal"; break;
+                default: selectedAttribute = null;
+            }
+
+            // A chosen position is required. Other preferences contribute points.
+            const candidates = heroes.filter((hero) =>
+                hero.positions.some((position) => preferredPositions.includes(position))
+            );
+            const recommendations = [];
+            for (const hero of candidates) {
+                const position = preferredPositions.find((value) => hero.positions.includes(value));
+                let score = position === preferredPositions[0] ? 6 : 4;
+                let maximum = 10; // Position (6 + 1 preferred) and playstyle (3).
+                if (hero.preferredPosition === position) score += 1;
+                const matches = [`Position: ${position}`];
+                const differences = [];
+
+                if (hero.playstyles.includes(this.answers.playstyle)) {
+                    score += 3;
+                    matches.push(styleLabels[this.answers.playstyle]);
+                } else {
+                    differences.push(`Main styles: ${hero.playstyles.map((style) => styleLabels[style]).join(", ")}`);
+                }
+
+                if (selectedAttribute) {
+                    maximum += 2;
+                    if (hero.attribute === selectedAttribute) {
+                        score += 2;
+                        matches.push(`${selectedAttribute} attribute`);
+                    } else {
+                        differences.push(`${hero.attribute} attribute (you chose ${selectedAttribute})`);
+                    }
+                }
+                if (this.answers.attackType !== "Any") {
+                    maximum += 2;
+                    if (hero.attackType.includes(this.answers.attackType)) {
+                        score += 2;
+                        matches.push(`${this.answers.attackType} attacks`);
+                    } else {
+                        differences.push(`${hero.attackType.join(" / ")} attacks (you chose ${this.answers.attackType})`);
+                    }
+                }
+                if (this.answers.complexity !== "Any") {
+                    maximum += 3;
+                    const distance = Math.abs(hero.complexity - Number(this.answers.complexity));
+                    score += Math.max(0, 3 - distance * 2);
+                    if (distance === 0) {
+                        matches.push(`Complexity ${hero.complexity}/3`);
+                    } else {
+                        differences.push(`Complexity ${hero.complexity}/3 (you chose ${this.answers.complexity}/3)`);
+                    }
+                }
+                recommendations.push({hero, score, percent: Math.round(score / maximum * 100), matches, differences});
+            }
+            return recommendations.sort((a, b) => b.score - a.score || a.hero.name.localeCompare(b.hero.name))
+                .slice(0, 4);
+        }
+    };
+
+    function readQuizAnswers() {
+        heroQuiz.answers = {
+            position: document.getElementById("quiz-position").value,
+            playstyle: document.getElementById("quiz-playstyle").value,
+            earlyGame: document.getElementById("quiz-early-game").value,
+            attackType: document.getElementById("quiz-attack-type").value,
+            attribute: document.getElementById("quiz-attribute").value,
+            complexity: document.getElementById("quiz-complexity").value
+        };
+    }
+
+    function showQuizStep(step) {
+        heroQuiz.step = step;
+        steps.forEach((panel, index) => {
+            panel.hidden = index !== step;
+        });
+        progress.textContent = step < questionCount
+            ? `Step ${step + 1} of ${questionCount}` : "Your recommendations";
+        backButton.disabled = step === 0;
+        nextButton.hidden = step === questionCount;
+        nextButton.textContent = step === questionCount - 1 ? "Find my heroes" : "Next";
+        steps[step].querySelector("select, h3").focus({preventScroll: true});
+    }
+
+    function renderRecommendations() {
+        const suggestedPositions = heroQuiz.getPositions();
+        const positionText = heroQuiz.answers.position === "Auto"
+            ? `Suggested positions, in order: ${suggestedPositions.join(" / ")}. Based on your team contribution and early-game choices.`
+            : `Selected position: ${suggestedPositions[0]}. Every recommendation can play this position.`;
+        document.getElementById("quiz-position-result").textContent = positionText;
+        const results = document.getElementById("quiz-recommendations");
+        results.replaceChildren();
+
+        heroQuiz.getRecommendations().forEach((match) => {
+            const hero = match.hero;
+            const card = document.createElement("article");
+            card.className = "quiz-match";
+            const name = document.createElement("h4");
+            name.textContent = hero.name;
+            const score = document.createElement("p");
+            score.className = "quiz-match-score";
+            score.textContent = `${match.percent}% preference match`;
+            const details = document.createElement("p");
+            details.textContent = `${hero.attribute} | ${hero.attackType.join(" / ")} | Complexity ${hero.complexity}/3`;
+            const position = document.createElement("p");
+            position.textContent = `Preferred: ${hero.preferredPosition}. Positions: ${hero.positions.join(", ")}.`;
+            const roles = document.createElement("p");
+            roles.className = "quiz-match-roles";
+            roles.textContent = `Roles: ${hero.roles.join(", ")}`;
+            const reasons = document.createElement("p");
+            reasons.className = "quiz-match-reasons";
+            reasons.textContent = `Matches: ${match.matches.join("; ")}.`;
+            card.append(name, createHeroPortrait(hero), score, details, position, roles, reasons);
+            if (match.differences.length) {
+                const differences = document.createElement("p");
+                differences.className = "quiz-match-differences";
+                differences.textContent = `Other preferences: ${match.differences.join("; ")}.`;
+                card.appendChild(differences);
+            }
+            results.appendChild(card);
+        });
+    }
+
+    nextButton.addEventListener("click", () => {
+        // Validate every field on this step; previous selections remain in the DOM.
+        for (const input of steps[heroQuiz.step].querySelectorAll("select")) {
+            if (!input.reportValidity()) return;
+        }
+        readQuizAnswers();
+        if (heroQuiz.step === questionCount - 1) renderRecommendations();
+        showQuizStep(heroQuiz.step + 1);
+        playActionSound(heroQuiz.step === questionCount ? quizSounds.result : quizSounds.next);
+    });
+
+    backButton.addEventListener("click", () => {
+        showQuizStep(heroQuiz.step - 1);
+        playActionSound(quizSounds.back);
+    });
+}
+
+
+// Assignment 5: Day / Night theme, shared by every page.
+const themeButtons = document.querySelectorAll(".theme-toggle");
+
+function applyTheme(theme) {
+    const isLight = theme === "light";
+    document.body.classList.toggle("light-theme", isLight);
+
+    // Let theme variables control the background after a manual color change.
+    document.body.style.removeProperty("background-color");
+    document.body.style.removeProperty("background-image");
+    colorIndex = 0;
+
+    themeButtons.forEach((button) => {
+        button.textContent = isLight ? "Theme: Light" : "Theme: Dark";
+        button.setAttribute("aria-pressed", String(isLight));
+        button.title = isLight ? "Switch to dark theme" : "Switch to light theme";
+    });
+}
+
+let savedTheme = "dark";
+try {
+    savedTheme = localStorage.getItem("dota-wiki-theme") || "dark";
+} catch {
+    // Theme switching still works when browser storage is unavailable.
+}
+applyTheme(savedTheme);
+
+themeButtons.forEach((button) => {
+    button.addEventListener("click", () => {
+        const theme = document.body.classList.contains("light-theme") ? "dark" : "light";
+        applyTheme(theme);
+        try {
+            localStorage.setItem("dota-wiki-theme", theme);
+        } catch {
+            // The current page can use the selected theme without saving it.
+        }
+    });
+});

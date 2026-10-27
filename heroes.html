@@ -25,12 +25,16 @@
         ☰
     </button>
     
-    <nav class="top-navbar" aria-label="Main navigation">
+    <nav id="main-navigation" class="top-navbar" aria-label="Main navigation">
         <a href="index.html">Home</a>
         <a href="heroes.html" class ="active">Heroes</a>
         <a href="items.html">Items</a>
         <a href="esports.html">Esports</a>
     </nav>
+
+    <button class="theme-toggle" type="button" aria-label="Light theme" aria-pressed="false" title="Switch to light theme">
+        Theme: Dark
+    </button>
 
     <a href="register.html" class="register-link">
         Register
@@ -63,7 +67,23 @@
         <option value="3">3</option>
     </select>
 
+    <select id="position-filter" aria-label="Filter by position">
+        <option value="All">All Positions</option>
+        <option value="Carry">1 — Carry</option>
+        <option value="Mid">2 — Mid</option>
+        <option value="Offlane">3 — Offlane</option>
+        <option value="Soft Support">4 — Soft Support</option>
+        <option value="Hard Support">5 — Hard Support</option>
+    </select>
+
+    <select id="attack-type-filter" aria-label="Filter by attack type">
+        <option value="All">All Attack Types</option>
+        <option value="Melee">Melee</option>
+        <option value="Ranged">Ranged</option>
+    </select>
+
         </div>
+        <p id="hero-count" role="status"></p>
         <div id="hero-sections"></div>
     </main>
 <footer>

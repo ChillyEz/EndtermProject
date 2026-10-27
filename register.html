@@ -26,12 +26,16 @@
         ☰
     </button>
 
-    <nav class="top-navbar" aria-label="Main navigation">
+    <nav id="main-navigation" class="top-navbar" aria-label="Main navigation">
         <a href="index.html">Home</a>
         <a href="heroes.html">Heroes</a>
         <a href="items.html">Items</a>
         <a href="esports.html">Esports</a>
     </nav>
+
+    <button class="theme-toggle" type="button" aria-label="Light theme" aria-pressed="false" title="Switch to light theme">
+        Theme: Dark
+    </button>
 
     <a href="register.html" class="register-link">
         Register
@@ -57,6 +61,9 @@
 
                 <label for="confirm-password">Repeat the password</label> 
                 <input type="password" id="confirm-password" name="confirm-password" placeholder="Repeat your password">
+
+                <label for="termsCons">I agree to the Terms and Conditions</label> 
+                <input type="checkbox" id="termsCons" name="termsCons" >
 
 
                 <div id="register-errors" role="alert"></div>

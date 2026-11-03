@@ -8,6 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="styles.css">
     <link rel="icon" href="images/icon.png">
+    <script src="https://code.jquery.com/jquery-4.0.0.min.js"></script>
     <script src="script.js"  type="module" defer></script>
 </head>
 <body>
@@ -44,6 +45,12 @@
     <a href="register.html" class="register-link">
         Register
     </a>
+    <form class="page-search" role="search">
+        <label for="page-search-input">Search this page</label>
+        <input id="page-search-input" type="search" placeholder="Find text on this page..." autocomplete="off" aria-describedby="page-search-status">
+        <button type="submit">Find</button>
+        <span id="page-search-status" role="status"></span>
+    </form>
     </header>
     
 
@@ -257,6 +264,12 @@
                     <p id="quiz-position-result"></p>
                     <p>Preference scores show how closely each hero fits your answers. Check the details to compare.</p>
                     <div id="quiz-recommendations"></div>
+                    <div class="copy-controls">
+                        <button id="copy-recommendations" class="quiz-button" type="button" aria-describedby="copy-tooltip">
+                            <span class="copy-icon" aria-hidden="true">⧉</span> Copy recommendations
+                        </button>
+                        <span id="copy-tooltip" role="tooltip" hidden>Copied to clipboard!</span>
+                    </div>
                     <a href="heroes.html">Explore all heroes</a>
                 </div>
 

@@ -1,136 +1,151 @@
 import { heroes } from "./heroes.js";
 
-if (window.location.pathname.endsWith("heroes.html")) {
+// Assignment 6, Task 0: initialize jQuery after the DOM is ready.
+$(document).ready(function () {
+    console.log("jQuery is ready!");
 
-const heroSections = document.querySelector("#hero-sections");
-const searchInput = document.querySelector("#hero-search");
-const attributeFilter = document.querySelector("#attribute-filter");
-const complexityFilter = document.querySelector("#complexity-filter");
-const positionFilter = document.querySelector("#position-filter");
-const attackTypeFilter = document.querySelector("#attack-type-filter");
+    if (window.location.pathname.endsWith("heroes.html")) {
+        const $heroSections = $("#hero-sections");
+        const $searchInput = $("#hero-search");
+        const $attributeFilter = $("#attribute-filter");
+        const $complexityFilter = $("#complexity-filter");
+        const $positionFilter = $("#position-filter");
+        const $attackTypeFilter = $("#attack-type-filter");
 
-const attributes = [
-    "Strength",
-    "Agility",
-    "Intelligence",
-    "Universal"
-];
-const attributeImages = {
-    Strength: "heroes/web-ui/strength.png",
-    Agility: "heroes/web-ui/agility.png",
-    Intelligence: "heroes/web-ui/intelligence.png",
-    Universal: "heroes/web-ui/universal.png"
-};
+        const attributes = [
+            "Strength",
+            "Agility",
+            "Intelligence",
+            "Universal"
+        ];
+        const attributeImages = {
+            Strength: "heroes/web-ui/strength.png",
+            Agility: "heroes/web-ui/agility.png",
+            Intelligence: "heroes/web-ui/intelligence.png",
+            Universal: "heroes/web-ui/universal.png"
+        };
 
-function renderHeroes(heroList) {
+        // Tasks 1 and 2: jQuery rendering, live filtering and search suggestions.
+        function renderHeroes(heroList) {
+            $heroSections.empty();
+            $("#hero-count").text(heroList.length
+                ? `${heroList.length} heroes found`
+                : "No heroes match these filters.");
 
-    heroSections.innerHTML = "";
-    document.getElementById("hero-count").textContent = heroList.length
-        ? `${heroList.length} heroes found`
-        : "No heroes match these filters.";
-
-    attributes.forEach(function(attribute) {
-        if (!heroList.some((hero) => hero.attribute === attribute)) return;
-
-        const section = document.createElement("section");
-        section.classList.add("hero-section");
-
-        section.innerHTML = `
-            <h3 class="attribute-title">
-            <img src="${attributeImages[attribute]}" alt="${attribute}">
-            <span>${attribute}</span>
-            </h3>
-
-            <div class="hero-gallery"></div>
-        `;
-
-        const gallery = section.querySelector(".hero-gallery");
-
-        heroList.forEach(function(hero) {
-
-            if (hero.attribute === attribute) {
-
-                const card = document.createElement("article");
-                card.classList.add("hero-card");
-
-                card.appendChild(createHeroPortrait(hero));
-                const caption = document.createElement("div");
-                caption.className = "hero-caption";
-                caption.textContent = hero.name;
-                const details = document.createElement("p");
-                details.className = "hero-card-info";
-                details.textContent = `${hero.preferredPosition} | Complexity ${hero.complexity}/3`;
-                card.append(caption, details);
-
-                gallery.appendChild(card);
-            }
-        });
-
-        heroSections.appendChild(section);
-    });
-}
-searchInput.addEventListener("input", filterHeroes);
-
-attributeFilter.addEventListener("change", filterHeroes);
-
-complexityFilter.addEventListener("change", filterHeroes);
-positionFilter.addEventListener("change", filterHeroes);
-attackTypeFilter.addEventListener("change", filterHeroes);
-
-renderHeroes(heroes);
-
-function filterHeroes() {
-
-    const searchText = searchInput.value.toLowerCase();
-    const selectedAttribute = attributeFilter.value;
-    const selectedComplexity = complexityFilter.value;
-
-    const filteredHeroes = heroes.filter(function(hero) {
-
-        const matchesSearch =
-            hero.name.toLowerCase().includes(searchText);
-
-        // Filter the hero catalog by the category selected by the user.
-        let matchesAttribute;
-        switch (selectedAttribute) {
-            case "Strength":
-                matchesAttribute = hero.attribute === "Strength";
-                break;
-            case "Agility":
-                matchesAttribute = hero.attribute === "Agility";
-                break;
-            case "Intelligence":
-                matchesAttribute = hero.attribute === "Intelligence";
-                break;
-            case "Universal":
-                matchesAttribute = hero.attribute === "Universal";
-                break;
-            default:
-                matchesAttribute = true;
+            attributes.forEach((attribute) => {
+                const group = heroList.filter((hero) => hero.attribute === attribute);
+                if (!group.length) return;
+                const $section = $("<section>").addClass("hero-section");
+                const $title = $("<h3>").addClass("attribute-title").append(
+                    $("<img>").attr({ src: attributeImages[attribute], alt: attribute }),
+                    $("<span>").text(attribute)
+                );
+                const $gallery = $("<div>").addClass("hero-gallery");
+                group.forEach((hero) => {
+                    const $card = $("<article>").addClass("hero-card").append(
+                        createHeroPortrait(hero),
+                        $("<div>").addClass("hero-caption").text(hero.name),
+                        $("<p>").addClass("hero-card-info")
+                            .text(`${hero.preferredPosition} | Complexity ${hero.complexity}/3`)
+                    );
+                    $gallery.append($card);
+                });
+                $heroSections.append($section.append($title, $gallery));
+            });
+            $(document).trigger("pagecontentchange");
         }
 
-        const matchesComplexity =
-            selectedComplexity === "All" ||
-            hero.complexity === Number(selectedComplexity);
+        const $suggestions = $("#hero-suggestions");
+        function hideSuggestions() {
+            $suggestions.empty().prop("hidden", true);
+            $searchInput.attr("aria-expanded", "false");
+        }
+        function showSuggestions(heroList) {
+            hideSuggestions();
+            if (!$searchInput.val().trim()) return;
+            heroList.slice(0, 6).forEach((hero) => {
+                $suggestions.append($("<li>").append(
+                        $("<button>").attr("type", "button").text(hero.name)
+                ));
+            });
+            $suggestions.prop("hidden", !$suggestions.children().length);
+            $searchInput.attr("aria-expanded", String($suggestions.children().length > 0));
+        }
+        $searchInput.on("input focus", () => filterHeroes());
+        $("#attribute-filter, #complexity-filter, #position-filter, #attack-type-filter")
+            .on("change", () => filterHeroes());
+        $suggestions.on("click", "button", function () {
+            $searchInput.val($(this).text());
+            $searchInput.trigger("focus");
+            filterHeroes(false);
+        });
+        $(document).on("click", (event) => {
+            if (!$(event.target).closest(".hero-search-box").length) hideSuggestions();
+        });
+        $(".hero-search-box").on("keydown", (event) => {
+            if (event.key === "Escape") {
+                $searchInput.trigger("focus");
+                hideSuggestions();
+            }
+        }).on("focusout", () => {
+            // Allow focus to reach a suggestion button before checking the new target.
+            setTimeout(() => {
+                if (!$(document.activeElement).closest(".hero-search-box").length) hideSuggestions();
+            }, 0);
+        });
 
-        const matchesPosition = positionFilter.value === "All" ||
-            hero.positions.includes(positionFilter.value);
-        const matchesAttackType = attackTypeFilter.value === "All" ||
-            hero.attackType.includes(attackTypeFilter.value);
+        renderHeroes(heroes);
 
-        return matchesSearch &&
-               matchesAttribute &&
-               matchesComplexity && matchesPosition && matchesAttackType;
-    });
+        function filterHeroes(withSuggestions = true) {
+            const searchText = $searchInput.val().trim().toLowerCase();
+            const selectedAttribute = $attributeFilter.val();
+            const selectedComplexity = $complexityFilter.val();
 
-    renderHeroes(filteredHeroes);
-}
+            const filteredHeroes = heroes.filter(function (hero) {
 
+                const matchesSearch =
+                    hero.name.toLowerCase().includes(searchText);
 
-}
+                // Filter the hero catalog by the category selected by the user.
+                let matchesAttribute;
+                switch (selectedAttribute) {
+                    case "Strength":
+                        matchesAttribute = hero.attribute === "Strength";
+                        break;
+                    case "Agility":
+                        matchesAttribute = hero.attribute === "Agility";
+                        break;
+                    case "Intelligence":
+                        matchesAttribute = hero.attribute === "Intelligence";
+                        break;
+                    case "Universal":
+                        matchesAttribute = hero.attribute === "Universal";
+                        break;
+                    default:
+                        matchesAttribute = true;
+                }
 
+                const matchesComplexity =
+                    selectedComplexity === "All" ||
+                    hero.complexity === Number(selectedComplexity);
 
+                const matchesPosition = $positionFilter.val() === "All" ||
+                    hero.positions.includes($positionFilter.val());
+                const matchesAttackType = $attackTypeFilter.val() === "All" ||
+                    hero.attackType.includes($attackTypeFilter.val());
 
+                return matchesSearch &&
+                    matchesAttribute &&
+                    matchesComplexity && matchesPosition && matchesAttackType;
+            });
+
+            renderHeroes(filteredHeroes);
+            if (withSuggestions) showSuggestions(filteredHeroes);
+            else hideSuggestions();
+        }
+
+    }
+});
 
 const itemButtons = document.querySelectorAll(".item-button");
 const closeButtons = document.querySelectorAll(".close-item");
@@ -140,14 +155,13 @@ itemButtons.forEach(function (button) {
 
         document.querySelectorAll(".item-card.details-open")
             .forEach(function (card) {
-                card.classList.remove("details-open");
-            });
+            card.classList.remove("details-open");
+        });
 
         const card = button.closest(".item-card");
         card.classList.add("details-open");
     });
-}); 
-
+});
 
 closeButtons.forEach(function (button) {
 
@@ -159,27 +173,25 @@ closeButtons.forEach(function (button) {
 
 });
 
-
-
-
 if (document.getElementById("contact-form")) {
     const form = document.querySelector("#contact-form");
 
-    form.addEventListener("submit", function (event) {
+    // Assignment 6, Task 6: validate first, then simulate a short submission.
+    let submitting = false;
+    $(form).on("submit", function (event) {
         event.preventDefault();
-        console.log("Form for contact submitted");
-        const inputName = document.getElementById("name").value.trim();
-        const inputEmail = document.getElementById("email").value.trim();
-        const inputTopic = document.getElementById("topic").value.trim();
-        const inputMessage = document.getElementById("message").value.trim();
+        if (submitting) return;
+        const inputName = ($("#name").val() || "").trim();
+        const inputEmail = ($("#email").val() || "").trim();
+        const inputTopic = ($("#topic").val() || "").trim();
+        const inputMessage = ($("#message").val() || "").trim();
         const errors = [];
 
-        if(inputName === "") {
+        if (inputName === "") {
             errors.push("Name is required");
-        }else if (inputName.length < 2) {
+        } else if (inputName.length < 2) {
             errors.push("Name must contain more than 2 symbols");
         }
-
 
         const pattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;   //validation EMail
 
@@ -189,26 +201,37 @@ if (document.getElementById("contact-form")) {
             errors.push("Invalid email format");
         }
 
-        if(inputTopic === "") {
+        if (inputTopic === "") {
             errors.push("Choose one of the listed Topic");
         }
 
-        if(inputMessage === "") {
+        if (inputMessage === "") {
             errors.push("Please enter your message");
         }
 
-
-
-        const formErorrs = document.getElementById("form-errors");
+        const formErrors = document.getElementById("form-errors");
         const formResult = document.getElementById("form-result");
-        formErorrs.textContent = "";
+        formErrors.textContent = "";
         formResult.textContent = "";
 
-        if(errors.length === 0) {
-            formResult.textContent = "Thank you for active participate! Message sent successfully!";
-            form.reset()
-        }else {
-            formErorrs.textContent = errors.join("\n");
+        if (errors.length === 0) {
+            submitting = true;
+            const $submitButton = $(form).find("button[type='submit']");
+            const originalText = $submitButton.text();
+            $submitButton.prop("disabled", true).attr("aria-busy", "true").empty().append(
+                $("<span>").addClass("submit-spinner").attr("aria-hidden", "true"),
+                document.createTextNode("Please wait…")
+            );
+            setTimeout(() => {
+                // This assignment simulates a server call; no message is sent.
+                formResult.textContent = "Demo complete: your message passed validation. No message was sent.";
+                form.reset();
+                $submitButton.text(originalText).prop("disabled", false).removeAttr("aria-busy");
+                submitting = false;
+                showToast("Contact form checked successfully (demo).");
+            }, 1200);
+        } else {
+            formErrors.textContent = errors.join("\n");
         }
 
     });
@@ -217,26 +240,22 @@ if (document.getElementById("contact-form")) {
     const popup = document.getElementById("open-contact");
     const overlay = document.getElementById("contact-popup");
 
-    closeBtn.addEventListener("click", () =>{
-            overlay.classList.remove("open");
+    closeBtn.addEventListener("click", () => {
+        overlay.classList.remove("open");
     });
 
     popup.addEventListener("click", (event) => {
         const contactPopup = document.getElementById("contact-popup");
         contactPopup.classList.add("open");
-    
+
     });
     overlay.addEventListener("click", (event) => {
-        if(event.target === overlay){
+        if (event.target === overlay) {
             overlay.classList.remove("open");
         }
     });
 
 }
-
-
-
-
 
 const faqButtons = document.querySelectorAll(".faq-question");
 
@@ -244,11 +263,9 @@ faqButtons.forEach((button) => {
 
     button.addEventListener("click", () => {
         button.closest(".faq-item").classList.toggle("open");
-   });
+    });
 
 });
-
-
 
 const navbarBurger = document.querySelector(".menu-toggle");
 const navbar = document.querySelector(".top-navbar");
@@ -262,69 +279,64 @@ if (navbarBurger && navbar) {
     });
 }
 
-
-
 if (window.location.pathname.endsWith("register.html")) {
-const registerForm = document.getElementById("registration-form"); 
+    const registerForm = document.getElementById("registration-form");
 
-registerForm.addEventListener("submit", (event) => {
-    event.preventDefault();
+    registerForm.addEventListener("submit", (event) => {
+        event.preventDefault();
 
-    const userName = document.getElementById("username").value.trim();
-    const emailRegister = document.getElementById("email").value.trim();
-    const password = document.getElementById("password").value.trim();
-    const confirmPassword = document.getElementById("confirm-password").value.trim();
+        const userName = document.getElementById("username").value.trim();
+        const emailRegister = document.getElementById("email").value.trim();
+        const password = document.getElementById("password").value.trim();
+        const confirmPassword = document.getElementById("confirm-password").value.trim();
 
-    const registerErrors = [];
-    
-    const usernamePattern = /^[a-zA-Z][a-zA-Z0-9]*$/;
-    
+        const registerErrors = [];
 
-    if(userName === ""){
-         registerErrors.push("Username cannot be blank");
-    }else if(userName.length < 3){
-        registerErrors.push("Username must contain at least 3 symbols");
-    }
-    else if(!usernamePattern.test(userName)){
-        registerErrors.push("Username must start with a letter and NO special symbols!");
-    }else {
-        console.log("username is ok");
-    }
+        const usernamePattern = /^[a-zA-Z][a-zA-Z0-9]*$/;
 
-    const pattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (emailRegister === "") {
+        if (userName === "") {
+            registerErrors.push("Username cannot be blank");
+        } else if (userName.length < 3) {
+            registerErrors.push("Username must contain at least 3 symbols");
+        } else if (!usernamePattern.test(userName)) {
+            registerErrors.push("Username must start with a letter and NO special symbols!");
+        } else {
+            console.log("username is ok");
+        }
+
+        const pattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (emailRegister === "") {
             registerErrors.push("Email is required");
-    } else if (!pattern.test(emailRegister )) {
+        } else if (!pattern.test(emailRegister)) {
             registerErrors.push("Invalid email format");
-    }
-    
-    
-    if (password === "" || confirmPassword === ""){
-        registerErrors.push("Fill both password and confirm password fields!")
-    }else if(password !== confirmPassword){
-        registerErrors.push("Passwords does not match!");
-    }
-    if(password.length < 8){
-        registerErrors.push("Password length must be at least 8 characters");
-    }if(!/\d/.test(password)){
-        registerErrors.push("Password must contain at least one digit");
-    }
+        }
 
-    const ErorrsContent = document.getElementById("register-errors");
-    const ResultContent = document.getElementById("register-result");
-    ErorrsContent.textContent = "";
-    ResultContent.textContent = "";
+        if (password === "" || confirmPassword === "") {
+            registerErrors.push("Fill both password and confirm password fields!");
+        } else if (password !== confirmPassword) {
+            registerErrors.push("Passwords does not match!");
+        }
+        if (password.length < 8) {
+            registerErrors.push("Password length must be at least 8 characters");
+        }
+        if (!/\d/.test(password)) {
+            registerErrors.push("Password must contain at least one digit");
+        }
 
-    if(registerErrors.length === 0) {
-        ResultContent .textContent = "Registration form validated successfully!";
-        registerForm.reset()
-    }else {
-        ErorrsContent.textContent = registerErrors.join("\n");
-    }
+        const registerErrorsElement = document.getElementById("register-errors");
+        const registerResultElement = document.getElementById("register-result");
+        registerErrorsElement.textContent = "";
+        registerResultElement.textContent = "";
 
-});
+        if (registerErrors.length === 0) {
+            registerResultElement.textContent = "Registration form validated successfully!";
+            registerForm.reset();
+        } else {
+            registerErrorsElement.textContent = registerErrors.join("\n");
+        }
+
+    });
 }
-
 
 const colors = [
     "#121212",
@@ -335,56 +347,43 @@ const colors = [
 ];
 const lightColors = ["#f0f3f7", "#e3edf7", "#e5f1e4", "#f5e6e6", "#f5efdc"];
 
-
-
 const pageMode = document.querySelector(".page-mode");
 let colorIndex = 0;
 
 if (pageMode) {
-pageMode.addEventListener("click", () => {
-    const palette = document.body.classList.contains("light-theme") ? lightColors : colors;
-    document.body.style.backgroundImage = "none";
-    document.body.style.backgroundColor = palette[colorIndex];
-    colorIndex = (colorIndex + 1) % palette.length;
-});
+    pageMode.addEventListener("click", () => {
+        const palette = document.body.classList.contains("light-theme") ? lightColors : colors;
+        document.body.style.backgroundImage = "none";
+        document.body.style.backgroundColor = palette[colorIndex];
+        colorIndex = (colorIndex + 1) % palette.length;
+    });
 }
-
-
-
-
-const months = [
-    "January", "February", "March", "April",
-    "May", "June", "July", "August",
-    "September", "October", "November", "December"
-];
 
 let is12Hour = false;
 const timeFormatButton = document.getElementById("toggle-time-format");
 
 if (timeFormatButton) {
-timeFormatButton.addEventListener("click", () => {
-    is12Hour = !is12Hour;
+    timeFormatButton.addEventListener("click", () => {
+        is12Hour = !is12Hour;
 
-
-
-    timeFormatButton.textContent = is12Hour ? "Switch to 24H" : "Switch to 12H";
-    updateDateTime();
-});
+        timeFormatButton.textContent = is12Hour ? "Switch to 24H" : "Switch to 12H";
+        updateDateTime();
+    });
 }
 function updateDateTime() {
     const now = new Date();
-    let formattedDate = now.toLocaleDateString("en-US",
+    const formattedDate = now.toLocaleDateString("en-US",
         {
             year: "numeric",
             month: "long",
             day: "numeric"
         }
     );
-    let formattedTime =now.toLocaleTimeString("en-US",
+    const formattedTime = now.toLocaleTimeString("en-US",
         {
             hour: "2-digit",
-            minute:"2-digit",
-            second:"2-digit",
+            minute: "2-digit",
+            second: "2-digit",
             hour12: is12Hour
         }
     );
@@ -392,46 +391,70 @@ function updateDateTime() {
     const currentDateTime = document.getElementById("current-datetime");
 
     currentDateTime.textContent = formattedDate + " | " + formattedTime;
-    
+
 }
 
-// const now = new Date();
-
-// const year = now.getFullYear();
-// const month = now.getMonth() + 1;
-// const date = now.getDate();
-// const day = now.getDay();
-// const hour = now.getHours();
-// const minute = now.getMinutes();
-// const second = now.getSeconds();
-
-// const monthName = months[now.getMonth()];
-const patch732= new Date("2022-08-24T03:44:00+05:00");
+const patch732 = new Date("2022-08-24T03:44:00+05:00");
 const patch732end = new Date("2023-04-21T04:48:00+05:00");
 
-const patch739= new Date("2025-05-23T03:08:00+05:00");
+const patch739 = new Date("2025-05-23T03:08:00+05:00");
 const patch739end = new Date("2025-12-16T05:07:00+05:00");
 
 const patch741 = new Date("2026-03-25T04:43:00+05:00");
 
 const patch741f = new Date("2026-09-15T23:44:00+05:00");
 
-const patch741e = new Date("2026-07-31T04:58:00+05:00");
-const patch741d = new Date("2026-06-05T05:45:00+05:00");
+// Animate numeric text; keep the running value so repeated calls cannot queue up.
+function animateNumber($element, target, duration = 1400) {
+    const state = $element.data("counterState") || { value: 0 };
+    $element.data("counterState", state);
+    const $animation = $(state);
+    $animation.stop(true, false);
+    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
+    // Reset rolled-over units directly (59 seconds -> 0), without counting backwards.
+    if (reducedMotion || target <= state.value) {
+        state.value = target;
+        $element.text(target);
+        return;
+    }
+    $animation.animate({ value: target }, {
+        duration,
+        easing: "swing",
+        step: (value) => $element.text(Math.floor(value)),
+        complete: () => $element.text(target)
+    });
+}
 
 function calculatePatchDuration(patchStart, patchEnd, elementId) {
-    const difference = patchEnd - patchStart;
+    const difference = Math.max(0, patchEnd - patchStart);
+    const values = [
+        Math.floor(difference / 86400000),
+        Math.floor(difference / 3600000) % 24,
+        Math.floor(difference / 60000) % 60,
+        Math.floor(difference / 1000) % 60
+    ];
+    const units = ["days", "hours", "minutes", "seconds"];
+    const $duration = $("#" + elementId);
+    const firstRender = !$duration.children(".patch-value").length;
 
-    const days = Math.floor(difference / 86400000);
-    const hours = Math.floor(difference / 3600000) % 24;
-    const minutes = Math.floor(difference / 60000) % 60;
-    const seconds = Math.floor(difference / 1000) % 60;
-
-    const patchDuration = document.getElementById(elementId);
-
-    patchDuration.textContent =
-        `${days} days ${hours} hours ${minutes} minutes ${seconds} seconds`;
+    if (firstRender) {
+        $duration.empty();
+        units.forEach((unit, index) => {
+            $duration.append(
+                $("<span>").addClass("patch-value").text("0"),
+                document.createTextNode(` ${unit}${index < units.length - 1 ? " " : ""}`)
+            );
+        });
+    }
+    $duration.children(".patch-value").each(function (index) {
+        const $value = $(this);
+        if (!firstRender && Number($value.text()) === values[index]) return;
+        animateNumber($value, values[index], firstRender ? 900 : 220);
+        if (!firstRender && !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+            $value.stop(true, true).fadeTo(100, 0.55).fadeTo(140, 1);
+        }
+    });
 }
 
 function updatePatchDuration(patch) {
@@ -448,13 +471,10 @@ if (document.getElementById("patch-duration")) {
     calculatePatchDuration(patch739, patch739end, "duration-739");
 }
 
-
-
 if (document.getElementById("current-datetime")) {
     updateDateTime();
     setInterval(updateDateTime, 1000);
 }
-
 
 // Arrow navigation between menu links, with wrapping at both ends.
 if (navbar) {
@@ -486,7 +506,6 @@ if (navbar) {
         menuLinks[nextIndex].focus();
     });
 }
-
 
 // One audio player prevents sounds from overlapping
 const ratingSounds = {
@@ -526,7 +545,6 @@ if (soundToggle) {
     });
 }
 
-
 const ratingStars = document.querySelectorAll(".rating-star");
 const ratingMessage = document.getElementById("rating-message");
 
@@ -542,7 +560,6 @@ ratingStars.forEach((star) => {
     });
 });
 
-
 // Shared portrait: missing local files show the hero's initials until images are added.
 function createHeroPortrait(hero) {
     const portrait = document.createElement("div");
@@ -553,11 +570,11 @@ function createHeroPortrait(hero) {
     initials.setAttribute("aria-hidden", "true");
     const image = document.createElement("img");
     image.alt = hero.name;
-    image.loading = "lazy";
+    // Task 9: the real URL is assigned only when the portrait enters the viewport.
+    image.dataset.src = hero.image;
     image.addEventListener("error", () => {
         image.hidden = true;
     }, { once: true });
-    image.src = hero.image;
     portrait.append(initials, image);
     return portrait;
 }
@@ -597,7 +614,7 @@ if (quiz) {
             return positions.map((position, index) => ({
                 position,
                 score: teamPoints[this.answers.playstyle][index] +
-                    lanePoints[this.answers.earlyGame][index]
+                lanePoints[this.answers.earlyGame][index]
             })).filter((entry) => entry.score > 0)
                 .sort((a, b) => b.score - a.score)
                 .slice(0, 2).map((entry) => entry.position);
@@ -691,6 +708,7 @@ if (quiz) {
         nextButton.hidden = step === questionCount;
         nextButton.textContent = step === questionCount - 1 ? "Find my heroes" : "Next";
         steps[step].querySelector("select, h3").focus({preventScroll: true});
+        $(document).trigger("pagecontentchange");
     }
 
     function renderRecommendations() {
@@ -749,7 +767,6 @@ if (quiz) {
     });
 }
 
-
 // Assignment 5: Day / Night theme, shared by every page.
 const themeButtons = document.querySelectorAll(".theme-toggle");
 
@@ -787,4 +804,154 @@ themeButtons.forEach((button) => {
             // The current page can use the selected theme without saving it.
         }
     });
+});
+
+// Assignment 6, Tasks 3 and 4: page search and scroll progress.
+$(document).ready(function () {
+    const $main = $("main");
+    const $search = $("#page-search-input");
+    const $status = $("#page-search-status");
+    const $progress = $("<div>").addClass("scroll-progress")
+        .attr("aria-hidden", "true").prependTo("body");
+    const $fill = $("<div>").addClass("scroll-progress-fill").appendTo($progress);
+
+    function updateScrollProgress() {
+        const available = $(document).height() - $(window).height();
+        const percent = available > 0 ? $(window).scrollTop() / available * 100 : 0;
+        $fill.css("width", `${Math.max(0, Math.min(100, percent))}%`);
+    }
+
+    function highlightPage() {
+        // Unwrap only our marks, preserving elements and their event listeners.
+        $main.find("mark.search-match").each(function () {
+            $(this).replaceWith(document.createTextNode($(this).text()));
+        });
+        $main.find(".faq-item").removeClass("search-open");
+        if (!$main.length) return;
+        $main[0].normalize();
+        const query = $search.val().trim();
+        if (!query) {
+            $status.text("");
+            updateScrollProgress();
+            return;
+        }
+
+        // Escape regex characters: user input is literal text, not a pattern.
+        const escaped = query.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+        const pattern = new RegExp(escaped, "gi");
+        const walker = document.createTreeWalker($main[0], NodeFilter.SHOW_TEXT);
+        const nodes = [];
+        while (walker.nextNode()) {
+            const node = walker.currentNode;
+            const $parent = $(node.parentElement);
+            if (!node.nodeValue.trim() || $parent.closest(
+                    "script, style, input, textarea, select, [hidden], [aria-hidden='true'], " +
+                    ".hero-initials, #hero-suggestions, #patch-duration, #duration-741, #duration-732, #duration-739, #hero-total, .copy-controls"
+                ).length || !$parent.is(":visible")) continue;
+            nodes.push(node);
+        }
+
+        let count = 0;
+        nodes.forEach((node) => {
+            const text = node.nodeValue;
+            const matches = [...text.matchAll(pattern)];
+            if (!matches.length) return;
+            const fragment = document.createDocumentFragment();
+            let previous = 0;
+            matches.forEach((match) => {
+                fragment.append(document.createTextNode(text.slice(previous, match.index)));
+                fragment.append($("<mark>").addClass("search-match").text(match[0])[0]);
+                previous = match.index + match[0].length;
+                count += 1;
+            });
+            fragment.append(document.createTextNode(text.slice(previous)));
+            $(node.parentElement).closest(".faq-item").addClass("search-open");
+            node.replaceWith(fragment);
+        });
+        $status.text(count ? `${count} match${count === 1 ? "" : "es"}` : "No matches");
+        updateScrollProgress();
+    }
+
+    $search.on("input", highlightPage);
+    $(".page-search").on("submit", function (event) {
+        event.preventDefault();
+        highlightPage();
+        const first = $main.find("mark.search-match").first()[0];
+        if (first) first.scrollIntoView({ block: "center" });
+    });
+    $(document).on("pagecontentchange", highlightPage);
+    $(window).on("scroll resize load", updateScrollProgress);
+    // FAQ transitions, image loading and filtering can change the page height.
+    const observer = new ResizeObserver(updateScrollProgress);
+    observer.observe(document.body);
+    updateScrollProgress();
+});
+
+// Assignment 6, Task 7: one reusable notification, without queued duplicates.
+function showToast(message) {
+    let $toast = $("#site-toast");
+    if (!$toast.length) {
+        $toast = $("<div>").attr({ id: "site-toast", role: "status", "aria-atomic": "true" })
+            .hide().appendTo("body");
+    }
+    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    $toast.stop(true, true).text(message)
+        .fadeIn(reducedMotion ? 0 : 150).delay(2400).fadeOut(reducedMotion ? 0 : 350);
+}
+
+$(document).ready(function () {
+    // Task 5: animate the real catalog total once, independently of filters.
+    const $total = $("#hero-total");
+    if ($total.length) {
+        animateNumber($total, heroes.length);
+    }
+
+    // Task 8: copy the currently displayed hero names and confirm only on success.
+    const $copyButton = $("#copy-recommendations");
+    const $tooltip = $("#copy-tooltip");
+    let copyTimer;
+    function resetCopyFeedback() {
+        clearTimeout(copyTimer);
+        $copyButton.find(".copy-icon").text("⧉");
+        $tooltip.prop("hidden", true);
+    }
+    $copyButton.on("click", async function () {
+        if ($copyButton.prop("disabled")) return;
+        const text = $("#quiz-recommendations h4").map(function () {
+            return $(this).text();
+        }).get().join("\n");
+        if (!text) return;
+        resetCopyFeedback();
+        $copyButton.prop("disabled", true);
+        try {
+            await navigator.clipboard.writeText(text);
+            $copyButton.find(".copy-icon").text("✓");
+            $tooltip.prop("hidden", false);
+            showToast("Recommendations copied to clipboard!");
+            copyTimer = setTimeout(resetCopyFeedback, 2400);
+        } catch {
+            showToast("Could not copy. Select the hero names and copy them manually.");
+        } finally {
+            $copyButton.prop("disabled", false);
+        }
+    });
+    $(document).on("pagecontentchange", resetCopyFeedback);
+
+    // Task 9: jQuery viewport checks, not the browser's loading="lazy" attribute.
+    function loadVisiblePortraits() {
+        const top = $(window).scrollTop();
+        const bottom = top + $(window).height();
+        $(".hero-portrait img[data-src]").each(function () {
+            const $image = $(this);
+            if (!$image.is(":visible")) return;
+            const imageTop = $image.offset().top;
+            if (imageTop < bottom && imageTop + $image.outerHeight() > top) {
+                const source = $image.attr("data-src");
+                $image.removeAttr("data-src").attr("src", source);
+            }
+        });
+    }
+    $(window).on("scroll resize load", loadVisiblePortraits);
+    $(document).on("pagecontentchange", loadVisiblePortraits);
+    loadVisiblePortraits();
 });

@@ -7,6 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="styles.css">
     <link rel="icon" href="images/icon.png">
+    <script src="https://code.jquery.com/jquery-4.0.0.min.js"></script>
     <script src="script.js" type="module"></script>
 </head>
 <body>
@@ -39,6 +40,12 @@
     <a href="register.html" class="register-link">
         Register
     </a>
+    <form class="page-search" role="search">
+        <label for="page-search-input">Search this page</label>
+        <input id="page-search-input" type="search" placeholder="Find text on this page..." autocomplete="off" aria-describedby="page-search-status">
+        <button type="submit">Find</button>
+        <span id="page-search-status" role="status"></span>
+    </form>
     </header>
 
 <div class="overlay"></div>

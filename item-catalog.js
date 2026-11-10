@@ -22,7 +22,8 @@ function showDetails(item) {
     }
     for (const ability of item.abilities) {
         const $section = $("<section>").addClass("item-ability " + ability.type.toLowerCase() + "-ability").appendTo($body);
-        const $heading = $("<h4>").text(ability.type + ": " + ability.name).appendTo($section);
+        const $heading = $("<h4>").appendTo($section);
+        $("<span>").text(ability.type + ": " + ability.name).appendTo($heading);
         for (const [label, value] of Object.entries(ability.metrics ?? {})) {
             $("<small>").text(label + " " + value).appendTo($heading);
         }

@@ -297,29 +297,6 @@ footer p {
     margin: 0 auto;
 }
 
-.esports-table {
-    width: 100%;
-    border-collapse: collapse;
-}
-
-td, th {
-    border: 1px solid rgb(var(--color-border));
-    text-align: center;
-    transition: all 0.3s ease-in-out;
-}
-
-tr {
-    border: 1px solid rgb(var(--color-border));
-    text-align: center;
-    transition: all 0.3s ease-in-out;
-}
-
-tr:hover {
-    scale: 1.05;    
-    background-color: rgba(92, 245, 54, 0.678);
-
-}
-
 
 
 .item-grid {
@@ -346,9 +323,7 @@ tr:hover {
 .item-name {
     min-height: 54px;
     margin: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    align-content: center;
     color: rgb(var(--color-text-primary));
 }
 
@@ -1376,16 +1351,13 @@ mark.search-match {
 }
 /* Assignment 6, Tasks 5-9: counter, submission feedback, copy and lazy portraits. */
 .hero-stat {
-    display: flex;
-    align-items: baseline;
-    flex-wrap: wrap;
-    gap: 10px;
     margin: 12px 0;
     color: rgb(var(--color-text-secondary));
 }
 #hero-total {
     display: inline-block;
     min-width: 3ch;
+    margin-right: 6px;
     font-size: 32px;
     font-variant-numeric: tabular-nums;
     color: rgb(var(--color-text-gold));
@@ -1448,6 +1420,20 @@ mark.search-match {
 }
 
 main a { color: rgb(var(--color-text-gold)); }
+
+.ti-editions {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr));
+    gap: var(--space-3);
+}
+.ti-edition {
+    padding: var(--space-3);
+    background: rgb(var(--color-background-panel));
+    border: 1px solid rgb(var(--color-border));
+    border-radius: var(--radius);
+}
+.ti-edition h2 { margin: 0; font-size: 1rem; color: rgb(var(--color-text-secondary)); }
+.ti-edition h3 { margin: 6px 0; font-size: 1.5rem; }
 
 .map-guide {
     display: grid;

@@ -797,27 +797,42 @@ $(document).ready(function () {
             const $parent = $(node.parentElement);
             if (!node.nodeValue.trim() || $parent.closest(
                     "script, style, input, textarea, select, [hidden], [aria-hidden='true'], " +
-                    ".hero-initials, #hero-suggestions, #patch-duration, #duration-741, #duration-732, #duration-739, #hero-total, .copy-controls"
+                    ".hero-initials, #hero-suggestions, #patch-duration, #duration-741, #duration-732, #duration-739, .counting, .copy-controls"
                 ).length || !$parent.is(":visible")) continue;
             nodes.push(node);
         }
 
+        // The counter and its label form one sentence across two DOM nodes.
+        const groups = new Map();
+        for (const node of nodes) {
+            const key = node.parentElement.closest(".hero-stat") || node;
+            if (!groups.has(key)) groups.set(key, []);
+            groups.get(key).push(node);
+        }
         let count = 0;
-        nodes.forEach((node) => {
-            const text = node.nodeValue;
-            const matches = [...text.matchAll(pattern)];
+        groups.forEach((group) => {
+            const matches = [...group.map(node => node.nodeValue).join("").matchAll(pattern)];
             if (!matches.length) return;
-            const fragment = document.createDocumentFragment();
-            let previous = 0;
-            matches.forEach((match) => {
-                fragment.append(document.createTextNode(text.slice(previous, match.index)));
-                fragment.append($("<mark>").addClass("search-match").text(match[0])[0]);
-                previous = match.index + match[0].length;
-                count += 1;
+            count += matches.length;
+            let offset = 0;
+            group.forEach(node => {
+                const text = node.nodeValue;
+                const fragment = document.createDocumentFragment();
+                let previous = 0;
+                for (const match of matches) {
+                    const start = Math.max(0, match.index - offset);
+                    const end = Math.min(text.length, match.index + match[0].length - offset);
+                    if (start >= end) continue;
+                    fragment.append(document.createTextNode(text.slice(previous, start)));
+                    fragment.append($("<mark>").addClass("search-match").text(text.slice(start, end))[0]);
+                    previous = end;
+                }
+                offset += text.length;
+                if (!previous) return;
+                fragment.append(document.createTextNode(text.slice(previous)));
+                $(node.parentElement).closest(".faq-item").addClass("search-open");
+                node.replaceWith(fragment);
             });
-            fragment.append(document.createTextNode(text.slice(previous)));
-            $(node.parentElement).closest(".faq-item").addClass("search-open");
-            node.replaceWith(fragment);
         });
         $status.text(count ? `${count} match${count === 1 ? "" : "es"}` : "No matches");
         updateScrollProgress();
@@ -854,7 +869,12 @@ $(document).ready(function () {
     // Task 5: animate the real catalog total once, independently of filters.
     const $total = $("#hero-total");
     if ($total.length) {
+        $total.addClass("counting");
         animateNumber($total, heroes.length);
+        $($total.data("counterState")).promise().done(() => {
+            $total.removeClass("counting");
+            $(document).trigger("pagecontentchange");
+        });
     }
 
     // Task 8: copy the currently displayed hero names and confirm only on success.

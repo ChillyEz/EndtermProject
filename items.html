@@ -72,15 +72,17 @@
             </article>
         </template>
         <dialog class="item-details" aria-labelledby="detail-name">
-            <div class="item-details-header">
-                <img class="detail-icon" alt="">
-                <div>
-                    <h3 id="detail-name"></h3>
-                    <span class="item-cost"><img src="images/item-icons/gold.png" alt="Gold"><span></span></span>
+            <div class="item-details-panel">
+                <div class="item-details-header">
+                    <img class="detail-icon" alt="">
+                    <div>
+                        <h3 id="detail-name"></h3>
+                        <span class="item-cost"><img src="images/item-icons/gold.png" alt="Gold"><span></span></span>
+                    </div>
+                    <button class="close-item" type="button" aria-label="Close item details">×</button>
                 </div>
-                <button class="close-item" type="button" aria-label="Close item details">×</button>
+                <div class="detail-body"></div>
             </div>
-            <div class="detail-body"></div>
         </dialog>
     </main>
 
@@ -92,8 +94,5 @@
 
 </footer>
 </div>
-
-
-
-
+</body>
 </html>

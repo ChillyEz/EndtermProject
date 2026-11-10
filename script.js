@@ -229,6 +229,12 @@ if (document.getElementById("contact-form")) {
         }
     });
 
+    $(document).on("keydown", (event) => {
+        if (event.key === "Escape" && overlay.classList.contains("open")) {
+            overlay.classList.remove("open");
+        }
+    });
+
 }
 
 const faqButtons = document.querySelectorAll(".faq-question");
@@ -255,9 +261,11 @@ if (navbarBurger && navbar) {
 
 if (window.location.pathname.endsWith("register.html")) {
     const registerForm = document.getElementById("registration-form");
+    let registering = false;
 
     registerForm.addEventListener("submit", (event) => {
         event.preventDefault();
+        if (registering) return;
 
         const userName = document.getElementById("username").value.trim();
         const emailRegister = document.getElementById("email").value.trim();
@@ -305,8 +313,20 @@ if (window.location.pathname.endsWith("register.html")) {
         registerResultElement.textContent = "";
 
         if (registerErrors.length === 0) {
-            registerResultElement.textContent = "Registration form validated successfully!";
-            registerForm.reset();
+            registering = true;
+            const $submitButton = $(registerForm).find("button[type='submit']");
+            const originalText = $submitButton.text();
+            $submitButton.prop("disabled", true).attr("aria-busy", "true").empty().append(
+                $("<span>").addClass("submit-spinner").attr("aria-hidden", "true"),
+                document.createTextNode("Please wait…")
+            );
+            setTimeout(() => {
+                registerResultElement.textContent = "Registration form validated successfully!";
+                registerForm.reset();
+                $submitButton.text(originalText).prop("disabled", false).removeAttr("aria-busy");
+                registering = false;
+                showToast("Account registration validated (demo).");
+            }, 1200);
         } else {
             registerErrorsElement.textContent = registerErrors.join("\n");
         }

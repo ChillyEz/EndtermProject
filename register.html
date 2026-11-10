@@ -37,7 +37,7 @@
         Theme: Dark
     </button>
 
-    <a href="register.html" class="register-link">
+    <a href="register.html" class="register-link active" aria-current="page">
         Register
     </a>
     <form class="page-search" role="search" novalidate>
@@ -55,6 +55,7 @@
         <main>
         <div>
             <form class="contact-form registration-form" id="registration-form" novalidate>
+                <h1>Create an Account</h1>
 
                 <label for="username">Username</label> 
                 <input type="text" id="username" name="username" placeholder="Username">
@@ -68,8 +69,10 @@
                 <label for="confirm-password">Repeat the password</label> 
                 <input type="password" id="confirm-password" name="confirm-password" placeholder="Repeat your password">
 
-                <label for="termsCons">I agree to the Terms and Conditions</label> 
-                <input type="checkbox" id="termsCons" name="termsCons" >
+                <label class="terms-option" for="termsCons">
+                    <input type="checkbox" id="termsCons" name="termsCons">
+                    I agree to the Terms and Conditions
+                </label>
 
 
                 <div id="register-errors" role="alert"></div>

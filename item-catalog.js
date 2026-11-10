@@ -66,6 +66,11 @@ function filterItems() {
 }
 
 $dialog.find(".close-item").on("click", () => $dialog[0].close());
+$dialog.on("click", function (event) {
+    if (!$(event.target).closest(".item-details-panel").length) {
+        this.close();
+    }
+});
 $dialog.on("close", () => $(document).trigger("pagecontentchange"));
 $purpose.on("change", filterItems);
 filterItems();

@@ -539,6 +539,65 @@ tr:hover {
     border-top: 1px solid rgb(var(--color-border-dark));
 }
 
+/* Consumable, activated and passive effects use distinct tooltip palettes. */
+.item-details {
+    --use-panel: #192b24;
+    --use-heading: #283e2c;
+    --use-accent: #a6cd8b;
+    --active-panel: #1d2c3a;
+    --active-heading: #263e52;
+    --active-accent: #a7d9ff;
+    --passive-panel: #2a2e32;
+    --passive-heading: #383d42;
+    --passive-accent: #d2d7dc;
+}
+.light-theme .item-details {
+    --use-panel: #e3ecdf;
+    --use-heading: #cdddc7;
+    --use-accent: #31562e;
+    --active-panel: #e1ebf3;
+    --active-heading: #c7dbe9;
+    --active-accent: #264f6b;
+    --passive-panel: #e4e5e5;
+    --passive-heading: #d2d5d6;
+    --passive-accent: #454d52;
+}
+.item-properties {
+    padding: var(--space-2) 0;
+    border-bottom: 1px solid rgb(var(--color-border));
+    color: rgb(var(--color-text-secondary));
+}
+.item-details .use-ability {
+    --effect-heading: var(--use-heading);
+    --effect-accent: var(--use-accent);
+    background: var(--use-panel);
+}
+.item-details .active-ability {
+    --effect-heading: var(--active-heading);
+    --effect-accent: var(--active-accent);
+    background: var(--active-panel);
+}
+.item-details .passive-ability {
+    --effect-heading: var(--passive-heading);
+    --effect-accent: var(--passive-accent);
+    background: var(--passive-panel);
+}
+.item-details .item-ability { border-left-color: var(--effect-accent); }
+.item-details .item-ability h4 {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 4px 10px;
+    margin: calc(-1 * var(--space-2)) calc(-1 * var(--space-2)) var(--space-2);
+    padding: 6px var(--space-2);
+    background: var(--effect-heading);
+    color: var(--effect-accent);
+}
+.item-ability small { font: 600 12px var(--font-family-2); }
+.item-ability small:first-of-type { margin-left: auto; }
+.item-details .item-ability strong { color: var(--effect-accent); }
+.item-details .item-lore { background: rgb(var(--color-background-main)); margin-bottom: 0; }
+
 
 
 

@@ -426,6 +426,10 @@ tr:hover {
     font-size: 18px;
 }
 
+.detail-icon { width: 76px; aspect-ratio: 4 / 3; object-fit: cover; border-radius: 4px; }
+.item-details-header { gap: 12px; }
+.item-details-header .close-item { margin-left: auto; flex: none; }
+
 .item-cost {
     display: flex;
     margin-top: 4px;

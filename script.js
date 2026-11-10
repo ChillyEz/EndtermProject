@@ -147,27 +147,6 @@ $(document).ready(function () {
     }
 });
 
-const itemPurpose = document.getElementById("item-purpose");
-if (itemPurpose) {
-    const cards = [...document.querySelectorAll(".item-card")];
-    for (const card of cards) {
-        const dialog = card.querySelector("dialog");
-        card.querySelector(".item-button").addEventListener("click", () => dialog.showModal());
-        card.querySelector(".close-item").addEventListener("click", () => dialog.close());
-    }
-    function filterItems() {
-        let count = 0;
-        for (const card of cards) {
-            card.hidden = Boolean(itemPurpose.value) && card.dataset.purpose !== itemPurpose.value;
-            if (!card.hidden) count++;
-        }
-        document.getElementById("item-count").textContent = count === 1 ? "1 item" : count + " items";
-        $(document).trigger("pagecontentchange");
-    }
-    itemPurpose.addEventListener("change", filterItems);
-    filterItems();
-}
-
 if (document.getElementById("contact-form")) {
     const form = document.querySelector("#contact-form");
 

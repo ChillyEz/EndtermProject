@@ -1458,7 +1458,6 @@ mark.search-match {
 }
 #copy-tooltip[hidden] { display: none; }
 .hero-portrait img:not([src]) { visibility: hidden; }
-.hero-portrait img[hidden] { display: none; }
 @media (prefers-reduced-motion: reduce) {
     .submit-spinner { animation: none; }
 }

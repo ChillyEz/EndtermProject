@@ -1,6 +1,7 @@
 import { heroes } from "./heroes.js";
+import { items } from "./items.js";
 
-// Assignment 6, Task 0: initialize jQuery after the DOM is ready.
+// ==================== [1] КАТАЛОГ ГЕРОЕВ, ЖИВОЙ ПОИСК И ПОДСКАЗКИ (heroes.html | A6 Tasks 0-2) ====================
 $(document).ready(function () {
     console.log("jQuery is ready!");
 
@@ -12,12 +13,7 @@ $(document).ready(function () {
         const $positionFilter = $("#position-filter");
         const $attackTypeFilter = $("#attack-type-filter");
 
-        const attributes = [
-            "Strength",
-            "Agility",
-            "Intelligence",
-            "Universal"
-        ];
+        const attributes = ["Strength", "Agility", "Intelligence", "Universal"];
         const attributeImages = {
             Strength: "heroes/web-ui/strength.png",
             Agility: "heroes/web-ui/agility.png",
@@ -25,7 +21,7 @@ $(document).ready(function () {
             Universal: "heroes/web-ui/universal.png"
         };
 
-        // Tasks 1 and 2: jQuery rendering, live filtering and search suggestions.
+        // Отрисовка секций атрибутов и карточек героев
         function renderHeroes(heroList) {
             $heroSections.empty();
             $("#hero-count").text(heroList.length
@@ -55,6 +51,7 @@ $(document).ready(function () {
             $(document).trigger("pagecontentchange");
         }
 
+        // Выпадающие подсказки автодополнения (Task 2)
         const $suggestions = $("#hero-suggestions");
         function hideSuggestions() {
             $suggestions.empty().prop("hidden", true);
@@ -65,12 +62,13 @@ $(document).ready(function () {
             if (!$searchInput.val().trim()) return;
             heroList.slice(0, 6).forEach((hero) => {
                 $suggestions.append($("<li>").append(
-                        $("<button>").attr("type", "button").text(hero.name)
+                    $("<button>").attr("type", "button").text(hero.name)
                 ));
             });
             $suggestions.prop("hidden", !$suggestions.children().length);
             $searchInput.attr("aria-expanded", String($suggestions.children().length > 0));
         }
+
         $searchInput.on("input focus", () => filterHeroes());
         $("#attribute-filter, #complexity-filter, #position-filter, #attack-type-filter")
             .on("change", () => filterHeroes());
@@ -88,7 +86,6 @@ $(document).ready(function () {
                 hideSuggestions();
             }
         }).on("focusout", () => {
-            // Allow focus to reach a suggestion button before checking the new target.
             setTimeout(() => {
                 if (!$(document.activeElement).closest(".hero-search-box").length) hideSuggestions();
             }, 0);
@@ -96,17 +93,15 @@ $(document).ready(function () {
 
         renderHeroes(heroes);
 
+        // Фильтрация по поиску, атрибуту (switch), сложности, позиции и типу атаки (Task 1)
         function filterHeroes(withSuggestions = true) {
             const searchText = $searchInput.val().trim().toLowerCase();
             const selectedAttribute = $attributeFilter.val();
             const selectedComplexity = $complexityFilter.val();
 
             const filteredHeroes = heroes.filter(function (hero) {
+                const matchesSearch = hero.name.toLowerCase().includes(searchText);
 
-                const matchesSearch =
-                    hero.name.toLowerCase().includes(searchText);
-
-                // Filter the hero catalog by the category selected by the user.
                 let matchesAttribute;
                 switch (selectedAttribute) {
                     case "Strength":
@@ -143,15 +138,102 @@ $(document).ready(function () {
             if (withSuggestions) showSuggestions(filteredHeroes);
             else hideSuggestions();
         }
-
     }
 });
 
+// ==================== [2] КАТАЛОГ ПРЕДМЕТОВ И ОКНО ДЕТАЛЕЙ (items.html) ====================
+$(document).ready(function () {
+    const $grid = $(".item-grid");
+    const $purpose = $("#item-purpose");
+    const $dialog = $(".item-details");
+    const template = document.getElementById("item-card-template");
+    if (!$grid.length || !template) return;
+
+    function showDetails(item) {
+        $dialog.find(".detail-icon").attr({ src: item.image, alt: item.name });
+        $dialog.find("#detail-name").text(item.name);
+        $dialog.find(".item-cost").toggle(item.cost != null).find("span").text(item.cost ?? "");
+        const $body = $dialog.find(".detail-body").empty();
+
+        if (item.properties) {
+            const $properties = $("<div>").addClass("item-properties").appendTo($body);
+            for (const [label, value] of Object.entries(item.properties)) {
+                $("<div>").text(`${label}: ${value}`).appendTo($properties);
+            }
+        }
+        if (item.stats) {
+            const $stats = $("<div>").addClass("item-stats").appendTo($body);
+            for (const stat of item.stats) $("<p>").text(stat).appendTo($stats);
+        }
+        for (const ability of item.abilities) {
+            const $section = $("<section>")
+                .addClass(`item-ability ${ability.type.toLowerCase()}-ability`)
+                .appendTo($body);
+            const $heading = $("<h4>").appendTo($section);
+            $("<span>").text(`${ability.type}: ${ability.name}`).appendTo($heading);
+            for (const [label, value] of Object.entries(ability.metrics ?? {})) {
+                $("<small>").text(`${label} ${value}`).appendTo($heading);
+            }
+            for (const line of ability.text) {
+                const $line = $("<p>").appendTo($section);
+                for (const part of line.split(/(\d+(?:\.\d+)?%?)/)) {
+                    if (/^\d/.test(part)) $("<strong>").text(part).appendTo($line);
+                    else $line.append(document.createTextNode(part));
+                }
+            }
+        }
+        if (item.lore) $("<p>").addClass("item-lore").text(item.lore).appendTo($body);
+
+        $dialog[0].showModal();
+        $(document).trigger("pagecontentchange");
+    }
+
+    for (const purpose of new Set(items.map((item) => item.purpose))) {
+        $purpose.append(new Option(purpose, purpose));
+    }
+
+    for (const item of items) {
+        const $card = $(template.content.firstElementChild.cloneNode(true));
+        $card.attr("data-purpose", item.purpose);
+        $card.find(".item-name").text(item.name);
+        $card.find(".item-image img").attr({ src: item.image, alt: item.name });
+        $card.find(".item-description").text(item.summary);
+        $card.find(".item-button").on("click", () => showDetails(item));
+        $grid.append($card);
+    }
+
+    function filterItems() {
+        const purpose = $purpose.val();
+        let count = 0;
+        $grid.children().each(function () {
+            this.hidden = Boolean(purpose) && this.dataset.purpose !== purpose;
+            if (!this.hidden) count++;
+        });
+        $("#item-count").text(count === 1 ? "1 item" : `${count} items`);
+        $(document).trigger("pagecontentchange");
+    }
+
+    // Закрытие по кнопке × и по клику вне панели (.item-details-panel)
+    let mouseDownOutside = false;
+    $dialog.find(".close-item").on("click", () => $dialog[0].close());
+    $dialog.on("mousedown", function (event) {
+        mouseDownOutside = !$(event.target).closest(".item-details-panel").length;
+    });
+    $dialog.on("click", function (event) {
+        if (mouseDownOutside && !$(event.target).closest(".item-details-panel").length) {
+            this.close();
+        }
+    });
+    $dialog.on("close", () => $(document).trigger("pagecontentchange"));
+    $purpose.on("change", filterItems);
+    filterItems();
+});
+
+// ==================== [3] КОНТАКТНАЯ ФОРМА, СПИННЕР И ПОПАП (index.html | A6 Task 6) ====================
 if (document.getElementById("contact-form")) {
     const form = document.querySelector("#contact-form");
-
-    // Assignment 6, Task 6: validate first, then simulate a short submission.
     let submitting = false;
+
     $(form).on("submit", function (event) {
         event.preventDefault();
         if (submitting) return;
@@ -167,8 +249,7 @@ if (document.getElementById("contact-form")) {
             errors.push("Enter at least 2 characters for your name.");
         }
 
-        const pattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;   //validation EMail
-
+        const pattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         if (inputEmail === "") {
             errors.push("Email is required");
         } else if (!pattern.test(inputEmail)) {
@@ -178,7 +259,6 @@ if (document.getElementById("contact-form")) {
         if (inputTopic === "") {
             errors.push("Choose one of the listed Topic");
         }
-
         if (inputMessage === "") {
             errors.push("Please enter your message");
         }
@@ -197,7 +277,6 @@ if (document.getElementById("contact-form")) {
                 document.createTextNode("Please wait…")
             );
             setTimeout(() => {
-                // This assignment simulates a server call; no message is sent.
                 formResult.textContent = "Demo complete: your message passed validation. No message was sent.";
                 form.reset();
                 $submitButton.text(originalText).prop("disabled", false).removeAttr("aria-busy");
@@ -207,7 +286,6 @@ if (document.getElementById("contact-form")) {
         } else {
             formErrors.textContent = errors.join("\n");
         }
-
     });
 
     const closeBtn = document.getElementById("close-contact");
@@ -217,65 +295,55 @@ if (document.getElementById("contact-form")) {
     closeBtn.addEventListener("click", () => {
         overlay.classList.remove("open");
     });
-
-    popup.addEventListener("click", (event) => {
-        const contactPopup = document.getElementById("contact-popup");
-        contactPopup.classList.add("open");
-
+    popup.addEventListener("click", () => {
+        overlay.classList.add("open");
     });
     overlay.addEventListener("click", (event) => {
         if (event.target === overlay) {
             overlay.classList.remove("open");
         }
     });
-
     $(document).on("keydown", (event) => {
         if (event.key === "Escape" && overlay.classList.contains("open")) {
             overlay.classList.remove("open");
         }
     });
-
 }
 
+// ==================== [4] АККОРДЕОН FAQ И МОБИЛЬНОЕ МЕНЮ (бургер) ====================
 const faqButtons = document.querySelectorAll(".faq-question");
-
 faqButtons.forEach((button) => {
-
     button.addEventListener("click", () => {
         button.closest(".faq-item").classList.toggle("open");
     });
-
 });
 
 const navbarBurger = document.querySelector(".menu-toggle");
 const navbar = document.querySelector(".top-navbar");
-
 if (navbarBurger && navbar) {
     navbarBurger.addEventListener("click", () => {
         navbar.classList.toggle("open");
-
         const isOpen = navbar.classList.contains("open");
         navbarBurger.setAttribute("aria-expanded", String(isOpen));
     });
 }
 
+// ==================== [5] ФОРМА РЕГИСТРАЦИИ И ВАЛИДАЦИЯ (register.html) ====================
 if (window.location.pathname.endsWith("register.html")) {
     const registerForm = document.getElementById("registration-form");
     let registering = false;
 
-    registerForm.addEventListener("submit", (event) => {
+    $(registerForm).on("submit", function (event) {
         event.preventDefault();
         if (registering) return;
 
-        const userName = document.getElementById("username").value.trim();
-        const emailRegister = document.getElementById("email").value.trim();
-        const password = document.getElementById("password").value.trim();
-        const confirmPassword = document.getElementById("confirm-password").value.trim();
-
+        const userName = ($("#username").val() || "").trim();
+        const emailRegister = ($("#email").val() || "").trim();
+        const password = ($("#password").val() || "").trim();
+        const confirmPassword = ($("#confirm-password").val() || "").trim();
         const registerErrors = [];
 
         const usernamePattern = /^[a-zA-Z][a-zA-Z0-9]*$/;
-
         if (userName === "") {
             registerErrors.push("Username cannot be blank");
         } else if (userName.length < 3) {
@@ -302,8 +370,7 @@ if (window.location.pathname.endsWith("register.html")) {
         if (!/\d/.test(password)) {
             registerErrors.push("Password must contain at least one digit");
         }
-
-        if (!document.getElementById("termsCons").checked) {
+        if (!$("#termsCons").prop("checked")) {
             registerErrors.push("Please agree to the terms before continuing.");
         }
 
@@ -330,75 +397,66 @@ if (window.location.pathname.endsWith("register.html")) {
         } else {
             registerErrorsElement.textContent = registerErrors.join("\n");
         }
-
     });
 }
 
-
+// ==================== [6] ЧАСЫ В ФУТЕРЕ И АНИМИРОВАННЫЕ ТАЙМЕРЫ ПАТЧЕЙ (A6 Task 5) ====================
 let is12Hour = false;
 const timeFormatButton = document.getElementById("toggle-time-format");
-
 if (timeFormatButton) {
     timeFormatButton.addEventListener("click", () => {
         is12Hour = !is12Hour;
-
         timeFormatButton.textContent = is12Hour ? "Switch to 24H" : "Switch to 12H";
         updateDateTime();
     });
 }
+
 function updateDateTime() {
     const now = new Date();
-    const formattedDate = now.toLocaleDateString("en-US",
-        {
-            year: "numeric",
-            month: "long",
-            day: "numeric"
-        }
-    );
-    const formattedTime = now.toLocaleTimeString("en-US",
-        {
-            hour: "2-digit",
-            minute: "2-digit",
-            second: "2-digit",
-            hour12: is12Hour
-        }
-    );
-
+    const formattedDate = now.toLocaleDateString("en-US", {
+        year: "numeric",
+        month: "long",
+        day: "numeric"
+    });
+    const formattedTime = now.toLocaleTimeString("en-US", {
+        hour: "2-digit",
+        minute: "2-digit",
+        second: "2-digit",
+        hour12: is12Hour
+    });
     const currentDateTime = document.getElementById("current-datetime");
-
-    currentDateTime.textContent = formattedDate + " | " + formattedTime;
-
+    currentDateTime.textContent = `${formattedDate} | ${formattedTime}`;
 }
 
 const patch732 = new Date("2022-08-24T03:44:00+05:00");
 const patch732end = new Date("2023-04-21T04:48:00+05:00");
-
 const patch739 = new Date("2025-05-23T03:08:00+05:00");
 const patch739end = new Date("2025-12-16T05:07:00+05:00");
-
 const patch741 = new Date("2026-03-25T04:43:00+05:00");
-
 const patch741f = new Date("2026-09-15T23:44:00+05:00");
 
-// Animate numeric text; keep the running value so repeated calls cannot queue up.
-function animateNumber($element, target, duration = 1400) {
+// Плавная анимация числа от текущего состояния до target
+function animateNumber($element, target, duration = 1400, onComplete) {
     const state = $element.data("counterState") || { value: 0 };
     $element.data("counterState", state);
     const $animation = $(state);
     $animation.stop(true, false);
     const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-    // Reset rolled-over units directly (59 seconds -> 0), without counting backwards.
     if (reducedMotion || target <= state.value) {
         state.value = target;
         $element.text(target);
+        if (onComplete) onComplete();
         return;
     }
     $animation.animate({ value: target }, {
         duration,
         easing: "swing",
         step: (value) => $element.text(Math.floor(value)),
-        complete: () => $element.text(target)
+        complete: () => {
+            $element.text(target);
+            if (onComplete) onComplete();
+        }
     });
 }
 
@@ -435,7 +493,6 @@ function calculatePatchDuration(patchStart, patchEnd, elementId) {
 
 function updatePatchDuration(patch) {
     const now = new Date();
-
     calculatePatchDuration(patch741f, now, "patch-duration");
     calculatePatchDuration(patch, now, "duration-741");
 }
@@ -452,11 +509,13 @@ if (document.getElementById("current-datetime")) {
     setInterval(updateDateTime, 1000);
 }
 
-// Arrow navigation between menu links, with wrapping at both ends.
+// ==================== [7] НАВИГАЦИЯ СТРЕЛКАМИ ПО МЕНЮ (A5 Task 3) ====================
 if (navbar) {
     const menuLinks = Array.from(navbar.querySelectorAll("a"));
 
-    navbar.addEventListener("keydown", (event) => {
+    document.addEventListener("keydown", (event) => {
+        if ($(event.target).closest("input, textarea, select, [contenteditable]").length) return;
+
         const currentIndex = menuLinks.indexOf(document.activeElement);
         const isMobile = window.matchMedia("(max-width: 768px)").matches;
         let direction;
@@ -476,14 +535,21 @@ if (navbar) {
                 return;
         }
 
-        if (currentIndex === -1) return;
         event.preventDefault();
-        const nextIndex = (currentIndex + direction + menuLinks.length) % menuLinks.length;
+        // Если фокус ещё не в меню — отталкиваемся от текущей активной ссылки (.active)
+        const baseIndex = currentIndex !== -1
+            ? currentIndex
+            : menuLinks.findIndex((link) => link.classList.contains("active"));
+
+        const nextIndex = baseIndex !== -1
+            ? (baseIndex + direction + menuLinks.length) % menuLinks.length
+            : (direction > 0 ? 0 : menuLinks.length - 1);
+
         menuLinks[nextIndex].focus();
     });
 }
 
-// One audio player prevents sounds from overlapping
+// ==================== [8] ЗВУКОВЫЕ ЭФФЕКТЫ И РЕЙТИНГ 5 ЗВЁЗД (A5 Tasks 1, 8) ====================
 const ratingSounds = {
     1: "heroes/sounds/Ui_magic_immune.mp3.mpeg",
     2: "heroes/sounds/Ui_deny_mana.mp3.mpeg",
@@ -523,7 +589,6 @@ if (soundToggle) {
 
 const ratingStars = document.querySelectorAll(".rating-star");
 const ratingMessage = document.getElementById("rating-message");
-
 ratingStars.forEach((star) => {
     star.addEventListener("click", () => {
         const rating = Number(star.dataset.rating);
@@ -536,7 +601,7 @@ ratingStars.forEach((star) => {
     });
 });
 
-// Shared portrait: missing local files show the hero's initials until images are added.
+// ==================== [9] ПОРТРЕТЫ ГЕРОЕВ И МНОГОШАГОВЫЙ КВИЗ (index.html | A5 Tasks 4, 5, 7) ====================
 function createHeroPortrait(hero) {
     const portrait = document.createElement("div");
     portrait.className = "hero-portrait";
@@ -546,7 +611,7 @@ function createHeroPortrait(hero) {
     initials.setAttribute("aria-hidden", "true");
     const image = document.createElement("img");
     image.alt = hero.name;
-    // Task 9: the real URL is assigned only when the portrait enters the viewport.
+    // Task 9: реальный src подставляется только при входе во viewport
     image.dataset.src = hero.image;
     image.addEventListener("error", () => {
         image.hidden = true;
@@ -555,7 +620,6 @@ function createHeroPortrait(hero) {
     return portrait;
 }
 
-// Multi-step hero quiz: position discovery and weighted recommendations.
 const quiz = document.getElementById("hero-quiz");
 if (quiz) {
     const steps = quiz.querySelectorAll(".quiz-step");
@@ -576,7 +640,6 @@ if (quiz) {
         getPositions() {
             if (this.answers.position !== "Auto") return [this.answers.position];
 
-            // Points follow the five positions above. Both answers contribute.
             const teamPoints = {
                 Farm: [3, 1, 0, 0, 0], Burst: [1, 3, 0, 1, 0],
                 Initiate: [0, 1, 3, 2, 0], Roam: [0, 2, 1, 3, 0],
@@ -590,7 +653,7 @@ if (quiz) {
             return positions.map((position, index) => ({
                 position,
                 score: teamPoints[this.answers.playstyle][index] +
-                lanePoints[this.answers.earlyGame][index]
+                    lanePoints[this.answers.earlyGame][index]
             })).filter((entry) => entry.score > 0)
                 .sort((a, b) => b.score - a.score)
                 .slice(0, 2).map((entry) => entry.position);
@@ -607,7 +670,6 @@ if (quiz) {
                 default: selectedAttribute = null;
             }
 
-            // A chosen position is required. Other preferences contribute points.
             const candidates = heroes.filter((hero) =>
                 hero.positions.some((position) => preferredPositions.includes(position))
             );
@@ -615,7 +677,7 @@ if (quiz) {
             for (const hero of candidates) {
                 const position = preferredPositions.find((value) => hero.positions.includes(value));
                 let score = position === preferredPositions[0] ? 6 : 4;
-                let maximum = 10; // Position (6 + 1 preferred) and playstyle (3).
+                let maximum = 10;
                 if (hero.preferredPosition === position) score += 1;
                 const matches = [`Position: ${position}`];
                 const differences = [];
@@ -655,7 +717,7 @@ if (quiz) {
                         differences.push(`Complexity ${hero.complexity}/3 (you chose ${this.answers.complexity}/3)`);
                     }
                 }
-                recommendations.push({hero, score, percent: Math.round(score / maximum * 100), matches, differences});
+                recommendations.push({ hero, score, percent: Math.round(score / maximum * 100), matches, differences });
             }
             return recommendations.sort((a, b) => b.score - a.score || a.hero.name.localeCompare(b.hero.name))
                 .slice(0, 4);
@@ -683,7 +745,7 @@ if (quiz) {
         backButton.disabled = step === 0;
         nextButton.hidden = step === questionCount;
         nextButton.textContent = step === questionCount - 1 ? "Find my heroes" : "Next";
-        steps[step].querySelector("select, h3").focus({preventScroll: true});
+        steps[step].querySelector("select, h3").focus({ preventScroll: true });
         $(document).trigger("pagecontentchange");
     }
 
@@ -727,7 +789,6 @@ if (quiz) {
     }
 
     nextButton.addEventListener("click", () => {
-        // Validate every field on this step; previous selections remain in the DOM.
         for (const input of steps[heroQuiz.step].querySelectorAll("select")) {
             if (!input.reportValidity()) return;
         }
@@ -743,7 +804,7 @@ if (quiz) {
     });
 }
 
-// Assignment 5: Day / Night theme, shared by every page.
+// ==================== [10] ПЕРЕКЛЮЧАТЕЛЬ ТЕМЫ DAY / NIGHT И LOCALSTORAGE (A5 Task 2) ====================
 const themeButtons = document.querySelectorAll(".theme-toggle");
 
 function applyTheme(theme) {
@@ -761,7 +822,7 @@ let savedTheme = "dark";
 try {
     savedTheme = localStorage.getItem("dota-wiki-theme") || "dark";
 } catch {
-    // Theme switching still works when browser storage is unavailable.
+    // Используем тему по умолчанию, если хранилище недоступно
 }
 applyTheme(savedTheme);
 
@@ -772,12 +833,12 @@ themeButtons.forEach((button) => {
         try {
             localStorage.setItem("dota-wiki-theme", theme);
         } catch {
-            // The current page can use the selected theme without saving it.
+            // Тема работает на странице даже без сохранения
         }
     });
 });
 
-// Assignment 6, Tasks 3 and 4: page search and scroll progress.
+// ==================== [11] ПОЛОСА ПРОКРУТКИ И ПОИСК С ПОДСВЕТКОЙ ПО СТРАНИЦЕ (A6 Tasks 3, 4) ====================
 $(document).ready(function () {
     const $main = $("main");
     const $search = $("#page-search-input");
@@ -793,7 +854,6 @@ $(document).ready(function () {
     }
 
     function highlightPage() {
-        // Unwrap only our marks, preserving elements and their event listeners.
         $main.find("mark.search-match").each(function () {
             $(this).replaceWith(document.createTextNode($(this).text()));
         });
@@ -807,7 +867,6 @@ $(document).ready(function () {
             return;
         }
 
-        // Escape regex characters: user input is literal text, not a pattern.
         const escaped = query.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
         const pattern = new RegExp(escaped, "gi");
         const walker = document.createTreeWalker($main[0], NodeFilter.SHOW_TEXT);
@@ -816,13 +875,12 @@ $(document).ready(function () {
             const node = walker.currentNode;
             const $parent = $(node.parentElement);
             if (!node.nodeValue.trim() || $parent.closest(
-                    "script, style, input, textarea, select, [hidden], [aria-hidden='true'], " +
-                    ".hero-initials, #hero-suggestions, #patch-duration, #duration-741, #duration-732, #duration-739, .counting, .copy-controls"
-                ).length || !$parent.is(":visible")) continue;
+                "script, style, input, textarea, select, [hidden], [aria-hidden='true'], " +
+                ".hero-initials, #hero-suggestions, #patch-duration, #duration-741, #duration-732, #duration-739, .counting, .copy-controls"
+            ).length || !$parent.is(":visible")) continue;
             nodes.push(node);
         }
 
-        // The counter and its label form one sentence across two DOM nodes.
         const groups = new Map();
         for (const node of nodes) {
             const key = node.parentElement.closest(".hero-stat") || node;
@@ -831,11 +889,11 @@ $(document).ready(function () {
         }
         let count = 0;
         groups.forEach((group) => {
-            const matches = [...group.map(node => node.nodeValue).join("").matchAll(pattern)];
+            const matches = [...group.map((node) => node.nodeValue).join("").matchAll(pattern)];
             if (!matches.length) return;
             count += matches.length;
             let offset = 0;
-            group.forEach(node => {
+            group.forEach((node) => {
                 const text = node.nodeValue;
                 const fragment = document.createDocumentFragment();
                 let previous = 0;
@@ -867,13 +925,12 @@ $(document).ready(function () {
     });
     $(document).on("pagecontentchange", highlightPage);
     $(window).on("scroll resize load", updateScrollProgress);
-    // FAQ transitions, image loading and filtering can change the page height.
     const observer = new ResizeObserver(updateScrollProgress);
     observer.observe(document.body);
     updateScrollProgress();
 });
 
-// Assignment 6, Task 7: one reusable notification, without queued duplicates.
+// ==================== [12] УВЕДОМЛЕНИЯ TOAST, СЧЁТЧИК ГЕРОЕВ, БУФЕР ОБМЕНА И LAZY LOADING (A6 Tasks 5, 7, 8, 9) ====================
 function showToast(message) {
     let $toast = $("#site-toast");
     if (!$toast.length) {
@@ -886,18 +943,17 @@ function showToast(message) {
 }
 
 $(document).ready(function () {
-    // Task 5: animate the real catalog total once, independently of filters.
+    // Task 5: плавный счётчик общего числа героев (127)
     const $total = $("#hero-total");
     if ($total.length) {
         $total.addClass("counting");
-        animateNumber($total, heroes.length);
-        $($total.data("counterState")).promise().done(() => {
+        animateNumber($total, heroes.length, 1400, () => {
             $total.removeClass("counting");
             $(document).trigger("pagecontentchange");
         });
     }
 
-    // Task 8: copy the currently displayed hero names and confirm only on success.
+    // Task 8: копирование рекомендованных героев в буфер обмена
     const $copyButton = $("#copy-recommendations");
     const $tooltip = $("#copy-tooltip");
     let copyTimer;
@@ -928,7 +984,7 @@ $(document).ready(function () {
     });
     $(document).on("pagecontentchange", resetCopyFeedback);
 
-    // Task 9: jQuery viewport checks, not the browser's loading="lazy" attribute.
+    // Task 9: ленивая подгрузка портретов при попадании во viewport
     function loadVisiblePortraits() {
         const top = $(window).scrollTop();
         const bottom = top + $(window).height();
@@ -947,9 +1003,9 @@ $(document).ready(function () {
     loadVisiblePortraits();
 });
 
+// ==================== [13] ИНТЕРАКТИВНАЯ КАРТА ЛИНИЙ И БАЗ (map.html) ====================
 const laneMap = document.getElementById("lane-map");
 if (laneMap) {
-    // Coordinates are percentages of the square map, excluding its printed legend.
     const places = [
         { name: "Mid lane", pin: "M", x: 47, y: 52, guide: "Mid connects the bases through the river. Watch both approaches before crossing the river, especially when an enemy disappears from a side lane." },
         { name: "Top lane", pin: "T", x: 26, y: 11, guide: "Top is the Dire safe lane and the Radiant offlane. As a Dire carry, keep the creep wave close to your tower so you have a shorter retreat." },

@@ -1,7 +1,7 @@
 import { heroes } from "./heroes.js";
 import { items } from "./items.js";
 
-// ==================== [1] КАТАЛОГ ГЕРОЕВ, ЖИВОЙ ПОИСК И ПОДСКАЗКИ (heroes.html | A6 Tasks 0-2) ====================
+// ==================== [1] HERO CATALOG, LIVE SEARCH & AUTOCOMPLETE (heroes.html | A6 Tasks 0-2) ====================
 $(document).ready(function () {
     console.log("jQuery is ready!");
 
@@ -21,7 +21,7 @@ $(document).ready(function () {
             Universal: "heroes/web-ui/universal.png"
         };
 
-        // Отрисовка секций атрибутов и карточек героев
+        // Render attribute sections and hero cards
         function renderHeroes(heroList) {
             $heroSections.empty();
             $("#hero-count").text(heroList.length
@@ -51,7 +51,7 @@ $(document).ready(function () {
             $(document).trigger("pagecontentchange");
         }
 
-        // Выпадающие подсказки автодополнения (Task 2)
+        // Autocomplete search dropdown (Task 2)
         const $suggestions = $("#hero-suggestions");
         function hideSuggestions() {
             $suggestions.empty().prop("hidden", true);
@@ -93,7 +93,7 @@ $(document).ready(function () {
 
         renderHeroes(heroes);
 
-        // Фильтрация по поиску, атрибуту (switch), сложности, позиции и типу атаки (Task 1)
+        // Filter heroes by search text, attribute (switch), complexity, position and attack type (Task 1)
         function filterHeroes(withSuggestions = true) {
             const searchText = $searchInput.val().trim().toLowerCase();
             const selectedAttribute = $attributeFilter.val();
@@ -141,7 +141,7 @@ $(document).ready(function () {
     }
 });
 
-// ==================== [2] КАТАЛОГ ПРЕДМЕТОВ И ОКНО ДЕТАЛЕЙ (items.html) ====================
+// ==================== [2] ITEM CATALOG & DETAILS MODAL (items.html) ====================
 $(document).ready(function () {
     const $grid = $(".item-grid");
     const $purpose = $("#item-purpose");
@@ -213,7 +213,7 @@ $(document).ready(function () {
         $(document).trigger("pagecontentchange");
     }
 
-    // Закрытие по кнопке × и по клику вне панели (.item-details-panel)
+    // Close modal via close button or outside backdrop click
     let mouseDownOutside = false;
     $dialog.find(".close-item").on("click", () => $dialog[0].close());
     $dialog.on("mousedown", function (event) {
@@ -229,7 +229,7 @@ $(document).ready(function () {
     filterItems();
 });
 
-// ==================== [3] КОНТАКТНАЯ ФОРМА, СПИННЕР И ПОПАП (index.html | A6 Task 6) ====================
+// ==================== [3] CONTACT FORM, SUBMIT SPINNER & POPUP (index.html | A6 Task 6) ====================
 if (document.getElementById("contact-form")) {
     const form = document.querySelector("#contact-form");
     let submitting = false;
@@ -310,7 +310,7 @@ if (document.getElementById("contact-form")) {
     });
 }
 
-// ==================== [4] АККОРДЕОН FAQ И МОБИЛЬНОЕ МЕНЮ (бургер) ====================
+// ==================== [4] FAQ ACCORDION & MOBILE MENU TOGGLE ====================
 const faqButtons = document.querySelectorAll(".faq-question");
 faqButtons.forEach((button) => {
     button.addEventListener("click", () => {
@@ -328,7 +328,7 @@ if (navbarBurger && navbar) {
     });
 }
 
-// ==================== [5] ФОРМА РЕГИСТРАЦИИ И ВАЛИДАЦИЯ (register.html) ====================
+// ==================== [5] REGISTRATION FORM & VALIDATION (register.html) ====================
 if (window.location.pathname.endsWith("register.html")) {
     const registerForm = document.getElementById("registration-form");
     let registering = false;
@@ -400,7 +400,7 @@ if (window.location.pathname.endsWith("register.html")) {
     });
 }
 
-// ==================== [6] ЧАСЫ В ФУТЕРЕ И АНИМИРОВАННЫЕ ТАЙМЕРЫ ПАТЧЕЙ (A6 Task 5) ====================
+// ==================== [6] FOOTER CLOCK & ANIMATED PATCH TIMERS (A6 Task 5) ====================
 let is12Hour = false;
 const timeFormatButton = document.getElementById("toggle-time-format");
 if (timeFormatButton) {
@@ -435,7 +435,7 @@ const patch739end = new Date("2025-12-16T05:07:00+05:00");
 const patch741 = new Date("2026-03-25T04:43:00+05:00");
 const patch741f = new Date("2026-09-15T23:44:00+05:00");
 
-// Плавная анимация числа от текущего состояния до target
+// Smoothly animate numeric text from current state to target value
 function animateNumber($element, target, duration = 1400, onComplete) {
     const state = $element.data("counterState") || { value: 0 };
     $element.data("counterState", state);
@@ -509,7 +509,7 @@ if (document.getElementById("current-datetime")) {
     setInterval(updateDateTime, 1000);
 }
 
-// ==================== [7] НАВИГАЦИЯ СТРЕЛКАМИ ПО МЕНЮ (A5 Task 3) ====================
+// ==================== [7] KEYBOARD ARROW NAVIGATION FOR MENU (A5 Task 3) ====================
 if (navbar) {
     const menuLinks = Array.from(navbar.querySelectorAll("a"));
 
@@ -536,7 +536,7 @@ if (navbar) {
         }
 
         event.preventDefault();
-        // Если фокус ещё не в меню — отталкиваемся от текущей активной ссылки (.active)
+        // Start from the active link (.active) if no menu link is focused yet
         const baseIndex = currentIndex !== -1
             ? currentIndex
             : menuLinks.findIndex((link) => link.classList.contains("active"));
@@ -549,7 +549,7 @@ if (navbar) {
     });
 }
 
-// ==================== [8] ЗВУКОВЫЕ ЭФФЕКТЫ И РЕЙТИНГ 5 ЗВЁЗД (A5 Tasks 1, 8) ====================
+// ==================== [8] SOUND EFFECTS & 5-STAR RATING (A5 Tasks 1, 8) ====================
 const ratingSounds = {
     1: "heroes/sounds/Ui_magic_immune.mp3.mpeg",
     2: "heroes/sounds/Ui_deny_mana.mp3.mpeg",
@@ -601,7 +601,7 @@ ratingStars.forEach((star) => {
     });
 });
 
-// ==================== [9] ПОРТРЕТЫ ГЕРОЕВ И МНОГОШАГОВЫЙ КВИЗ (index.html | A5 Tasks 4, 5, 7) ====================
+// ==================== [9] HERO PORTRAITS & MULTI-STEP QUIZ (index.html | A5 Tasks 4, 5, 7) ====================
 function createHeroPortrait(hero) {
     const portrait = document.createElement("div");
     portrait.className = "hero-portrait";
@@ -611,7 +611,7 @@ function createHeroPortrait(hero) {
     initials.setAttribute("aria-hidden", "true");
     const image = document.createElement("img");
     image.alt = hero.name;
-    // Task 9: реальный src подставляется только при входе во viewport
+    // Task 9: assign real src only when portrait enters viewport
     image.dataset.src = hero.image;
     image.addEventListener("error", () => {
         image.hidden = true;
@@ -804,7 +804,7 @@ if (quiz) {
     });
 }
 
-// ==================== [10] ПЕРЕКЛЮЧАТЕЛЬ ТЕМЫ DAY / NIGHT И LOCALSTORAGE (A5 Task 2) ====================
+// ==================== [10] DAY / NIGHT THEME TOGGLE & LOCALSTORAGE (A5 Task 2) ====================
 const themeButtons = document.querySelectorAll(".theme-toggle");
 
 function applyTheme(theme) {
@@ -822,7 +822,7 @@ let savedTheme = "dark";
 try {
     savedTheme = localStorage.getItem("dota-wiki-theme") || "dark";
 } catch {
-    // Используем тему по умолчанию, если хранилище недоступно
+    // Fall back to default theme if localStorage is unavailable
 }
 applyTheme(savedTheme);
 
@@ -833,12 +833,12 @@ themeButtons.forEach((button) => {
         try {
             localStorage.setItem("dota-wiki-theme", theme);
         } catch {
-            // Тема работает на странице даже без сохранения
+            // Theme still applies to current page without storage
         }
     });
 });
 
-// ==================== [11] ПОЛОСА ПРОКРУТКИ И ПОИСК С ПОДСВЕТКОЙ ПО СТРАНИЦЕ (A6 Tasks 3, 4) ====================
+// ==================== [11] SCROLL PROGRESS BAR & PAGE SEARCH HIGHLIGHTING (A6 Tasks 3, 4) ====================
 $(document).ready(function () {
     const $main = $("main");
     const $search = $("#page-search-input");
@@ -930,7 +930,7 @@ $(document).ready(function () {
     updateScrollProgress();
 });
 
-// ==================== [12] УВЕДОМЛЕНИЯ TOAST, СЧЁТЧИК ГЕРОЕВ, БУФЕР ОБМЕНА И LAZY LOADING (A6 Tasks 5, 7, 8, 9) ====================
+// ==================== [12] TOAST NOTIFICATIONS, HERO COUNTER, CLIPBOARD & LAZY LOADING (A6 Tasks 5, 7, 8, 9) ====================
 function showToast(message) {
     let $toast = $("#site-toast");
     if (!$toast.length) {
@@ -943,7 +943,7 @@ function showToast(message) {
 }
 
 $(document).ready(function () {
-    // Task 5: плавный счётчик общего числа героев (127)
+    // Task 5: animate total hero count (127)
     const $total = $("#hero-total");
     if ($total.length) {
         $total.addClass("counting");
@@ -953,7 +953,7 @@ $(document).ready(function () {
         });
     }
 
-    // Task 8: копирование рекомендованных героев в буфер обмена
+    // Task 8: copy recommended hero names to clipboard
     const $copyButton = $("#copy-recommendations");
     const $tooltip = $("#copy-tooltip");
     let copyTimer;
@@ -984,7 +984,7 @@ $(document).ready(function () {
     });
     $(document).on("pagecontentchange", resetCopyFeedback);
 
-    // Task 9: ленивая подгрузка портретов при попадании во viewport
+    // Task 9: lazy-load hero portraits when entering viewport
     function loadVisiblePortraits() {
         const top = $(window).scrollTop();
         const bottom = top + $(window).height();
@@ -1003,7 +1003,7 @@ $(document).ready(function () {
     loadVisiblePortraits();
 });
 
-// ==================== [13] ИНТЕРАКТИВНАЯ КАРТА ЛИНИЙ И БАЗ (map.html) ====================
+// ==================== [13] INTERACTIVE LANE & BASE MAP (map.html) ====================
 const laneMap = document.getElementById("lane-map");
 if (laneMap) {
     const places = [

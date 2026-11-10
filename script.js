@@ -29,7 +29,7 @@ $(document).ready(function () {
         function renderHeroes(heroList) {
             $heroSections.empty();
             $("#hero-count").text(heroList.length
-                ? `${heroList.length} heroes found`
+                ? `${heroList.length} ${heroList.length === 1 ? "hero" : "heroes"} found`
                 : "No heroes match these filters.");
 
             attributes.forEach((attribute) => {
@@ -147,31 +147,26 @@ $(document).ready(function () {
     }
 });
 
-const itemButtons = document.querySelectorAll(".item-button");
-const closeButtons = document.querySelectorAll(".close-item");
-
-itemButtons.forEach(function (button) {
-    button.addEventListener("click", function () {
-
-        document.querySelectorAll(".item-card.details-open")
-            .forEach(function (card) {
-            card.classList.remove("details-open");
-        });
-
-        const card = button.closest(".item-card");
-        card.classList.add("details-open");
-    });
-});
-
-closeButtons.forEach(function (button) {
-
-    button.addEventListener("click", function () {
-        const card = button.closest(".item-card");
-        card.classList.remove("details-open");
-
-    });
-
-});
+const itemPurpose = document.getElementById("item-purpose");
+if (itemPurpose) {
+    const cards = [...document.querySelectorAll(".item-card")];
+    for (const card of cards) {
+        const dialog = card.querySelector("dialog");
+        card.querySelector(".item-button").addEventListener("click", () => dialog.showModal());
+        card.querySelector(".close-item").addEventListener("click", () => dialog.close());
+    }
+    function filterItems() {
+        let count = 0;
+        for (const card of cards) {
+            card.hidden = Boolean(itemPurpose.value) && card.dataset.purpose !== itemPurpose.value;
+            if (!card.hidden) count++;
+        }
+        document.getElementById("item-count").textContent = count === 1 ? "1 item" : count + " items";
+        $(document).trigger("pagecontentchange");
+    }
+    itemPurpose.addEventListener("change", filterItems);
+    filterItems();
+}
 
 if (document.getElementById("contact-form")) {
     const form = document.querySelector("#contact-form");
@@ -190,7 +185,7 @@ if (document.getElementById("contact-form")) {
         if (inputName === "") {
             errors.push("Name is required");
         } else if (inputName.length < 2) {
-            errors.push("Name must contain more than 2 symbols");
+            errors.push("Enter at least 2 characters for your name.");
         }
 
         const pattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;   //validation EMail
@@ -300,8 +295,6 @@ if (window.location.pathname.endsWith("register.html")) {
             registerErrors.push("Username must contain at least 3 symbols");
         } else if (!usernamePattern.test(userName)) {
             registerErrors.push("Username must start with a letter and NO special symbols!");
-        } else {
-            console.log("username is ok");
         }
 
         const pattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -314,13 +307,17 @@ if (window.location.pathname.endsWith("register.html")) {
         if (password === "" || confirmPassword === "") {
             registerErrors.push("Fill both password and confirm password fields!");
         } else if (password !== confirmPassword) {
-            registerErrors.push("Passwords does not match!");
+            registerErrors.push("The passwords must match.");
         }
         if (password.length < 8) {
             registerErrors.push("Password length must be at least 8 characters");
         }
         if (!/\d/.test(password)) {
             registerErrors.push("Password must contain at least one digit");
+        }
+
+        if (!document.getElementById("termsCons").checked) {
+            registerErrors.push("Please agree to the terms before continuing.");
         }
 
         const registerErrorsElement = document.getElementById("register-errors");
@@ -338,26 +335,6 @@ if (window.location.pathname.endsWith("register.html")) {
     });
 }
 
-const colors = [
-    "#121212",
-    "#303F50",
-    "#354735",
-    "#503535",
-    "#504530"
-];
-const lightColors = ["#f0f3f7", "#e3edf7", "#e5f1e4", "#f5e6e6", "#f5efdc"];
-
-const pageMode = document.querySelector(".page-mode");
-let colorIndex = 0;
-
-if (pageMode) {
-    pageMode.addEventListener("click", () => {
-        const palette = document.body.classList.contains("light-theme") ? lightColors : colors;
-        document.body.style.backgroundImage = "none";
-        document.body.style.backgroundColor = palette[colorIndex];
-        colorIndex = (colorIndex + 1) % palette.length;
-    });
-}
 
 let is12Hour = false;
 const timeFormatButton = document.getElementById("toggle-time-format");
@@ -774,11 +751,6 @@ function applyTheme(theme) {
     const isLight = theme === "light";
     document.body.classList.toggle("light-theme", isLight);
 
-    // Let theme variables control the background after a manual color change.
-    document.body.style.removeProperty("background-color");
-    document.body.style.removeProperty("background-image");
-    colorIndex = 0;
-
     themeButtons.forEach((button) => {
         button.textContent = isLight ? "Theme: Light" : "Theme: Dark";
         button.setAttribute("aria-pressed", String(isLight));
@@ -955,3 +927,41 @@ $(document).ready(function () {
     $(document).on("pagecontentchange", loadVisiblePortraits);
     loadVisiblePortraits();
 });
+
+const laneMap = document.getElementById("lane-map");
+if (laneMap) {
+    // Coordinates are percentages of the square map, excluding its printed legend.
+    const places = [
+        { name: "Mid lane", pin: "M", x: 47, y: 52, guide: "Mid connects the bases through the river. Watch both approaches before crossing the river, especially when an enemy disappears from a side lane." },
+        { name: "Top lane", pin: "T", x: 26, y: 11, guide: "Top is the Dire safe lane and the Radiant offlane. As a Dire carry, keep the creep wave close to your tower so you have a shorter retreat." },
+        { name: "Bottom lane", pin: "B", x: 64, y: 89, guide: "Bottom is the Radiant safe lane and the Dire offlane. A Radiant support can protect the carry by watching the paths from the river." },
+        { name: "Radiant base", pin: "R", x: 13, y: 83, guide: "Radiant starts in the southwest. The three lanes lead back to this high ground. If the enemy pushes into the base, defend the Ancient." },
+        { name: "Dire base", pin: "D", x: 87, y: 17, guide: "Dire starts in the northeast. From here, choose a lane to leave the base. As Radiant, breaking through these defenses opens the way to the Dire Ancient." }
+    ];
+    const select = document.getElementById("map-location");
+    function showPlace(index) {
+        const place = places[index];
+        select.selectedIndex = index;
+        document.getElementById("location-title").textContent = place.name;
+        document.getElementById("location-description").textContent = place.guide;
+        laneMap.querySelectorAll("button").forEach((button, i) => {
+            button.setAttribute("aria-pressed", String(i === index));
+        });
+        $(document).trigger("pagecontentchange");
+    }
+    places.forEach((place, index) => {
+        select.add(new Option(place.name, place.name));
+        const button = document.createElement("button");
+        button.type = "button";
+        button.className = "map-pin";
+        button.textContent = place.pin;
+        button.title = place.name;
+        button.setAttribute("aria-label", place.name);
+        button.style.left = place.x + "%";
+        button.style.top = place.y + "%";
+        button.addEventListener("click", () => showPlace(index));
+        laneMap.append(button);
+    });
+    select.addEventListener("change", () => showPlace(select.selectedIndex));
+    showPlace(0);
+}

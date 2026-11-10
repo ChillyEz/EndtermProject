@@ -1,8 +1,7 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <!-- Created by Amir Baiseitov SE-2505 AITU Student, @Chilly_25 - Official Developer , Software Engineer and Designer of the website, https://github.com/ChillyEz -->
-    <title>Items</title>
+    <title>Items | Dota 2 Wiki</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="styles.css">
@@ -30,6 +29,7 @@
         <a href="index.html">Home</a>
         <a href="heroes.html">Heroes</a>
         <a href="items.html" class ="active">Items</a>
+        <a href="map.html">Map</a>
         <a href="esports.html">Esports</a>
     </nav>
 
@@ -40,7 +40,7 @@
     <a href="register.html" class="register-link">
         Register
     </a>
-    <form class="page-search" role="search">
+    <form class="page-search" role="search" novalidate>
         <label for="page-search-input">Search this page</label>
         <input id="page-search-input" type="search" placeholder="Find text on this page..." autocomplete="off" aria-describedby="page-search-status">
         <button type="submit">Find</button>
@@ -51,9 +51,20 @@
 <div class="overlay"></div>
     
     <main>
-        <h2>Items</h2>
+        <h1>Items</h1>
+        <div class="item-filters">
+            <label for="item-purpose">What do you need?</label>
+            <select id="item-purpose">
+                <option value="">All items</option>
+                <option>Recovery</option>
+                <option>Damage</option>
+                <option>Defense</option>
+                <option>Mobility</option>
+            </select>
+            <span id="item-count" role="status"></span>
+        </div>
         <div class="item-grid">
-            <article class="item-card">
+            <article class="item-card" data-purpose="Recovery">
 
     <div class="item-basic">
 
@@ -63,9 +74,7 @@
             <img src="images/item-icons/tango.jpg" alt="Tango">
         </div>
 
-        <p class="item-description">
-            Comes with 3 charges. Can be used on an allied hero to give them one Tango.
-        </p>
+        <p class="item-description">Bring Tangos to recover between trades without leaving your lane.</p>
 
         <button class="item-button" type="button">
             View Details
@@ -74,7 +83,7 @@
     </div>
 
 
-    <div class="item-details">
+    <dialog class="item-details" aria-label="Tango details">
 
         <div class="item-details-header">
 
@@ -86,14 +95,9 @@
                 </span>
             </div>
 
-            <button class="close-item" type="button">
+            <button class="close-item" type="button" aria-label="Close item details">
                 ×
             </button>
-
-        </div>
-
-
-        <div class="item-stats">
 
         </div>
 
@@ -117,10 +121,9 @@
             Forage to survive on the battlefield.
         </p>
 
-    </div>
-
+    </dialog>
 </article>
-            <article class="item-card">
+            <article class="item-card" data-purpose="Damage">
 
     <div class="item-basic">
 
@@ -130,10 +133,7 @@
             <img src="images/item-icons/bloodthorn.jpg" alt="Bloodthorn">
         </div>
 
-        <p class="item-description">
-            A powerful item that provides intelligence, attack speed,
-            damage and magic resistance.
-        </p>
+        <p class="item-description">Choose Bloodthorn when your team can focus attacks on a silenced target.</p>
 
         <button class="item-button" type="button">
             View Details
@@ -142,7 +142,7 @@
     </div>
 
 
-    <div class="item-details">
+    <dialog class="item-details" aria-label="Bloodthorn details">
 
         <div class="item-details-header">
 
@@ -154,7 +154,7 @@
                 </span>
             </div>
 
-            <button class="close-item" type="button">
+            <button class="close-item" type="button" aria-label="Close item details">
                 ×
             </button>
 
@@ -227,11 +227,10 @@
             of its victim's final throes.
         </p>
 
-    </div>
-
+    </dialog>
 </article>
 
-<article class="item-card">
+<article class="item-card" data-purpose="Defense">
 
     <div class="item-basic">
 
@@ -245,9 +244,7 @@
                 alt="BLACK KING BAR">
         </div>
 
-        <p class="item-description">
-            Grants debuff immunity, a basic dispel, and high magic resistance.
-        </p>
+        <p class="item-description">Activate Black King Bar before committing to a fight against enemy disables.</p>
 
         <button class="item-button" type="button">
             View Details
@@ -256,7 +253,7 @@
     </div>
 
 
-    <div class="item-details">
+    <dialog class="item-details" aria-label="Black King Bar details">
 
         <div class="item-details-header">
 
@@ -269,7 +266,7 @@
                 </span>
             </div>
 
-            <button class="close-item" type="button">
+            <button class="close-item" type="button" aria-label="Close item details">
                 ×
             </button>
 
@@ -310,11 +307,10 @@
             A powerful staff imbued with the strength of giants.
         </p>
 
-    </div>
-
+    </dialog>
 </article>
 
-<article class="item-card">
+<article class="item-card" data-purpose="Mobility">
 
     <div class="item-basic">
 
@@ -330,9 +326,7 @@
             >
         </div>
 
-        <p class="item-description">
-            Instantly teleports your hero to a target location
-        </p>
+        <p class="item-description">Use Blink Dagger to close the gap before an initiation spell.</p>
 
         <button class="item-button" type="button">
             View Details
@@ -341,7 +335,7 @@
     </div>
 
 
-    <div class="item-details">
+    <dialog class="item-details" aria-label="Blink Dagger details">
 
 
         <div class="item-details-header">
@@ -359,7 +353,7 @@
 
             </div>
 
-            <button class="close-item" type="button">
+            <button class="close-item" type="button" aria-label="Close item details">
                 ×
             </button>
 
@@ -388,10 +382,9 @@
             The fabled dagger used by the fastest assassin ever to walk the lands.
         </p>
 
-    </div>
-
+    </dialog>
 </article>
-<article class="item-card">
+<article class="item-card" data-purpose="Damage">
 
     <div class="item-basic">
 
@@ -406,9 +399,7 @@
                 alt="MONKEY KING BAR"
             >
         </div>
-        <p class="item-description">
-            grants attack damage, attack speed, and a passive chance to pierce evasion while dealing bonus magical damage.
-        </p>
+        <p class="item-description">Consider Monkey King Bar when evasion makes your attacks miss.</p>
 
 
         <button class="item-button" type="button">
@@ -418,7 +409,7 @@
     </div>
 
 
-    <div class="item-details">
+    <dialog class="item-details" aria-label="Monkey King Bar details">
 
         <div class="item-details-header">
 
@@ -435,7 +426,7 @@
 
             </div>
 
-            <button class="close-item" type="button">
+            <button class="close-item" type="button" aria-label="Close item details">
                 ×
             </button>
 
@@ -463,7 +454,7 @@
             </h4>
 
             <p>
-                Grants each attack a <strong>80%</strong>а chance to pierce through evasion and deal <strong>70</strong> bonus magical damage.
+                Grants each attack an <strong>80%</strong> chance to pierce through evasion and deal <strong>70</strong> bonus magical damage.
             </p>
 
         </section>
@@ -472,16 +463,53 @@
             A powerful staff used by a master warrior.
         </p>
 
-    </div>
-
+    </dialog>
 </article>
+
+            <article class="item-card" data-purpose="Recovery">
+                <div class="item-basic">
+                    <h3 class="item-name">Magic Stick</h3>
+                    <div class="item-image"><img src="images/item-icons/stick.jpg" alt="Magic Stick"></div>
+                    <p class="item-description">Pick up a Magic Stick in a lane where opponents cast spells frequently.</p>
+                    <button class="item-button" type="button">View Details</button>
+                </div>
+                <dialog class="item-details" aria-label="Magic Stick details">
+                    <div class="item-details-header">
+                        <h3>Magic Stick</h3>
+                        <button class="close-item" type="button" aria-label="Close item details">×</button>
+                    </div>
+                    <section class="item-ability active-ability">
+                        <h4>Energy Charge</h4>
+                        <p>Nearby enemy spell casts can build charges. Activate the stick to spend its charges and restore health and mana.</p>
+                    </section>
+                </dialog>
+            </article>
+
+            <article class="item-card" data-purpose="Recovery">
+                <div class="item-basic">
+                    <h3 class="item-name">Faerie Fire</h3>
+                    <div class="item-image"><img src="images/item-icons/faerie-fire.jpg" alt="Faerie Fire"></div>
+                    <p class="item-description">Carry a Faerie Fire for a burst of healing during an early trade.</p>
+                    <button class="item-button" type="button">View Details</button>
+                </div>
+                <dialog class="item-details" aria-label="Faerie Fire details">
+                    <div class="item-details-header">
+                        <h3>Faerie Fire</h3>
+                        <button class="close-item" type="button" aria-label="Close item details">×</button>
+                    </div>
+                    <section class="item-ability active-ability">
+                        <h4>Imbue</h4>
+                        <p>Keep it in your inventory for bonus attack damage, or consume it to restore health immediately.</p>
+                    </section>
+                </dialog>
+            </article>
         </div>
     </main>
 
 <footer>
 
     <p>
-        &copy; 2026 My Website. All rights reserved. Amir Baiseitov
+        &copy; 2026 Dota 2 Wiki. All rights reserved. Amir Baiseitov
     </p>
 
 </footer>

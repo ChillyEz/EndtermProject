@@ -10,7 +10,6 @@
 
 :root {
     --primary-color: #e5e5e5;
-    /* Unused in the current styles: --secondary-color: #121212; */
     --font-family: "DotaFont", sans-serif;
     --font-family-2: "DotaFont2", sans-serif;
     --container-max-width: 1100px;
@@ -36,15 +35,12 @@
     /* Dota accents */
     --color-accent-red: 157, 48, 29;
     --color-accent-red-dark: 93, 20, 18;
-    /* Unused in the current styles: --color-accent-green: 41, 76, 14; */
     --color-accent-blue: 46, 75, 96;
     --color-accent-gold: 155, 87, 29;
 
     /* --------------TEST SITE TEXT------------  */
 
     --color-text-main: 220, 220, 220;
-    /* Unused in the current styles: --color-text-green: 165, 205, 75; */
-    /* Unused in the current styles: --color-text-blue: 80, 175, 230; */
     --color-text-gold: 210, 160, 55;
 
 
@@ -106,36 +102,6 @@
     --space-4: 24px;
 }
 
-/* Archived incomplete light palette. The active Day / Night palette is below.
-
-body.light-theme {
-
-    --color-background-main: 235, 238, 242;
-    --color-background-panel: 245, 246, 248;
-    --color-background-panel-light: 225, 230, 235;
-
-    --color-background: linear-gradient(
-        110deg,
-        rgba(245, 247, 250, 0.96),
-        rgba(220, 226, 233, 0.96)
-    );
-
-    --color-text-main: 25, 30, 35;
-    --color-text-secondary: 70, 80, 90;
-    --color-text-muted: 100, 110, 120;
-    
-    --color-border-dark: 185, 190, 200; 
-    --color-border: 160, 170, 180;
-
-    --background: none;
-
-    --color-body-background: 235, 238, 242;
-
-    --color-hover: rgba(0, 0, 0, 0.05);
-    --color-navbar-hover: rgba(0, 0, 0, 0.08);
-    --color-navbar-active: rgba(0, 0, 0, 0.15);
-}
-*/
 
 .page-shell {
     display: grid;
@@ -222,15 +188,6 @@ a img.logo {
     text-decoration: none;
     border: 1px solid rgb(var(--color-accent-red));
     border-radius: 8px;
-}
-
-.page-mode {
-    margin-left:auto;
-    padding: 10px 16px;
-    border: 1px solid rgb(var(--color-accent-gold));
-    border-radius: 8px;
-    background-color: transparent;
-    color: inherit;
 }
 
 .menu-toggle {
@@ -443,28 +400,18 @@ tr:hover {
 }
 
 .item-details {
-    position: absolute;
-    left: 0;
-    top: calc(100% + 10px);
-    width: 330px;
+    width: min(410px, calc(100% - 24px));
+    max-height: 85vh;
+    color: rgb(var(--color-text-main));
     padding: var(--space-2);
     background:linear-gradient(rgba(var(--color-background-panel-light), 0.98),rgba(var(--color-background-main), 0.98));
     border: 1px solid rgb(var(--color-border-dark));
     border-left: 3px solid rgb(var(--color-accent-gold));
     box-shadow:0 8px 25px rgba(0, 0, 0, 0.75);
     text-align: left;
-    display: none;
 }
 
-.item-card.details-open {
-    z-index: 1000;
-}
-
-.item-card.details-open .item-details {
-    z-index: 1000;
-    display: block;
-    margin-bottom: 350px;
-}
+.item-details::backdrop { background: rgba(0, 0, 0, 0.7); }
 
 .item-details-header {
     display: flex;
@@ -598,7 +545,8 @@ tr:hover {
     flex-direction: column;
     gap: var(--space-2);
     max-width: 400px;
-    min-width: 350px;
+    width: 100%;
+    min-width: 0;
     margin: var(--space-4) auto;
     padding: var(--space-4);
     background: linear-gradient(rgba(var(--color-background-panel-light), 0.92), rgba(var(--color-background-panel), 0.92));
@@ -787,6 +735,12 @@ tr:hover {
 
 .popup-overlay.open {
     display: flex;
+}
+
+.popup-content {
+    width: min(400px, calc(100% - 24px));
+    max-height: 100%;
+    overflow-y: auto;
 }
 
 #contact-block {
@@ -1428,4 +1382,56 @@ mark.search-match {
 .patch-value {
     display: inline-block;
     font-variant-numeric: tabular-nums;
+}
+
+main a { color: rgb(var(--color-text-gold)); }
+
+.map-guide {
+    display: grid;
+    grid-template-columns: minmax(0, 3fr) minmax(210px, 2fr);
+    align-items: start;
+    gap: var(--space-3);
+}
+.map-guide .map-container {
+    aspect-ratio: 1;
+    overflow: hidden;
+    border-radius: var(--radius);
+}
+.map-guide #dota2-map { height: 100%; width: auto; max-width: none; }
+.map-pin {
+    position: absolute;
+    transform: translate(-50%, -50%);
+    width: 36px;
+    height: 36px;
+    border: 2px solid #fff;
+    border-radius: 50%;
+    background: #172127;
+    color: #fff;
+    box-shadow: 0 2px 6px #101418;
+    font: bold 16px var(--font-family);
+    cursor: pointer;
+}
+.map-pin[aria-pressed="true"] { background: #ffd168; border-color: #1c2527; color: #172127; }
+.map-pin:focus-visible { outline: 3px solid #fff; outline-offset: 3px; }
+.location-guide, .item-filters {
+    padding: var(--space-3);
+    border: 1px solid rgb(var(--color-border));
+    border-radius: var(--radius);
+    background: rgb(var(--color-background-panel));
+}
+.location-guide label { display: block; margin-bottom: var(--space-1); }
+.location-guide p { font-size: 1rem; }
+.location-guide select, .item-filters select {
+    padding: 8px;
+    color: rgb(var(--color-text-main));
+    background: rgb(var(--color-background-main));
+    border: 1px solid rgb(var(--color-border));
+    border-radius: 4px;
+    font: inherit;
+}
+.item-filters { display: flex; align-items: center; flex-wrap: wrap; gap: var(--space-2); }
+#item-count { color: rgb(var(--color-text-secondary)); }
+@media (max-width: 700px) {
+    .map-guide { grid-template-columns: minmax(0, 1fr); }
+    .item-grid { justify-content: center; }
 }

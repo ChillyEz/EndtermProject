@@ -1,8 +1,7 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <!-- Created by Amir Baiseitov SE-2505 AITU Student, @Chilly_25 - Official Developer , Software Engineer and Designer of the website, https://github.com/ChillyEz -->
-    <title>Map</title>
+    <title>Map | Dota 2 Wiki</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="styles.css">
@@ -30,6 +29,7 @@
         <a href="index.html">Home</a>
         <a href="heroes.html">Heroes</a>
         <a href="items.html">Items</a>
+        <a href="map.html" class="active" aria-current="page">Map</a>
         <a href="esports.html">Esports</a>
     </nav>
 
@@ -40,7 +40,7 @@
     <a href="register.html" class="register-link">
         Register
     </a>
-    <form class="page-search" role="search">
+    <form class="page-search" role="search" novalidate>
         <label for="page-search-input">Search this page</label>
         <input id="page-search-input" type="search" placeholder="Find text on this page..." autocomplete="off" aria-describedby="page-search-status">
         <button type="submit">Find</button>
@@ -50,13 +50,25 @@
 
 <div class="overlay"></div>
     <main>
-        <h2>Map Page</h2>
-        <div class="map-container">
-        <img id="dota2-map" src="images/dota2_map.png" alt="Dota 2 Map" class="map-image">
+        <h1>Dota 2 Map</h1>
+        <p>Select a lane or base to learn its role in a match.</p>
+        <div class="map-guide">
+            <div class="map-container" id="lane-map">
+                <img id="dota2-map" src="images/dota2_map.png" alt="Lane diagram with Radiant in the southwest and Dire in the northeast">
+            </div>
+            <section class="location-guide" aria-label="Location guide">
+                <label for="map-location">Explore a location</label>
+                <select id="map-location"></select>
+                <div aria-live="polite">
+                    <h2 id="location-title">Mid lane</h2>
+                    <p id="location-description"></p>
+                </div>
+                <a href="images/dota2_map.png">Open the full diagram and legend</a>
+            </section>
         </div>
     </main>
 <footer>
-    <p>&copy; 2026 My Website. All rights reserved. Amir Baiseitov</p>
+    <p>&copy; 2026 Dota 2 Wiki. All rights reserved. Amir Baiseitov</p>
 </footer>
 </div>
 

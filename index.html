@@ -1,9 +1,7 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <!-- Created by Amir Baiseitov SE-2505 AITU Student, @Chilly_25 - Official Developer , Software Engineer and Designer of the website, https://github.com/ChillyEz -->
-     <!-- Also Tiktoker, Liker, YouTuber, Bloger, Future Influencer and Actor in movies :) -->
-    <title>My Website</title>
+    <title>Home | Dota 2 Wiki</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="styles.css">
@@ -31,12 +29,10 @@
         <a href="index.html" class ="active">Home</a>
         <a href="heroes.html">Heroes</a>
         <a href="items.html">Items</a>
+        <a href="map.html">Map</a>
         <a href="esports.html">Esports</a>
     </nav>
 
-    <button class="page-mode" type="button" aria-label="Toggle Website mode">
-        Change background
-    </button>
     
     <button class="theme-toggle" type="button" aria-label="Light theme" aria-pressed="false" title="Switch to light theme">
         Theme: Dark
@@ -45,7 +41,7 @@
     <a href="register.html" class="register-link">
         Register
     </a>
-    <form class="page-search" role="search">
+    <form class="page-search" role="search" novalidate>
         <label for="page-search-input">Search this page</label>
         <input id="page-search-input" type="search" placeholder="Find text on this page..." autocomplete="off" aria-describedby="page-search-status">
         <button type="submit">Find</button>
@@ -56,17 +52,6 @@
 
     
     <div class="overlay"></div>
-    <!-- <aside>
-        <h2>Sidebar</h2>
-        <nav class="navbar">
-        <div class="logo"></div>
-            <a href="index.html">Home</a>
-            <a href="heroes.html">Heroes</a>
-            <a href="items.html">Items</a>
-            <a href="map.html">Map</a>
-            <a href="esports.html">Esports</a>
-        </nav>
-    </aside> -->
 
         <main>
             <div class="main-content">
@@ -139,10 +124,10 @@
             </p>
 
             <ul>
-                <li>Heroes and their abilities</li>
-                <li>Items and their effects</li>
-                <li>The Dota 2 map and its important locations</li>
-                <li>Professional esports and major tournaments</li>
+                <li><a href="heroes.html">Browse heroes</a> by attribute, complexity and position.</li>
+                <li><a href="items.html">Explore items</a> and their effects.</li>
+                <li><a href="map.html">View the Dota 2 map</a> to locate the lanes and bases.</li>
+                <li><a href="esports.html">See The International winners</a> and tournament prize pools.</li>
             </ul>
             
             <h2>Basic Gameplay</h2>
@@ -162,13 +147,8 @@
 
             <hr>
 
-            <h2>About the Team Member</h2>
-            <p>This is a simple website about Dota 2, created by a only Amir Baiseitov. SE-2505</p>
-            <p>
-                The website is designed as a small Dota 2 wiki where users can
-                explore information about heroes, items, the game map, and the
-                competitive scene.
-            </p>
+            <h2>About this wiki</h2>
+            <p>Amir Baiseitov (SE-2505) created this guide for players learning Dota 2.</p>
 
             <section class="community-panel" aria-labelledby="rating-title">
                 <div class="interactive-heading">
@@ -360,7 +340,7 @@
                 <div class="popup-content">
 
             <form class="contact-form" id="contact-form" novalidate>
-                <button id="close-contact" type="button">×</button>
+                <button id="close-contact" type="button" aria-label="Close contact form">×</button>
                 <label for="name">Name</label> 
                 
                 <input type="text" id="name" name="name" placeholder="Enter your name">
@@ -397,7 +377,7 @@
         <button id="toggle-time-format" type="button">
             Switch to 12H
         </button>
-        <p>&copy; 2026 My Website. All rights reserved. Amir Baiseitov</p>
+        <p>&copy; 2026 Dota 2 Wiki. All rights reserved. Amir Baiseitov</p>
         <div id="current-datetime"></div>
     </footer>
     </div>  

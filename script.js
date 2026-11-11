@@ -229,7 +229,39 @@ $(document).ready(function () {
     filterItems();
 });
 
+function isValidEmail(value) {
+    const email = value.trim();
+
+    if (email.length > 254) return false;
+
+    const parts = email.split("@");
+    if (parts.length !== 2) return false;
+
+    const [local, domain] = parts;
+
+    if (local.length === 0 || local.length > 64) return false;
+    if (domain.length === 0 || domain.length > 253) return false;
+
+    const localPattern =
+        /^[a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]+)*$/;
+
+    if (!localPattern.test(local)) return false;
+
+    const labels = domain.split(".");
+    if (labels.length < 2) return false;
+
+    const labelPattern =
+        /^[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?$/;
+
+    if (!labels.every(label => labelPattern.test(label))) {
+        return false;
+    }
+
+    return /[a-zA-Z]/.test(labels[labels.length - 1]);
+}
+
 // ==================== [3] CONTACT FORM, SUBMIT SPINNER & POPUP (index.html | A6 Task 6) ====================
+
 if (document.getElementById("contact-form")) {
     const form = document.querySelector("#contact-form");
     let submitting = false;
@@ -249,10 +281,9 @@ if (document.getElementById("contact-form")) {
             errors.push("Enter at least 2 characters for your name.");
         }
 
-        const pattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         if (inputEmail === "") {
             errors.push("Email is required");
-        } else if (!pattern.test(inputEmail)) {
+        } else if (!isValidEmail(inputEmail)) {
             errors.push("Invalid email format");
         }
 
@@ -339,8 +370,8 @@ if (window.location.pathname.endsWith("register.html")) {
 
         const userName = ($("#username").val() || "").trim();
         const emailRegister = ($("#email").val() || "").trim();
-        const password = ($("#password").val() || "").trim();
-        const confirmPassword = ($("#confirm-password").val() || "").trim();
+        const password = ($("#password").val() || "");
+        const confirmPassword = ($("#confirm-password").val() || "");
         const registerErrors = [];
 
         const usernamePattern = /^[a-zA-Z][a-zA-Z0-9]*$/;
@@ -352,11 +383,10 @@ if (window.location.pathname.endsWith("register.html")) {
             registerErrors.push("Username must start with a letter and NO special symbols!");
         }
 
-        const pattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         if (emailRegister === "") {
             registerErrors.push("Email is required");
-        } else if (!pattern.test(emailRegister)) {
-            registerErrors.push("Invalid email format");
+        } else if (!isValidEmail(emailRegister)) {
+        registerErrors.push("Invalid email format");
         }
 
         if (password === "" || confirmPassword === "") {

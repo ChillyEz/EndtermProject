@@ -1551,6 +1551,13 @@ main a { color: rgb(var(--color-text-gold)); }
 }
 
 /* Final: local accounts, personal hero pools and professional match cards. */
+.home-routes { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--space-3); margin: var(--space-4) 0; }
+.home-routes a { display: block; padding: var(--space-3); color: rgb(var(--color-text-main)); background: rgb(var(--color-background-panel)); border: 1px solid rgb(var(--color-border)); border-top: 3px solid rgb(var(--color-text-gold)); border-radius: var(--radius); text-decoration: none; transition: transform 0.2s, border-color 0.2s; }
+.home-routes a:hover { transform: translateY(-3px); border-color: rgb(var(--color-text-gold)); }
+.home-routes a:focus-visible { outline: 2px solid rgb(var(--color-text-gold)); outline-offset: 3px; }
+.home-routes span { display: block; font-size: 0.65rem; letter-spacing: 0.1em; color: rgb(var(--color-text-secondary)); margin-bottom: 10px; }
+.home-routes strong { font-size: 1.1rem; }
+.home-routes p { font-size: 0.85rem; line-height: 1.6; margin-bottom: 0; }
 .eyebrow { color: rgb(var(--color-text-gold)); font-size: 0.75rem; letter-spacing: 0.12em; }
 .auth-layout { display: grid; grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr); gap: var(--space-4); align-items: start; }
 .auth-intro { padding: var(--space-4) 0; }
@@ -1616,6 +1623,7 @@ a.quiz-button { display: inline-block; text-decoration: none; }
     .auth-portrait { display: none; }
 }
 @media (max-width: 600px) {
+    .home-routes { grid-template-columns: minmax(0, 1fr); }
     .profile-overview, .saved-heroes, .match-list { grid-template-columns: minmax(0, 1fr); }
     .profile-heading #logout { margin-left: 0; }
     .auth-layout .registration-form { padding: var(--space-3); }

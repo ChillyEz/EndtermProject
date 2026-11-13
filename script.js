@@ -338,7 +338,7 @@ faqButtons.forEach((button) => {
     button.setAttribute("aria-expanded", "false");
     button.addEventListener("click", () => {
         const isOpen = button.closest(".faq-item").classList.toggle("open");
-        button.setAttribute("aria-expanded", String(isOpen));
+        button.setAttribute("aria-expanded", String(isOpen || button.closest(".faq-item").classList.contains("search-open")));
     });
 });
 
@@ -825,6 +825,9 @@ $(document).ready(function () {
             $(this).replaceWith(document.createTextNode($(this).text()));
         });
         $main.find(".faq-item").removeClass("search-open");
+        $main.find(".faq-question").each(function () {
+            this.setAttribute("aria-expanded", String(this.closest(".faq-item").classList.contains("open")));
+        });
         if (!$main.length) return;
         $main[0].normalize();
         const query = $search.val().trim();
@@ -880,6 +883,7 @@ $(document).ready(function () {
             });
         });
         $status.text(count ? `${count} match${count === 1 ? "" : "es"}` : "No matches");
+        $main.find(".faq-item.search-open .faq-question").attr("aria-expanded", "true");
         updateScrollProgress();
     }
 

@@ -1549,3 +1549,77 @@ main a { color: rgb(var(--color-text-gold)); }
     .map-guide { grid-template-columns: minmax(0, 1fr); }
     .item-grid { justify-content: center; }
 }
+
+/* Final: local accounts, personal hero pools and professional match cards. */
+.eyebrow { color: rgb(var(--color-text-gold)); font-size: 0.75rem; letter-spacing: 0.12em; }
+.auth-layout { display: grid; grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr); gap: var(--space-4); align-items: start; }
+.auth-intro { padding: var(--space-4) 0; }
+.auth-intro h2 { font-size: clamp(1.8rem, 4vw, 2.7rem); line-height: 1.15; }
+.auth-intro p { line-height: 1.7; }
+.auth-portrait { display: block; width: min(100%, 320px); aspect-ratio: 16 / 9; object-fit: cover; margin: var(--space-4) 0; border-radius: var(--radius); border: 1px solid rgb(var(--color-border)); }
+.auth-layout .registration-form { margin: 0; max-width: none; }
+.auth-note, .contact-form small { color: rgb(var(--color-text-secondary)); font-size: 0.85rem; line-height: 1.6; }
+.auth-status:not(:empty), .field-error { color: #ffb4a4; font: 0.875rem/1.5 Arial, sans-serif; }
+body.light-theme .auth-status:not(:empty), body.light-theme .field-error { color: #831d17; }
+[aria-invalid="true"] { outline: 2px solid #c35443; outline-offset: 2px; }
+.auth-status:empty, .field-error:empty, #account-feedback:empty, #profile-status:empty { display: none; }
+.contact-form input { min-width: 0; font: inherit; font-size: 0.9rem; }
+.save-hero {
+    padding: 9px 12px; border: 1px solid rgb(var(--color-border)); border-radius: 5px;
+    color: rgb(var(--color-text-main)); background: rgb(var(--color-background-panel));
+    font: 0.8rem var(--font-family-2); cursor: pointer;
+    transition: border-color 0.2s, background-color 0.2s, transform 0.2s;
+}
+.save-hero:hover { border-color: rgb(var(--color-text-gold)); transform: translateY(-1px); }
+.save-hero[aria-pressed="true"] { color: rgb(var(--color-text-gold)); border-color: rgb(var(--color-text-gold)); background: rgba(var(--color-text-gold), 0.08); }
+.hero-card .save-hero { margin: 0 8px 12px; }
+.save-hero:focus-visible, .quiz-button:focus-visible { outline: 2px solid rgb(var(--color-text-gold)); outline-offset: 3px; }
+.pool-hint { font-size: 0.9rem; line-height: 1.7; }
+.profile-heading { display: flex; gap: var(--space-3); align-items: center; flex-wrap: wrap; padding-bottom: var(--space-4); }
+.profile-heading h1 { margin: 0; overflow-wrap: anywhere; }
+.profile-heading p { margin: 6px 0; }
+.profile-heading #logout { margin-left: auto; }
+.profile-avatar { width: 80px; height: 80px; flex: none; display: grid; place-items: center; font-size: 1.8rem; border-radius: 50%; color: rgb(var(--color-text-gold)); background: rgba(var(--color-text-gold), 0.1); border: 1px solid rgb(var(--color-text-gold)); }
+.profile-overview { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-3); margin-bottom: var(--space-4); }
+.profile-panel, .empty-state { padding: var(--space-3); background: rgb(var(--color-background-panel)); border: 1px solid rgb(var(--color-border)); border-radius: var(--radius); }
+.profile-panel h2 { margin-top: 0; }
+.account-details dt { color: rgb(var(--color-text-secondary)); font-size: 0.8rem; margin-top: 12px; }
+.account-details dd { margin: 5px 0 0; overflow-wrap: anywhere; }
+.pool-positions { list-style: none; padding: 0; margin: 0; }
+.pool-positions li { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px; padding: 9px 0; border-bottom: 1px solid rgb(var(--color-border)); font-size: 0.8rem; }
+.pool-positions strong { color: rgb(var(--color-text-secondary)); font-weight: normal; }
+.pool-positions .covered strong { color: rgb(var(--color-text-gold)); }
+.section-heading { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--space-2); margin: var(--space-4) 0 var(--space-2); }
+.section-heading h2 { margin: 0; }
+.count-badge { padding: 3px 9px; border-radius: 4px; background: rgba(var(--color-text-gold), 0.12); color: rgb(var(--color-text-gold)); font-size: 1rem; }
+.saved-heroes { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-3); }
+.pool-card { display: grid; grid-template-columns: 96px minmax(0, 1fr); gap: 12px; align-items: center; padding: var(--space-3); border-radius: var(--radius); background: rgb(var(--color-background-panel)); border: 1px solid rgb(var(--color-border)); }
+.pool-card img { width: 96px; aspect-ratio: 16 / 9; object-fit: cover; border-radius: 4px; }
+.pool-card h3 { margin: 0; font-size: 1rem; }
+.pool-card p { font-size: 0.75rem; color: rgb(var(--color-text-secondary)); }
+.pool-card .save-hero { grid-column: 1 / -1; justify-self: start; }
+.empty-state { text-align: center; padding: var(--space-4); }
+a.quiz-button { display: inline-block; text-decoration: none; }
+.match-list { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--space-3); }
+.match-card { padding: var(--space-3); border: 1px solid rgb(var(--color-border)); border-top: 3px solid rgb(var(--color-passive-accent)); border-radius: var(--radius); background: linear-gradient(145deg, rgb(var(--color-background-panel-light)), rgb(var(--color-background-panel))); }
+.match-league, .match-meta { font-size: 0.75rem; color: rgb(var(--color-text-secondary)); }
+.match-card h3 { font-size: 1.1rem; overflow-wrap: anywhere; line-height: 1.5; }
+.match-score { font-size: 2rem; font-variant-numeric: tabular-nums; margin: 12px 0; }
+.match-winner { color: rgb(var(--color-text-gold)); font-size: 0.85rem; }
+.match-card a { font-size: 0.8rem; }
+#matches-status { font-size: 0.85rem; line-height: 1.6; }
+#pro-matches { margin-bottom: var(--space-4); }
+@media (max-width: 800px) {
+    .match-list { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .auth-layout { grid-template-columns: minmax(0, 1fr); }
+    .auth-intro { padding: 0; }
+    .auth-portrait { display: none; }
+}
+@media (max-width: 600px) {
+    .profile-overview, .saved-heroes, .match-list { grid-template-columns: minmax(0, 1fr); }
+    .profile-heading #logout { margin-left: 0; }
+    .auth-layout .registration-form { padding: var(--space-3); }
+}
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; scroll-behavior: auto !important; }
+}

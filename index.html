@@ -6,10 +6,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="styles.css">
     <link rel="icon" href="images/icon.png">
-    <script src="https://code.jquery.com/jquery-4.0.0.min.js"></script>
+    <script src="js/vendor/jquery-4.0.0.min.js"></script>
     <script src="script.js"  type="module" defer></script>
 </head>
 <body>
+    <noscript><p>This website needs JavaScript for its catalogs and interactive features. Please enable it in your browser.</p></noscript>
     <div class="page-shell">
     <header>
     <a href="index.html" class="logo">
@@ -173,7 +174,7 @@
 
                 <div class="quiz-step">
                     <label for="quiz-position">Which position would you like to play?</label>
-                    <select id="quiz-position" required>
+                    <select id="quiz-position" aria-describedby="quiz-error">
                         <option value="" disabled selected>Choose a position...</option>
                         <option value="Auto">Help me find my position</option>
                         <option value="Carry">1 — Carry</option>
@@ -186,7 +187,7 @@
 
                 <div class="quiz-step" hidden>
                     <label for="quiz-playstyle">What would you enjoy doing for your team?</label>
-                    <select id="quiz-playstyle" required>
+                    <select id="quiz-playstyle" aria-describedby="quiz-error">
                         <option value="" disabled selected>Choose a playstyle...</option>
                         <option value="Farm">Become a strong damage dealer through farming</option>
                         <option value="Burst">Eliminate key enemies with burst damage</option>
@@ -196,7 +197,7 @@
                         <option value="Push">Pressure lanes and destroy towers</option>
                     </select>
                     <label for="quiz-early-game">How would you prefer to spend the early game?</label>
-                    <select id="quiz-early-game" required>
+                    <select id="quiz-early-game" aria-describedby="quiz-error">
                         <option value="" disabled selected>Choose an early-game plan...</option>
                         <option value="Farm">Focus on last hits and items</option>
                         <option value="Solo">Get solo experience and control the lane</option>
@@ -208,7 +209,7 @@
 
                 <div class="quiz-step" hidden>
                     <label for="quiz-attack-type">How would you prefer to attack?</label>
-                    <select id="quiz-attack-type" required>
+                    <select id="quiz-attack-type" aria-describedby="quiz-error">
                         <option value="" disabled selected>Choose an attack type...</option>
                         <option value="Any">Either is fine</option>
                         <option value="Melee">Melee — fight up close</option>
@@ -218,7 +219,7 @@
 
                 <div class="quiz-step" hidden>
                     <label for="quiz-attribute">Which hero attribute do you prefer?</label>
-                    <select id="quiz-attribute" required>
+                    <select id="quiz-attribute" aria-describedby="quiz-error">
                         <option value="" disabled selected>Choose an attribute...</option>
                         <option value="Any">Any attribute</option>
                         <option value="Strength">Strength</option>
@@ -230,7 +231,7 @@
 
                 <div class="quiz-step" hidden>
                     <label for="quiz-complexity">How complex should your hero be?</label>
-                    <select id="quiz-complexity" required>
+                    <select id="quiz-complexity" aria-describedby="quiz-error">
                         <option value="" disabled selected>Choose a difficulty...</option>
                         <option value="1">1 — Easy</option>
                         <option value="2">2 — Medium</option>
@@ -253,6 +254,8 @@
                     <a href="heroes.html">Explore all heroes</a>
                 </div>
 
+                <p id="quiz-error" class="field-error" role="alert"></p>
+                <p id="account-feedback" role="status"></p>
                 <div class="quiz-actions">
                     <button class="quiz-button" id="quiz-back" type="button" disabled>Back</button>
                     <button class="quiz-button quiz-next" id="quiz-next" type="button">Next</button>
@@ -337,7 +340,7 @@
         </main>
             
         <div class="popup-overlay" id="contact-popup">
-                <div class="popup-content">
+                <div class="popup-content" role="dialog" aria-modal="true" aria-label="Contact us">
 
             <form class="contact-form" id="contact-form" novalidate>
                 <button id="close-contact" type="button" aria-label="Close contact form">×</button>
@@ -346,7 +349,7 @@
                 <input type="text" id="name" name="name" placeholder="Enter your name">
 
                 <label for="email">Email</label>
-                <input type="email" id="email" name="email" placeholder="Enter your email">
+                <input type="text" inputmode="email" id="email" name="email" placeholder="Enter your email">
 
                 <label for="topic">Topic</label>
                 <select id="topic" name="topic">

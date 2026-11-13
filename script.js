@@ -1,9 +1,13 @@
 import { heroes } from "./heroes.js";
 import { items } from "./items.js";
+import { isValidEmail } from "./js/validation.js";
+import { initAccount, createSaveHeroButton } from "./js/account.js";
+import { initProMatches } from "./js/esports.js";
+
+$(document).ready(() => { initAccount(); initProMatches(); });
 
 // ==================== [1] HERO CATALOG, LIVE SEARCH & AUTOCOMPLETE (heroes.html | A6 Tasks 0-2) ====================
 $(document).ready(function () {
-    console.log("jQuery is ready!");
 
     if (window.location.pathname.endsWith("heroes.html")) {
         const $heroSections = $("#hero-sections");
@@ -42,7 +46,8 @@ $(document).ready(function () {
                         createHeroPortrait(hero),
                         $("<div>").addClass("hero-caption").text(hero.name),
                         $("<p>").addClass("hero-card-info")
-                            .text(`${hero.preferredPosition} | Complexity ${hero.complexity}/3`)
+                            .text(`${hero.preferredPosition} | Complexity ${hero.complexity}/3`),
+                        createSaveHeroButton(hero)
                     );
                     $gallery.append($card);
                 });
@@ -249,10 +254,9 @@ if (document.getElementById("contact-form")) {
             errors.push("Enter at least 2 characters for your name.");
         }
 
-        const pattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         if (inputEmail === "") {
             errors.push("Email is required");
-        } else if (!pattern.test(inputEmail)) {
+        } else if (!isValidEmail(inputEmail)) {
             errors.push("Invalid email format");
         }
 
@@ -292,20 +296,38 @@ if (document.getElementById("contact-form")) {
     const popup = document.getElementById("open-contact");
     const overlay = document.getElementById("contact-popup");
 
-    closeBtn.addEventListener("click", () => {
+    function closeContact() {
         overlay.classList.remove("open");
-    });
+        document.querySelector("main").inert = false;
+        document.querySelector("header").inert = false;
+        document.querySelector("footer").inert = false;
+        popup.focus();
+    }
+    closeBtn.addEventListener("click", closeContact);
     popup.addEventListener("click", () => {
         overlay.classList.add("open");
+        document.querySelector("main").inert = true;
+        document.querySelector("header").inert = true;
+        document.querySelector("footer").inert = true;
+        closeBtn.focus();
     });
     overlay.addEventListener("click", (event) => {
         if (event.target === overlay) {
-            overlay.classList.remove("open");
+            closeContact();
         }
     });
     $(document).on("keydown", (event) => {
         if (event.key === "Escape" && overlay.classList.contains("open")) {
-            overlay.classList.remove("open");
+            closeContact();
+        }
+        if (event.key === "Tab" && overlay.classList.contains("open")) {
+            const controls = $(form).find("button:enabled, input, select, textarea").get();
+            const first = controls[0], last = controls.at(-1);
+            if (event.shiftKey && document.activeElement === first) {
+                event.preventDefault(); last.focus();
+            } else if (!event.shiftKey && document.activeElement === last) {
+                event.preventDefault(); first.focus();
+            }
         }
     });
 }
@@ -313,8 +335,10 @@ if (document.getElementById("contact-form")) {
 // ==================== [4] FAQ ACCORDION & MOBILE MENU TOGGLE ====================
 const faqButtons = document.querySelectorAll(".faq-question");
 faqButtons.forEach((button) => {
+    button.setAttribute("aria-expanded", "false");
     button.addEventListener("click", () => {
-        button.closest(".faq-item").classList.toggle("open");
+        const isOpen = button.closest(".faq-item").classList.toggle("open");
+        button.setAttribute("aria-expanded", String(isOpen));
     });
 });
 
@@ -328,77 +352,7 @@ if (navbarBurger && navbar) {
     });
 }
 
-// ==================== [5] REGISTRATION FORM & VALIDATION (register.html) ====================
-if (window.location.pathname.endsWith("register.html")) {
-    const registerForm = document.getElementById("registration-form");
-    let registering = false;
-
-    $(registerForm).on("submit", function (event) {
-        event.preventDefault();
-        if (registering) return;
-
-        const userName = ($("#username").val() || "").trim();
-        const emailRegister = ($("#email").val() || "").trim();
-        const password = ($("#password").val() || "").trim();
-        const confirmPassword = ($("#confirm-password").val() || "").trim();
-        const registerErrors = [];
-
-        const usernamePattern = /^[a-zA-Z][a-zA-Z0-9]*$/;
-        if (userName === "") {
-            registerErrors.push("Username cannot be blank");
-        } else if (userName.length < 3) {
-            registerErrors.push("Username must contain at least 3 symbols");
-        } else if (!usernamePattern.test(userName)) {
-            registerErrors.push("Username must start with a letter and NO special symbols!");
-        }
-
-        const pattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        if (emailRegister === "") {
-            registerErrors.push("Email is required");
-        } else if (!pattern.test(emailRegister)) {
-            registerErrors.push("Invalid email format");
-        }
-
-        if (password === "" || confirmPassword === "") {
-            registerErrors.push("Fill both password and confirm password fields!");
-        } else if (password !== confirmPassword) {
-            registerErrors.push("The passwords must match.");
-        }
-        if (password.length < 8) {
-            registerErrors.push("Password length must be at least 8 characters");
-        }
-        if (!/\d/.test(password)) {
-            registerErrors.push("Password must contain at least one digit");
-        }
-        if (!$("#termsCons").prop("checked")) {
-            registerErrors.push("Please agree to the terms before continuing.");
-        }
-
-        const registerErrorsElement = document.getElementById("register-errors");
-        const registerResultElement = document.getElementById("register-result");
-        registerErrorsElement.textContent = "";
-        registerResultElement.textContent = "";
-
-        if (registerErrors.length === 0) {
-            registering = true;
-            const $submitButton = $(registerForm).find("button[type='submit']");
-            const originalText = $submitButton.text();
-            $submitButton.prop("disabled", true).attr("aria-busy", "true").empty().append(
-                $("<span>").addClass("submit-spinner").attr("aria-hidden", "true"),
-                document.createTextNode("Please wait…")
-            );
-            setTimeout(() => {
-                registerResultElement.textContent = "Registration form validated successfully!";
-                registerForm.reset();
-                $submitButton.text(originalText).prop("disabled", false).removeAttr("aria-busy");
-                registering = false;
-                showToast("Account registration validated (demo).");
-            }, 1200);
-        } else {
-            registerErrorsElement.textContent = registerErrors.join("\n");
-        }
-    });
-}
+// ==================== [5] ACCOUNT VALIDATION & PROFILE: js/account.js ====================
 
 // ==================== [6] FOOTER CLOCK & ANIMATED PATCH TIMERS (A6 Task 5) ====================
 let is12Hour = false;
@@ -736,6 +690,7 @@ if (quiz) {
     }
 
     function showQuizStep(step) {
+        document.getElementById("quiz-error").textContent = "";
         heroQuiz.step = step;
         steps.forEach((panel, index) => {
             panel.hidden = index !== step;
@@ -778,6 +733,7 @@ if (quiz) {
             reasons.className = "quiz-match-reasons";
             reasons.textContent = `Matches: ${match.matches.join("; ")}.`;
             card.append(name, createHeroPortrait(hero), score, details, position, roles, reasons);
+            card.appendChild(createSaveHeroButton(hero)[0]);
             if (match.differences.length) {
                 const differences = document.createElement("p");
                 differences.className = "quiz-match-differences";
@@ -788,9 +744,19 @@ if (quiz) {
         });
     }
 
+    $(quiz).on("change", "select", function () {
+        $(this).removeAttr("aria-invalid");
+        $("#quiz-error").text("");
+    });
+
     nextButton.addEventListener("click", () => {
         for (const input of steps[heroQuiz.step].querySelectorAll("select")) {
-            if (!input.reportValidity()) return;
+            if (!input.value) {
+                document.getElementById("quiz-error").textContent = "Choose an answer before moving to the next step.";
+                input.setAttribute("aria-invalid", "true");
+                input.focus();
+                return;
+            }
         }
         readQuizAnswers();
         if (heroQuiz.step === questionCount - 1) renderRecommendations();
@@ -815,6 +781,7 @@ function applyTheme(theme) {
         button.textContent = isLight ? "Theme: Light" : "Theme: Dark";
         button.setAttribute("aria-pressed", String(isLight));
         button.title = isLight ? "Switch to dark theme" : "Switch to light theme";
+        button.setAttribute("aria-label", button.title);
     });
 }
 

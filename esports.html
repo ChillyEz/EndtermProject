@@ -6,10 +6,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="styles.css">
     <link rel="icon" href="images/icon.png">
-    <script src="https://code.jquery.com/jquery-4.0.0.min.js"></script>
+    <script src="js/vendor/jquery-4.0.0.min.js"></script>
     <script src="script.js"  type="module" defer></script>
 </head>
 <body>
+    <noscript><p>This website needs JavaScript for its catalogs and interactive features. Please enable it in your browser.</p></noscript>
     <div class="page-shell">
 <header>
     <a href="index.html" class="logo">
@@ -52,7 +53,19 @@
   
 
     <main>
-        <h1>The International Winners</h1>
+        <p class="eyebrow">THE PROFESSIONAL SCENE</p>
+        <h1>Esports</h1>
+        <p>Follow recent matches, then explore the champions of The International.</p>
+        <section id="pro-matches" aria-labelledby="matches-title">
+            <div class="section-heading">
+                <h2 id="matches-title">Recent professional matches</h2>
+                <button id="refresh-matches" class="quiz-button" type="button">Refresh matches</button>
+            </div>
+            <p>Results from <a href="https://www.opendota.com/">OpenDota</a>. Scores show kills, not series wins. Match availability depends on the source.</p>
+            <p id="matches-status" role="status"></p>
+            <div id="match-list" class="match-list"></div>
+        </section>
+        <h2>The International Winners</h2>
         <p>The International is Dota 2's world championship. Team Spirit won two of these four editions. Gaimin Gladiators reached consecutive grand finals in 2023 and 2024.</p>
         <div class="ti-editions">
             <article class="ti-edition">

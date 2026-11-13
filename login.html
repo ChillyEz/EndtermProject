@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Log In | Dota 2 Wiki</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="icon" href="images/icon.png">
+    <script src="js/vendor/jquery-4.0.0.min.js"></script>
+    <script src="script.js"  type="module" defer></script>
+</head>
+<body>
+    <noscript><p>This website needs JavaScript for its catalogs and interactive features. Please enable it in your browser.</p></noscript>
+    <div class="page-shell">
+    <header>
+    <a href="index.html" class="logo">
+        <img src="images/icon.png" class="logo" alt="Dota 2 Wiki">
+    </a>
+
+    <button
+        class="menu-toggle"
+        type="button"
+        aria-label="Toggle navigation"
+        aria-expanded="false"
+        aria-controls="main-navigation">
+        ☰
+    </button>
+
+    <nav id="main-navigation" class="top-navbar" aria-label="Main navigation">
+        <a href="index.html">Home</a>
+        <a href="heroes.html">Heroes</a>
+        <a href="items.html">Items</a>
+        <a href="map.html">Map</a>
+        <a href="esports.html">Esports</a>
+    </nav>
+
+    <button class="theme-toggle" type="button" aria-label="Light theme" aria-pressed="false" title="Switch to light theme">
+        Theme: Dark
+    </button>
+
+    <a href="register.html" class="register-link">
+        Register
+    </a>
+    <form class="page-search" role="search" novalidate>
+        <label for="page-search-input">Search this page</label>
+        <input id="page-search-input" type="search" placeholder="Find text on this page..." autocomplete="off" aria-describedby="page-search-status">
+        <button type="submit">Find</button>
+        <span id="page-search-status" role="status"></span>
+    </form>
+    </header>
+    
+
+    
+    <div class="overlay"></div>
+
+        <main>
+            <div class="auth-layout">
+                <aside class="auth-intro">
+                    <p class="eyebrow">WELCOME BACK</p>
+                    <h2>Your heroes. Your playstyle.</h2>
+                    <p>Return to your saved hero pool and plan what to learn next.</p>
+                    <img src="heroes/icons/crystal_maiden.jpg" alt="Crystal Maiden" class="auth-portrait">
+                    <a href="index.html#hero-quiz">Find a new hero →</a>
+                </aside>
+                <form id="login-form" class="contact-form registration-form" novalidate>
+                    <h1>Log In</h1>
+                    <p class="auth-note">Use an account created in this browser. This is a local learning demo, not a Steam login.</p>
+                    <label for="login-email">Email</label>
+                    <input id="login-email" name="email" type="text" inputmode="email" autocomplete="username" placeholder="Your email">
+                    <label for="login-password">Password</label>
+                    <input id="login-password" name="password" type="password" autocomplete="current-password" placeholder="Your password">
+                    <div id="login-status" class="auth-status" role="alert"></div>
+                    <button class="contact-send" type="submit">Log in</button>
+                    <p>New here? <a href="register.html">Create an account</a></p>
+                </form>
+            </div>
+        </main>
+    <footer>
+        <p>&copy; 2026 Dota 2 Wiki. All rights reserved. Amir Baiseitov</p>
+    </footer>
+    </div>  
+</body>
+</html>

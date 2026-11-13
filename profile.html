@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Profile | Dota 2 Wiki</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="icon" href="images/icon.png">
+    <script src="js/vendor/jquery-4.0.0.min.js"></script>
+    <script src="script.js"  type="module" defer></script>
+</head>
+<body>
+    <noscript><p>This website needs JavaScript for its catalogs and interactive features. Please enable it in your browser.</p></noscript>
+    <div class="page-shell">
+    <header>
+    <a href="index.html" class="logo">
+        <img src="images/icon.png" class="logo" alt="Dota 2 Wiki">
+    </a>
+
+    <button
+        class="menu-toggle"
+        type="button"
+        aria-label="Toggle navigation"
+        aria-expanded="false"
+        aria-controls="main-navigation">
+        ☰
+    </button>
+
+    <nav id="main-navigation" class="top-navbar" aria-label="Main navigation">
+        <a href="index.html">Home</a>
+        <a href="heroes.html">Heroes</a>
+        <a href="items.html">Items</a>
+        <a href="map.html">Map</a>
+        <a href="esports.html">Esports</a>
+    </nav>
+
+    <button class="theme-toggle" type="button" aria-label="Light theme" aria-pressed="false" title="Switch to light theme">
+        Theme: Dark
+    </button>
+
+    <a href="register.html" class="register-link">
+        Register
+    </a>
+    <form class="page-search" role="search" novalidate>
+        <label for="page-search-input">Search this page</label>
+        <input id="page-search-input" type="search" placeholder="Find text on this page..." autocomplete="off" aria-describedby="page-search-status">
+        <button type="submit">Find</button>
+        <span id="page-search-status" role="status"></span>
+    </form>
+    </header>
+    
+
+    
+    <div class="overlay"></div>
+
+        <main id="profile-page">
+            <p id="profile-status" role="alert"></p>
+            <div id="profile-content" hidden>
+                <section class="profile-heading">
+                    <div class="profile-avatar" id="profile-avatar" aria-hidden="true"></div>
+                    <div>
+                        <p class="eyebrow">PLAYER PROFILE</p>
+                        <h1 id="profile-name"></h1>
+                        <p>Your next match starts with a plan.</p>
+                    </div>
+                    <button id="logout" class="quiz-button" type="button">Log out</button>
+                </section>
+                <div class="profile-overview">
+                    <section class="profile-panel">
+                        <h2>Account details</h2>
+                        <dl class="account-details">
+                            <dt>Email</dt><dd id="profile-email"></dd>
+                            <dt>Phone</dt><dd id="profile-phone"></dd>
+                        </dl>
+                        <p class="auth-note">Saved only in this browser. This profile is a local authentication simulation.</p>
+                    </section>
+                    <section class="profile-panel">
+                        <h2>Position coverage</h2>
+                        <p>Based on all supported positions of your saved heroes.</p>
+                        <ul id="pool-positions" class="pool-positions"></ul>
+                    </section>
+                </div>
+                <section aria-labelledby="pool-title">
+                    <div class="section-heading">
+                        <h2 id="pool-title" tabindex="-1">My hero pool <span id="pool-count" class="count-badge">0</span></h2>
+                        <a href="heroes.html">Explore heroes →</a>
+                    </div>
+                    <p id="account-feedback" role="status"></p>
+                    <div id="pool-empty" class="empty-state">
+                        <h3>A fresh start.</h3>
+                        <p>Save heroes from the catalog or your quiz results. Your picks and position coverage will appear here.</p>
+                        <a class="quiz-button" href="index.html#hero-quiz">Find my heroes</a>
+                    </div>
+                    <div id="saved-heroes" class="saved-heroes"></div>
+                </section>
+            </div>
+        </main>
+    <footer>
+        <p>&copy; 2026 Dota 2 Wiki. All rights reserved. Amir Baiseitov</p>
+    </footer>
+    </div>  
+</body>
+</html>

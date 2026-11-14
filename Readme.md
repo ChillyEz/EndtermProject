@@ -10,7 +10,8 @@ Pages: Home, Heroes, Items, Map, Esports, Register, Log In and Profile. Profile 
 
 Code organization:
 
-- `script.js`: shared navigation, themes, search, catalogs, quiz, contact form, animations and map interactions, with numbered sections.
+- `script.js`: shared navigation, search, catalogs, quiz, contact form, animations and map interactions, with numbered sections.
+- `js/theme.js`: Radiant (light) and Dire (dark) themes, early palette restoration and a radial View Transition. Older browsers use a color fade; reduced-motion mode changes themes immediately.
 - `heroes.js`, `items.js`: local catalog objects.
 - `js/account.js`: JavaScript form validation, local signup/login/logout and per-account favourites.
 - `js/validation.js`: shared email format checker.
@@ -19,6 +20,8 @@ Code organization:
 - `heroes`, `images`, `fonts`: existing local assets.
 
 Registration collects a player name, email, phone and password. Use fictional details and an unused demo password. Passwords are stored as salted PBKDF2 hashes; accounts and favourites are saved under `dota-wiki-users-v1`, and the current account under `dota-wiki-current-user`. Theme uses `dota-wiki-theme`. This is the required browser-only authentication simulation, not secure backend authentication; browser storage can be inspected or modified. Clear these site storage keys to reset the demo. The contact form validates its input but does not send a message.
+
+Radiant uses muted moss, pale stone and jade accents; Dire uses charcoal, ash and ember accents. Both reuse the existing map panorama. The theme is restored before CSS paints to avoid flashing the other faction during navigation. The existing `light`/`dark` storage values remain compatible. The small faction marks are custom SVG symbols. Ability colors remain semantic: Use is green, Active is blue and Passive is grey.
 
 The Esports page requests `https://api.opendota.com/api/proMatches` using `fetch` and displays up to six recent matches. It handles HTTP/network failures, empty responses and a 12-second timeout. OpenDota may delay or rate-limit responses. Catalog values and the lane diagram are educational reference material, not an automatically updated patch database.
 

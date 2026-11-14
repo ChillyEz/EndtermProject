@@ -9,65 +9,70 @@
 }
 
 :root {
-    --primary-color: #e5e5e5;
+    color-scheme: dark;
+    --faction-accent: 239, 157, 116;
+    --faction-glow: 221, 91, 49;
+    --faction-shadow: 10, 6, 8;
+    --faction-button: 133, 48, 34;
+    --faction-button-dark: 99, 36, 30;
+    --faction-on-button: 255, 243, 228;
+    --primary-color: #f0e6dc;
     --font-family: "DotaFont", sans-serif;
     --font-family-2: "DotaFont2", sans-serif;
     --container-max-width: 1100px;
-    --background: url(images/background/background.png);
+    --background: radial-gradient(ellipse at 90% 5%, rgba(157, 55, 32, 0.26), transparent 55%),
+        linear-gradient(110deg, rgba(18, 17, 20, 0.92), rgba(40, 24, 25, 0.76)),
+        url(images/background/background2.png);
     
     /* Backgrounds */
-    --color-background-main: 25, 25, 25;
-    --color-background-panel: 36, 40, 43;
-    --color-background-panel-light: 45, 49, 52;
+    --color-background-main: 23, 21, 24;
+    --color-background-panel: 37, 33, 36;
+    --color-background-panel-light: 49, 42, 44;
 
-    --color-body-background: 18, 18, 18;
+    --color-body-background: 19, 17, 20;
 
-    --color-background: linear-gradient(
-        110deg,
-        rgba(30, 40, 50, 0.95),
-        rgba(18, 24, 32, 0.95)
-    );
+    --color-background: linear-gradient(145deg, rgba(36, 31, 34, 0.97), rgba(24, 23, 27, 0.97));
 
     /* Borders */
-    --color-border-dark: 18, 20, 22;
-    --color-border: 85, 87, 89;
+    --color-border-dark: 78, 62, 59;
+    --color-border: 114, 90, 81;
 
     /* Dota accents */
-    --color-accent-red: 157, 48, 29;
-    --color-accent-red-dark: 93, 20, 18;
-    --color-accent-blue: 46, 75, 96;
-    --color-accent-gold: 155, 87, 29;
+    --color-accent-red: 159, 61, 42;
+    --color-accent-red-dark: 108, 38, 29;
+    --color-accent-blue: 69, 127, 148;
+    --color-accent-gold: 180, 111, 66;
 
     /* --------------TEST SITE TEXT------------  */
 
-    --color-text-main: 220, 220, 220;
-    --color-text-gold: 210, 160, 55;
+    --color-text-main: 240, 230, 220;
+    --color-text-gold: 239, 181, 112;
 
 
 
 
 
     /* --------hover------navbar------------------ */
-    --color-hover: rgba(255, 255, 255, 0.05);
-    --color-navbar-hover: rgba(255, 255, 255, 0.1);
-    --color-navbar-active: rgba(0, 0, 0, 0.5);
+    --color-hover: rgba(238, 155, 115, 0.06);
+    --color-navbar-hover: rgba(238, 155, 115, 0.10);
+    --color-navbar-active: rgba(238, 155, 115, 0.16);
 
     /* -----------TEST ITEM GRID----------- */
 
     /* Primary TEXT */
-    --color-text-primary: 220, 220, 220;
+    --color-text-primary: 240, 230, 220;
 
     /*  Secondary TEXT */
-    --color-text-secondary: 145, 150, 160;
+    --color-text-secondary: 192, 177, 165;
 
     /* muted TEXT */
-    --color-text-muted: 105, 110, 120;
+    --color-text-muted: 170, 155, 146;
 
     /* Values of attributes */
-    --color-value: 225, 225, 225;
+    --color-value: 248, 238, 225;
 
     /* Gold / cost */
-    --color-gold: 210, 150, 45;
+    --color-gold: 241, 193, 102;
 
     /* active ability background */
     --color-active-background: 55, 55, 105;
@@ -88,7 +93,7 @@
     --color-passive-accent: 70, 150, 35;
 
     /* Lore */
-    --color-lore: 145, 145, 145;
+    --color-lore: 183, 171, 160;
 
 
     /* ---------------------------------------- */
@@ -541,7 +546,7 @@ footer p {
     --passive-accent: #d2d7dc;
 }
 /* Light tooltip palettes: accents reach 7:1 on their heading backgrounds. */
-.light-theme .item-details {
+:root[data-theme="radiant"] .item-details {
     --use-panel: #e8efe2;
     --use-heading: #d3e2cc;
     --use-accent: #1f3d1c;
@@ -1209,91 +1214,48 @@ footer p {
     color: rgb(var(--color-text-secondary));
 }
 
-/* Assignment 5: Day / Night theme. Shared variables update every page. */
-/* Warm parchment palette. Every text colour reaches WCAG AAA (7:1) on the
-   lightest and darkest surfaces it is used on; form borders reach 3:1. */
-body.light-theme {
+/* Radiant uses pale moss and jade; Dire's charcoal/ember defaults are in :root. */
+:root[data-theme="radiant"] {
     color-scheme: light;
-    --primary-color: #1f1a14;
+    --primary-color: #203b31;
+    --faction-accent: 40, 91, 65;
+    --faction-glow: 61, 133, 111;
+    --faction-shadow: 35, 59, 42;
+    --faction-button: 43, 89, 63;
+    --faction-button-dark: 29, 66, 48;
+    --faction-on-button: 246, 248, 232;
     --background:
-        radial-gradient(circle at 12% 0%, rgba(196, 150, 82, 0.22), transparent 42%),
-        radial-gradient(circle at 92% 100%, rgba(140, 38, 24, 0.10), transparent 48%),
-        linear-gradient(180deg, #eee8dd, #e2d9ca);
-    --color-body-background: 230, 223, 211;
-    --color-background-main: 230, 223, 211;        /* #e6dfd3 */
-    --color-background-panel: 251, 249, 245;       /* #fbf9f5 */
-    --color-background-panel-light: 239, 233, 223; /* #efe9df */
-    --color-background: linear-gradient(160deg, rgba(250, 247, 241, 0.94), rgba(241, 236, 227, 0.94));
-    --color-border-dark: 120, 106, 88;
-    --color-border: 150, 136, 116;
-    --color-accent-red: 128, 32, 20;
-    --color-accent-red-dark: 98, 24, 16;
-    --color-accent-gold: 160, 110, 40;
-    --color-accent-blue: 40, 80, 110;
-    --color-text-main: 31, 26, 20;      /* 14:1 and above */
-    --color-text-primary: 31, 26, 20;
-    --color-text-secondary: 74, 65, 54; /* 7.5:1 and above */
-    --color-text-muted: 78, 69, 58;
-    --color-text-gold: 94, 59, 12;      /* 7.5:1 and above */
-    --color-value: 31, 26, 20;
-    --color-gold: 94, 59, 12;
-    --color-lore: 74, 65, 54;
-    --color-active-background: 228, 237, 244;
-    --color-active-text: 23, 58, 82;
-    --color-active-accent: 40, 80, 110;
-    --color-passive-background: 232, 239, 226;
-    --color-passive-text: 31, 61, 28;
-    --color-passive-accent: 46, 110, 52;
-    --color-hover: rgba(94, 59, 12, 0.06);
-    --color-navbar-hover: rgba(94, 59, 12, 0.10);
-    --color-navbar-active: rgba(140, 38, 24, 0.12);
-    background-attachment: fixed;
-}
-
-body.light-theme .overlay { background: transparent; }
-body.light-theme header,
-body.light-theme main {
-    border: 1px solid rgba(var(--color-border), 0.55);
-    box-shadow: 0 10px 30px rgba(70, 50, 25, 0.10);
-}
-body.light-theme .top-navbar a.active { color: rgb(var(--color-accent-red-dark)); }
-body.light-theme .hero-caption { background: rgb(var(--color-background-panel-light)); }
-body.light-theme .hero-card,
-body.light-theme .item-card,
-body.light-theme .ti-edition,
-body.light-theme .faq-item { box-shadow: 0 2px 8px rgba(70, 50, 25, 0.08); }
-body.light-theme .hero-card:hover,
-body.light-theme .item-card:hover,
-body.light-theme .ti-edition:hover { box-shadow: 0 8px 20px rgba(70, 50, 25, 0.16); }
-body.light-theme .item-button,
-body.light-theme .contact-send,
-body.light-theme #close-contact,
-body.light-theme .quiz-next,
-body.light-theme .quiz-button:hover:not(:disabled) { color: #ffffff; }
-body.light-theme #register-errors { color: rgb(var(--color-accent-red)); }
-body.light-theme .item-details::backdrop,
-body.light-theme .popup-overlay { background: rgba(45, 32, 18, 0.45); }
-body.light-theme mark.search-match { color: #1f1a14; background: #f2cf6b; }
-body.light-theme #site-toast,
-body.light-theme #hero-suggestions { box-shadow: 0 8px 24px rgba(70, 50, 25, 0.18); }
-
-.theme-toggle {
-    padding: 10px 14px;
-    min-height: 42px;
-    border: 1px solid rgb(var(--color-border));
-    border-radius: 8px;
-    background: rgb(var(--color-background-panel));
-    color: rgb(var(--color-text-main));
-    font-family: inherit;
-    font-size: 13px;
-    white-space: nowrap;
-    cursor: pointer;
-}
-
-.theme-toggle:hover { background: rgb(var(--color-background-panel-light)); }
-.theme-toggle:focus-visible {
-    outline: 2px solid rgb(var(--color-text-gold));
-    outline-offset: 3px;
+        radial-gradient(ellipse at 10% 4%, rgba(176, 227, 194, 0.38), transparent 55%),
+        linear-gradient(110deg, rgba(158, 184, 151, 0.78), rgba(177, 193, 163, 0.90)),
+        url(images/background/background2.png);
+    --color-body-background: 167, 188, 155;
+    --color-background-main: 207, 220, 195;
+    --color-background-panel: 230, 237, 219;
+    --color-background-panel-light: 215, 226, 204;
+    --color-background: linear-gradient(145deg, rgba(231, 239, 222, 0.97), rgba(211, 225, 201, 0.97));
+    --color-border-dark: 130, 150, 118;
+    --color-border: 110, 134, 106;
+    --color-accent-red: 134, 40, 29;
+    --color-accent-red-dark: 99, 30, 24;
+    --color-accent-gold: 113, 112, 55;
+    --color-accent-blue: 38, 105, 110;
+    --color-text-main: 32, 59, 49;
+    --color-text-primary: 32, 59, 49;
+    --color-text-secondary: 65, 88, 64;
+    --color-text-muted: 72, 91, 68;
+    --color-text-gold: 95, 76, 23;
+    --color-value: 25, 49, 37;
+    --color-gold: 105, 74, 16;
+    --color-lore: 65, 88, 64;
+    --color-active-background: 210, 230, 227;
+    --color-active-text: 24, 65, 72;
+    --color-active-accent: 38, 105, 110;
+    --color-passive-background: 218, 228, 208;
+    --color-passive-text: 37, 67, 40;
+    --color-passive-accent: 46, 103, 62;
+    --color-hover: rgba(40, 91, 65, 0.06);
+    --color-navbar-hover: rgba(40, 91, 65, 0.09);
+    --color-navbar-active: rgba(40, 91, 65, 0.15);
 }
 
 header { flex-wrap: wrap; }
@@ -1567,7 +1529,7 @@ main a { color: rgb(var(--color-text-gold)); }
 .auth-layout .registration-form { margin: 0; max-width: none; }
 .auth-note, .contact-form small { color: rgb(var(--color-text-secondary)); font-size: 0.85rem; line-height: 1.6; }
 .auth-status:not(:empty), .field-error { color: #ffb4a4; font: 0.875rem/1.5 Arial, sans-serif; }
-body.light-theme .auth-status:not(:empty), body.light-theme .field-error { color: #831d17; }
+:root[data-theme="radiant"] body .auth-status:not(:empty), :root[data-theme="radiant"] body .field-error { color: #831d17; }
 [aria-invalid="true"] { outline: 2px solid #c35443; outline-offset: 2px; }
 .auth-status:empty, .field-error:empty, #account-feedback:empty, #profile-status:empty { display: none; }
 .contact-form input { min-width: 0; font: inherit; font-size: 0.9rem; }
@@ -1630,4 +1592,132 @@ a.quiz-button { display: inline-block; text-decoration: none; }
 }
 @media (prefers-reduced-motion: reduce) {
     *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; scroll-behavior: auto !important; }
+}
+
+/* Radiant / Dire: faction surfaces and a shared, keyboard-accessible theme switch. */
+body { background-attachment: fixed; min-height: 100vh; }
+.overlay { background: transparent; }
+header, main {
+    border: 1px solid rgba(var(--color-border), 0.65);
+    border-top-color: rgba(var(--faction-accent), 0.6);
+    box-shadow: 0 16px 48px rgba(var(--faction-shadow), 0.2), inset 0 1px rgba(var(--faction-accent), 0.08);
+}
+main::before {
+    content: "";
+    position: absolute;
+    top: -1px;
+    left: 12%;
+    right: 12%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgb(var(--faction-accent)), transparent);
+    pointer-events: none;
+}
+.top-navbar a.active { color: rgb(var(--faction-accent)); box-shadow: inset 0 -2px rgb(var(--faction-accent)); }
+.register-link { border-color: rgba(var(--faction-accent), 0.6); }
+.register-link:hover, .register-link.active { background: rgba(var(--faction-accent), 0.1); border-color: rgb(var(--faction-accent)); }
+.hero-caption { background: rgb(var(--color-background-panel-light)); }
+.hero-card, .item-card, .ti-edition, .faq-item {
+    box-shadow: 0 3px 10px rgba(var(--faction-shadow), 0.08);
+}
+.hero-card:hover, .item-card:hover, .ti-edition:hover {
+    box-shadow: 0 10px 24px rgba(var(--faction-shadow), 0.22);
+    border-color: rgba(var(--faction-accent), 0.75);
+}
+.item-button, .contact-send, #close-contact, .quiz-next {
+    color: rgb(var(--faction-on-button));
+    border-color: rgb(var(--faction-button-dark));
+    background: linear-gradient(135deg, rgb(var(--faction-button)), rgb(var(--faction-button-dark)));
+    box-shadow: inset 0 1px rgba(255, 255, 255, 0.12);
+}
+.item-button:hover, .contact-send:hover, #close-contact:hover, .quiz-button:hover:not(:disabled) {
+    color: rgb(var(--faction-on-button));
+    background: rgb(var(--faction-button));
+    border-color: rgb(var(--faction-accent));
+}
+.home-routes a, .community-panel, .contact-form, .location-guide, .item-filters, .hero-filters {
+    border-color: rgba(var(--color-border), 0.85);
+    border-left-color: rgb(var(--faction-accent));
+}
+.home-routes a { border-top-color: rgb(var(--faction-accent)); }
+.home-routes a:hover { border-color: rgb(var(--faction-accent)); }
+.home-routes span, .eyebrow { color: rgb(var(--faction-accent)); }
+.profile-avatar { color: rgb(var(--faction-accent)); border-color: rgb(var(--faction-accent)); background: rgba(var(--faction-accent), 0.1); }
+.save-hero[aria-pressed="true"] { color: rgb(var(--faction-accent)); border-color: rgb(var(--faction-accent)); background: rgba(var(--faction-accent), 0.08); }
+.pool-positions .covered strong { color: rgb(var(--faction-accent)); }
+.match-card { border-top-color: rgb(var(--faction-accent)); }
+.scroll-progress-fill { background: rgb(var(--faction-glow)); box-shadow: 0 0 10px rgba(var(--faction-glow), 0.35); }
+#site-toast, #hero-suggestions { box-shadow: 0 8px 24px rgba(var(--faction-shadow), 0.24); }
+.item-details::backdrop, .popup-overlay { background: rgba(12, 15, 14, 0.72); }
+:root[data-theme="radiant"] .item-details::backdrop,
+:root[data-theme="radiant"] .popup-overlay { background: rgba(24, 49, 34, 0.55); }
+:root[data-theme="radiant"] mark.search-match { color: #19372d; background: #b3d6b8; }
+#form-errors, #register-errors { color: #ffb4a4; }
+:root[data-theme="radiant"] #form-errors,
+:root[data-theme="radiant"] #register-errors { color: #831d17; }
+
+.theme-toggle {
+    position: relative;
+    isolation: isolate;
+    display: inline-grid;
+    grid-template-columns: 1fr 1fr;
+    flex: 0 0 auto;
+    width: 178px;
+    min-height: 44px;
+    padding: 4px;
+    border: 1px solid rgba(var(--faction-accent), 0.6);
+    border-radius: 8px;
+    background: rgba(var(--color-background-main), 0.8);
+    color: rgb(var(--color-text-secondary));
+    font: 12px var(--font-family-2);
+    cursor: pointer;
+    box-shadow: inset 0 1px 8px rgba(var(--faction-shadow), 0.12);
+}
+.theme-toggle::before {
+    content: "";
+    position: absolute;
+    inset: 4px auto 4px 4px;
+    width: calc(50% - 4px);
+    border: 1px solid rgba(var(--faction-accent), 0.35);
+    border-radius: 5px;
+    background: linear-gradient(135deg, rgba(var(--faction-accent), 0.2), rgba(var(--faction-accent), 0.09));
+    box-shadow: 0 0 12px rgba(var(--faction-glow), 0.09);
+    transform: translateX(100%);
+    transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+    z-index: -1;
+}
+:root[data-theme="radiant"] .theme-toggle::before { transform: translateX(0); }
+.theme-side { display: inline-flex; gap: 5px; align-items: center; justify-content: center; white-space: nowrap; }
+.theme-emblem { display: inline-block; width: 18px; height: 20px; background: currentColor; mask: var(--faction-mark) center / contain no-repeat; }
+.theme-radiant { --faction-mark: url(images/ui/radiant-mark.svg); }
+.theme-dire { --faction-mark: url(images/ui/dire-mark.svg); }
+:root:not([data-theme="radiant"]) .theme-dire,
+:root[data-theme="radiant"] .theme-radiant { color: rgb(var(--faction-accent)); }
+.theme-toggle:hover { border-color: rgb(var(--faction-accent)); }
+.theme-toggle:focus-visible { outline: 2px solid rgb(var(--faction-accent)); outline-offset: 4px; }
+
+/* The new page snapshot expands from the switch; the old one remains still below it. */
+::view-transition-old(root), ::view-transition-new(root) { animation: none; mix-blend-mode: normal; }
+::view-transition-old(root) { z-index: 0; }
+::view-transition-new(root) { z-index: 1; }
+.theme-color-fade body, .theme-color-fade body * {
+    transition: color 0.4s ease, background-color 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease;
+}
+@media (max-width: 768px) {
+    header { gap: 12px; }
+    .theme-toggle { order: 2; }
+    .register-link { order: 2; }
+}
+@media (max-width: 480px) {
+    header { display: grid; grid-template-columns: minmax(0, 1fr) auto; padding: 12px; column-gap: 10px; }
+    header > .logo { justify-self: start; }
+    .menu-toggle { margin-right: 0; justify-self: end; }
+    .top-navbar, .page-search { grid-column: 1 / -1; }
+    .theme-toggle { width: 152px; font-size: 11px; }
+    .theme-side { gap: 3px; }
+    .theme-emblem { width: 15px; }
+    .register-link { margin-left: 0; padding: 10px; font-size: 12px; justify-self: end; }
+}
+@media (prefers-reduced-motion: reduce) {
+    .theme-toggle::before { transition: none; }
+    ::view-transition-group(*), ::view-transition-old(*), ::view-transition-new(*) { animation: none !important; }
 }

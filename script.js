@@ -770,40 +770,7 @@ if (quiz) {
     });
 }
 
-// ==================== [10] DAY / NIGHT THEME TOGGLE & LOCALSTORAGE (A5 Task 2) ====================
-const themeButtons = document.querySelectorAll(".theme-toggle");
-
-function applyTheme(theme) {
-    const isLight = theme === "light";
-    document.body.classList.toggle("light-theme", isLight);
-
-    themeButtons.forEach((button) => {
-        button.textContent = isLight ? "Theme: Light" : "Theme: Dark";
-        button.setAttribute("aria-pressed", String(isLight));
-        button.title = isLight ? "Switch to dark theme" : "Switch to light theme";
-        button.setAttribute("aria-label", button.title);
-    });
-}
-
-let savedTheme = "dark";
-try {
-    savedTheme = localStorage.getItem("dota-wiki-theme") || "dark";
-} catch {
-    // Fall back to default theme if localStorage is unavailable
-}
-applyTheme(savedTheme);
-
-themeButtons.forEach((button) => {
-    button.addEventListener("click", () => {
-        const theme = document.body.classList.contains("light-theme") ? "dark" : "light";
-        applyTheme(theme);
-        try {
-            localStorage.setItem("dota-wiki-theme", theme);
-        } catch {
-            // Theme still applies to current page without storage
-        }
-    });
-});
+// ==================== [10] RADIANT / DIRE THEMES: js/theme.js (loaded before CSS) ====================
 
 // ==================== [11] SCROLL PROGRESS BAR & PAGE SEARCH HIGHLIGHTING (A6 Tasks 3, 4) ====================
 $(document).ready(function () {

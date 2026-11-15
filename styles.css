@@ -10,66 +10,69 @@
 
 :root {
     color-scheme: dark;
-    --faction-accent: 239, 157, 116;
-    --faction-glow: 221, 91, 49;
-    --faction-shadow: 10, 6, 8;
-    --faction-button: 133, 48, 34;
-    --faction-button-dark: 99, 36, 30;
-    --faction-on-button: 255, 243, 228;
-    --primary-color: #f0e6dc;
+    --faction-accent: 255, 145, 122;
+    --faction-glow: 255, 91, 47;
+    --faction-shadow: 3, 8, 14;
+    --faction-button: 142, 43, 34;
+    --faction-button-dark: 94, 31, 30;
+    --faction-on-button: 255, 242, 232;
+    --faction-trim: 121, 75, 67;
+    --faction-name: "THE DIRE";
+    --faction-scenery: url(images/background/dire-base.png);
+    --stone-texture: url(images/ui/dire-stone.svg);
+    --primary-color: #e4eaee;
     --font-family: "DotaFont", sans-serif;
     --font-family-2: "DotaFont2", sans-serif;
     --container-max-width: 1100px;
-    --background: radial-gradient(ellipse at 90% 5%, rgba(157, 55, 32, 0.26), transparent 55%),
-        linear-gradient(110deg, rgba(18, 17, 20, 0.92), rgba(40, 24, 25, 0.76)),
-        url(images/background/background2.png);
+    --background: radial-gradient(ellipse at 85% 8%, rgba(165, 43, 30, 0.18), transparent 60%),
+        linear-gradient(rgba(7, 13, 20, 0.28), rgba(7, 13, 20, 0.56)), var(--faction-scenery);
     
     /* Backgrounds */
-    --color-background-main: 23, 21, 24;
-    --color-background-panel: 37, 33, 36;
-    --color-background-panel-light: 49, 42, 44;
+    --color-background-main: 17, 25, 32;
+    --color-background-panel: 27, 37, 46;
+    --color-background-panel-light: 38, 50, 61;
 
-    --color-body-background: 19, 17, 20;
+    --color-body-background: 12, 19, 25;
 
-    --color-background: linear-gradient(145deg, rgba(36, 31, 34, 0.97), rgba(24, 23, 27, 0.97));
+    --color-background: var(--stone-texture), linear-gradient(145deg, #202c36, #111920);
 
     /* Borders */
-    --color-border-dark: 78, 62, 59;
-    --color-border: 114, 90, 81;
+    --color-border-dark: 60, 76, 89;
+    --color-border: 91, 110, 123;
 
     /* Dota accents */
-    --color-accent-red: 159, 61, 42;
-    --color-accent-red-dark: 108, 38, 29;
-    --color-accent-blue: 69, 127, 148;
-    --color-accent-gold: 180, 111, 66;
+    --color-accent-red: 155, 49, 37;
+    --color-accent-red-dark: 102, 31, 28;
+    --color-accent-blue: 74, 132, 163;
+    --color-accent-gold: 164, 94, 65;
 
     /* --------------TEST SITE TEXT------------  */
 
-    --color-text-main: 240, 230, 220;
-    --color-text-gold: 239, 181, 112;
+    --color-text-main: 228, 234, 238;
+    --color-text-gold: 255, 179, 124;
 
 
 
 
 
     /* --------hover------navbar------------------ */
-    --color-hover: rgba(238, 155, 115, 0.06);
-    --color-navbar-hover: rgba(238, 155, 115, 0.10);
-    --color-navbar-active: rgba(238, 155, 115, 0.16);
+    --color-hover: rgba(255, 145, 122, 0.06);
+    --color-navbar-hover: rgba(255, 145, 122, 0.10);
+    --color-navbar-active: rgba(255, 145, 122, 0.14);
 
     /* -----------TEST ITEM GRID----------- */
 
     /* Primary TEXT */
-    --color-text-primary: 240, 230, 220;
+    --color-text-primary: 228, 234, 238;
 
     /*  Secondary TEXT */
-    --color-text-secondary: 192, 177, 165;
+    --color-text-secondary: 183, 196, 205;
 
     /* muted TEXT */
-    --color-text-muted: 170, 155, 146;
+    --color-text-muted: 164, 180, 190;
 
     /* Values of attributes */
-    --color-value: 248, 238, 225;
+    --color-value: 241, 245, 247;
 
     /* Gold / cost */
     --color-gold: 241, 193, 102;
@@ -93,13 +96,13 @@
     --color-passive-accent: 70, 150, 35;
 
     /* Lore */
-    --color-lore: 183, 171, 160;
+    --color-lore: 164, 180, 190;
 
 
     /* ---------------------------------------- */
 
     /* Spaces, padding, margin etc */
-    --radius: 12px;
+    --radius: 5px;
     --radius-x2: 24px;
     --space-1: 8px;
     --space-2: 12px;
@@ -1214,48 +1217,52 @@ footer p {
     color: rgb(var(--color-text-secondary));
 }
 
-/* Radiant uses pale moss and jade; Dire's charcoal/ember defaults are in :root. */
+/* The supplied game footage: Radiant's pale stone, cyan runes and gold inlay. */
 :root[data-theme="radiant"] {
     color-scheme: light;
-    --primary-color: #203b31;
-    --faction-accent: 40, 91, 65;
-    --faction-glow: 61, 133, 111;
-    --faction-shadow: 35, 59, 42;
-    --faction-button: 43, 89, 63;
-    --faction-button-dark: 29, 66, 48;
-    --faction-on-button: 246, 248, 232;
+    --primary-color: #233e48;
+    --faction-accent: 29, 86, 108;
+    --faction-glow: 100, 209, 242;
+    --faction-shadow: 27, 54, 57;
+    --faction-button: 215, 200, 141;
+    --faction-button-dark: 180, 158, 92;
+    --faction-on-button: 27, 43, 44;
+    --faction-trim: 155, 137, 78;
+    --faction-name: "THE RADIANT";
+    --faction-scenery: url(images/background/radiant-base.png);
+    --stone-texture: url(images/ui/radiant-stone.svg);
+    --radius: 12px;
     --background:
-        radial-gradient(ellipse at 10% 4%, rgba(176, 227, 194, 0.38), transparent 55%),
-        linear-gradient(110deg, rgba(158, 184, 151, 0.78), rgba(177, 193, 163, 0.90)),
-        url(images/background/background2.png);
-    --color-body-background: 167, 188, 155;
-    --color-background-main: 207, 220, 195;
-    --color-background-panel: 230, 237, 219;
-    --color-background-panel-light: 215, 226, 204;
-    --color-background: linear-gradient(145deg, rgba(231, 239, 222, 0.97), rgba(211, 225, 201, 0.97));
-    --color-border-dark: 130, 150, 118;
-    --color-border: 110, 134, 106;
+        radial-gradient(ellipse at 20% 4%, rgba(164, 232, 248, 0.16), transparent 60%),
+        linear-gradient(rgba(28, 57, 62, 0.08), rgba(33, 64, 46, 0.28)), var(--faction-scenery);
+    --color-body-background: 190, 209, 202;
+    --color-background-main: 219, 230, 226;
+    --color-background-panel: 239, 242, 231;
+    --color-background-panel-light: 227, 235, 230;
+    --color-background: var(--stone-texture), linear-gradient(145deg, #eff2e9, #d4e2df);
+    --color-border-dark: 151, 171, 165;
+    --color-border: 122, 149, 147;
     --color-accent-red: 134, 40, 29;
     --color-accent-red-dark: 99, 30, 24;
-    --color-accent-gold: 113, 112, 55;
-    --color-accent-blue: 38, 105, 110;
-    --color-text-main: 32, 59, 49;
-    --color-text-primary: 32, 59, 49;
-    --color-text-secondary: 65, 88, 64;
-    --color-text-muted: 72, 91, 68;
-    --color-text-gold: 95, 76, 23;
-    --color-value: 25, 49, 37;
+    --color-accent-gold: 155, 137, 78;
+    --color-accent-blue: 36, 105, 133;
+    --color-text-main: 35, 62, 72;
+    --color-text-primary: 35, 62, 72;
+    --color-text-secondary: 65, 88, 95;
+    --color-text-muted: 75, 98, 104;
+    --color-text-gold: 105, 78, 25;
+    --color-value: 25, 49, 57;
     --color-gold: 105, 74, 16;
-    --color-lore: 65, 88, 64;
-    --color-active-background: 210, 230, 227;
-    --color-active-text: 24, 65, 72;
-    --color-active-accent: 38, 105, 110;
-    --color-passive-background: 218, 228, 208;
-    --color-passive-text: 37, 67, 40;
+    --color-lore: 65, 88, 95;
+    --color-active-background: 211, 231, 237;
+    --color-active-text: 24, 65, 81;
+    --color-active-accent: 36, 105, 133;
+    --color-passive-background: 220, 230, 225;
+    --color-passive-text: 43, 65, 60;
     --color-passive-accent: 46, 103, 62;
-    --color-hover: rgba(40, 91, 65, 0.06);
-    --color-navbar-hover: rgba(40, 91, 65, 0.09);
-    --color-navbar-active: rgba(40, 91, 65, 0.15);
+    --color-hover: rgba(29, 86, 108, 0.06);
+    --color-navbar-hover: rgba(29, 86, 108, 0.08);
+    --color-navbar-active: rgba(29, 86, 108, 0.13);
 }
 
 header { flex-wrap: wrap; }
@@ -1594,13 +1601,55 @@ a.quiz-button { display: inline-block; text-decoration: none; }
     *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; scroll-behavior: auto !important; }
 }
 
-/* Radiant / Dire: faction surfaces and a shared, keyboard-accessible theme switch. */
-body { background-attachment: fixed; min-height: 100vh; }
+/* Radiant / Dire: the base footage sets the scene; opaque stone keeps text readable. */
+body {
+    background-attachment: fixed;
+    background-position: center;
+    /* Enlarge only the footage layer to keep the in-game HUD outside the viewport. */
+    background-size: cover, cover, max(135vw, 290vh) auto;
+    min-height: 100vh;
+}
 .overlay { background: transparent; }
-header, main {
+header, main, footer {
     border: 1px solid rgba(var(--color-border), 0.65);
-    border-top-color: rgba(var(--faction-accent), 0.6);
-    box-shadow: 0 16px 48px rgba(var(--faction-shadow), 0.2), inset 0 1px rgba(var(--faction-accent), 0.08);
+    border-top-color: rgb(var(--faction-trim));
+    border-radius: var(--radius);
+    background: var(--color-background);
+    background-size: 640px 480px, cover;
+    box-shadow: 0 16px 48px rgba(var(--faction-shadow), 0.3), inset 0 1px rgba(var(--faction-glow), 0.2);
+}
+header {
+    position: relative;
+    overflow: hidden;
+    padding-top: 110px;
+}
+/* A small window onto each base, cropped from the player's own screenshots. */
+header::before {
+    content: "";
+    position: absolute;
+    inset: 0 0 auto;
+    height: 94px;
+    background-image: linear-gradient(90deg, rgba(8, 20, 28, 0.45), transparent 65%), var(--faction-scenery);
+    background-position: center, center 42%;
+    background-size: cover;
+    border-bottom: 2px solid rgb(var(--faction-trim));
+    box-shadow: 0 1px 10px rgba(var(--faction-glow), 0.3);
+    pointer-events: none;
+}
+header::after {
+    content: var(--faction-name);
+    position: absolute;
+    top: 26px;
+    left: 22px;
+    padding: 9px 15px;
+    color: #f3f5eb;
+    background: rgba(13, 26, 32, 0.86);
+    border: 1px solid rgba(218, 223, 206, 0.28);
+    border-left: 3px solid rgb(var(--faction-glow));
+    box-shadow: -4px 0 16px rgba(var(--faction-glow), 0.18);
+    font-size: 13px;
+    letter-spacing: 0.22em;
+    pointer-events: none;
 }
 main::before {
     content: "";
@@ -1608,12 +1657,40 @@ main::before {
     top: -1px;
     left: 12%;
     right: 12%;
-    height: 1px;
-    background: linear-gradient(90deg, transparent, rgb(var(--faction-accent)), transparent);
+    height: 2px;
+    background: linear-gradient(90deg, transparent, rgb(var(--faction-glow)), transparent);
+    box-shadow: 0 0 16px rgba(var(--faction-glow), 0.45);
     pointer-events: none;
 }
+main::after {
+    content: "";
+    position: absolute;
+    top: 7px;
+    right: 7px;
+    width: 42px;
+    height: 42px;
+    border-top: 1px solid rgba(var(--faction-trim), 0.65);
+    border-right: 1px solid rgba(var(--faction-trim), 0.65);
+    border-top-right-radius: var(--radius);
+    pointer-events: none;
+}
+footer { padding: 8px; }
+hr { border: 0; border-top: 1px solid rgba(var(--color-border), 0.65); }
+input::placeholder, textarea::placeholder { color: rgb(var(--color-text-muted)); opacity: 1; }
+.home-routes a, .community-panel, .contact-form, .location-guide, .item-filters, .hero-filters,
+.current-patch, .longest-patches, .recent-patches, .item-card, .ti-edition,
+.profile-panel, .pool-card, .empty-state, .match-card, .faq-item {
+    background-image: linear-gradient(135deg, rgb(var(--color-background-panel)), rgb(var(--color-background-panel-light)));
+    border-radius: var(--radius);
+    box-shadow: inset 0 1px rgba(var(--faction-glow), 0.12), 0 3px 10px rgba(var(--faction-shadow), 0.08);
+}
+.community-panel, .current-patch, .longest-patches, .recent-patches {
+    background-image: var(--stone-texture), linear-gradient(135deg, rgb(var(--color-background-panel)), rgb(var(--color-background-panel-light)));
+    background-size: 640px 480px, cover;
+    background-position: right bottom;
+}
 .top-navbar a.active { color: rgb(var(--faction-accent)); box-shadow: inset 0 -2px rgb(var(--faction-accent)); }
-.register-link { border-color: rgba(var(--faction-accent), 0.6); }
+.register-link { border-color: rgb(var(--faction-trim)); }
 .register-link:hover, .register-link.active { background: rgba(var(--faction-accent), 0.1); border-color: rgb(var(--faction-accent)); }
 .hero-caption { background: rgb(var(--color-background-panel-light)); }
 .hero-card, .item-card, .ti-edition, .faq-item {
@@ -1627,7 +1704,7 @@ main::before {
     color: rgb(var(--faction-on-button));
     border-color: rgb(var(--faction-button-dark));
     background: linear-gradient(135deg, rgb(var(--faction-button)), rgb(var(--faction-button-dark)));
-    box-shadow: inset 0 1px rgba(255, 255, 255, 0.12);
+    box-shadow: inset 0 1px rgba(255, 255, 255, 0.28), 0 2px 6px rgba(var(--faction-shadow), 0.15);
 }
 .item-button:hover, .contact-send:hover, #close-contact:hover, .quiz-button:hover:not(:disabled) {
     color: rgb(var(--faction-on-button));
@@ -1638,7 +1715,7 @@ main::before {
     border-color: rgba(var(--color-border), 0.85);
     border-left-color: rgb(var(--faction-accent));
 }
-.home-routes a { border-top-color: rgb(var(--faction-accent)); }
+.home-routes a { border-top-color: rgb(var(--faction-trim)); }
 .home-routes a:hover { border-color: rgb(var(--faction-accent)); }
 .home-routes span, .eyebrow { color: rgb(var(--faction-accent)); }
 .profile-avatar { color: rgb(var(--faction-accent)); border-color: rgb(var(--faction-accent)); background: rgba(var(--faction-accent), 0.1); }
@@ -1649,8 +1726,8 @@ main::before {
 #site-toast, #hero-suggestions { box-shadow: 0 8px 24px rgba(var(--faction-shadow), 0.24); }
 .item-details::backdrop, .popup-overlay { background: rgba(12, 15, 14, 0.72); }
 :root[data-theme="radiant"] .item-details::backdrop,
-:root[data-theme="radiant"] .popup-overlay { background: rgba(24, 49, 34, 0.55); }
-:root[data-theme="radiant"] mark.search-match { color: #19372d; background: #b3d6b8; }
+:root[data-theme="radiant"] .popup-overlay { background: rgba(24, 46, 57, 0.62); }
+:root[data-theme="radiant"] mark.search-match { color: #19372d; background: #b9dfb5; }
 #form-errors, #register-errors { color: #ffb4a4; }
 :root[data-theme="radiant"] #form-errors,
 :root[data-theme="radiant"] #register-errors { color: #831d17; }
@@ -1664,7 +1741,7 @@ main::before {
     width: 178px;
     min-height: 44px;
     padding: 4px;
-    border: 1px solid rgba(var(--faction-accent), 0.6);
+    border: 1px solid rgb(var(--faction-trim));
     border-radius: 8px;
     background: rgba(var(--color-background-main), 0.8);
     color: rgb(var(--color-text-secondary));
@@ -1703,12 +1780,16 @@ main::before {
     transition: color 0.4s ease, background-color 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease;
 }
 @media (max-width: 768px) {
-    header { gap: 12px; }
+    header { gap: 12px; padding-top: 88px; }
+    header::before { height: 72px; }
+    header::after { top: 17px; font-size: 11px; }
     .theme-toggle { order: 2; }
     .register-link { order: 2; }
 }
 @media (max-width: 480px) {
-    header { display: grid; grid-template-columns: minmax(0, 1fr) auto; padding: 12px; column-gap: 10px; }
+    header { display: grid; grid-template-columns: minmax(0, 1fr) auto; padding: 82px 12px 12px; column-gap: 10px; }
+    header::before { height: 66px; }
+    header::after { left: 12px; top: 14px; padding: 8px 12px; }
     header > .logo { justify-self: start; }
     .menu-toggle { margin-right: 0; justify-self: end; }
     .top-navbar, .page-search { grid-column: 1 / -1; }

@@ -17,6 +17,17 @@
     document.addEventListener("DOMContentLoaded", () => {
         const buttons = document.querySelectorAll(".theme-toggle");
 
+        // Warm the other faction's scenery after the visible page has loaded.
+        // Switching stays immediate; an unavailable image leaves the stone palette intact.
+        function preloadScenery() {
+            const image = new Image();
+            image.src = `images/background/${currentTheme === "dire" ? "radiant" : "dire"}-base.png`;
+        }
+        window.addEventListener("load", () => {
+            if ("requestIdleCallback" in window) requestIdleCallback(preloadScenery, { timeout: 1500 });
+            else setTimeout(preloadScenery, 300);
+        }, { once: true });
+
         function applyTheme(theme, save = false) {
             currentTheme = theme;
             root.dataset.theme = theme;

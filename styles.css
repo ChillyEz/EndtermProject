@@ -1625,33 +1625,23 @@ header {
     overflow: hidden;
     padding-top: 110px;
 }
-/* Faction silhouettes form the decorative header banner. */
-header::before {
+/* A full, uncropped banner over a softly blurred copy; no extra header height. */
+header::before, header::after {
     content: "";
     position: absolute;
     inset: 0 0 auto;
     height: 94px;
-    background-image: linear-gradient(90deg, rgba(8, 20, 28, 0.45), transparent 65%), var(--faction-banner);
-    background-position: center, center 35%;
-    background-size: cover;
-    border-bottom: 2px solid rgb(var(--faction-trim));
-    box-shadow: 0 1px 10px rgba(var(--faction-glow), 0.3);
     pointer-events: none;
 }
+header::before {
+    background: var(--faction-banner) center / cover no-repeat;
+    filter: blur(12px) brightness(0.55);
+    opacity: 0.75;
+}
 header::after {
-    content: var(--faction-name);
-    position: absolute;
-    top: 26px;
-    left: 22px;
-    padding: 9px 15px;
-    color: #f3f5eb;
-    background: rgba(13, 26, 32, 0.86);
-    border: 1px solid rgba(218, 223, 206, 0.28);
-    border-left: 3px solid rgb(var(--faction-glow));
-    box-shadow: -4px 0 16px rgba(var(--faction-glow), 0.18);
-    font-size: 13px;
-    letter-spacing: 0.22em;
-    pointer-events: none;
+    background: var(--faction-banner) center / contain no-repeat;
+    border-bottom: 2px solid rgb(var(--faction-trim));
+    box-shadow: 0 1px 10px rgba(var(--faction-glow), 0.3);
 }
 main::before {
     content: "";
@@ -1783,15 +1773,13 @@ input::placeholder, textarea::placeholder { color: rgb(var(--color-text-muted));
 }
 @media (max-width: 768px) {
     header { gap: 12px; padding-top: 88px; }
-    header::before { height: 72px; }
-    header::after { top: 17px; font-size: 11px; }
+    header::before, header::after { height: 72px; }
     .theme-toggle { order: 2; }
     .register-link { order: 2; }
 }
 @media (max-width: 480px) {
     header { display: grid; grid-template-columns: minmax(0, 1fr) auto; padding: 82px 12px 12px; column-gap: 10px; }
-    header::before { height: 66px; }
-    header::after { left: 12px; top: 14px; padding: 8px 12px; }
+    header::before, header::after { height: 66px; }
     header > .logo { justify-self: start; }
     .menu-toggle { margin-right: 0; justify-self: end; }
     .top-navbar, .page-search { grid-column: 1 / -1; }

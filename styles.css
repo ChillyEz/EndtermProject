@@ -19,6 +19,7 @@
     --faction-trim: 121, 75, 67;
     --faction-name: "THE DIRE";
     --faction-scenery: url(images/background/dire-base.webp);
+    --faction-banner: url(images/background/dire-banner.webp);
     --stone-texture: url(images/ui/dire-stone.svg);
     --primary-color: #e4eaee;
     --font-family: "DotaFont", sans-serif;
@@ -1230,6 +1231,7 @@ footer p {
     --faction-trim: 155, 137, 78;
     --faction-name: "THE RADIANT";
     --faction-scenery: url(images/background/radiant-base.webp);
+    --faction-banner: url(images/background/radiant-banner.webp);
     --stone-texture: url(images/ui/radiant-stone.svg);
     --radius: 12px;
     --background:
@@ -1605,8 +1607,8 @@ a.quiz-button { display: inline-block; text-decoration: none; }
 body {
     background-attachment: fixed;
     background-position: center;
-    /* Enlarge only the footage layer to keep the in-game HUD outside the viewport. */
-    background-size: cover, cover, max(135vw, 290vh) auto;
+    /* Artwork fills the viewport without the old screenshot zoom. */
+    background-size: cover;
     min-height: 100vh;
 }
 .overlay { background: transparent; }
@@ -1623,14 +1625,14 @@ header {
     overflow: hidden;
     padding-top: 110px;
 }
-/* A small window onto each base, cropped from the player's own screenshots. */
+/* Faction silhouettes form the decorative header banner. */
 header::before {
     content: "";
     position: absolute;
     inset: 0 0 auto;
     height: 94px;
-    background-image: linear-gradient(90deg, rgba(8, 20, 28, 0.45), transparent 65%), var(--faction-scenery);
-    background-position: center, center 42%;
+    background-image: linear-gradient(90deg, rgba(8, 20, 28, 0.45), transparent 65%), var(--faction-banner);
+    background-position: center, center 35%;
     background-size: cover;
     border-bottom: 2px solid rgb(var(--faction-trim));
     box-shadow: 0 1px 10px rgba(var(--faction-glow), 0.3);

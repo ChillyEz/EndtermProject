@@ -21,7 +21,7 @@
         // Switching stays immediate; an unavailable image leaves the stone palette intact.
         function preloadScenery() {
             const image = new Image();
-            image.src = `images/background/${currentTheme === "dire" ? "radiant" : "dire"}-base.png`;
+            image.src = `images/background/${currentTheme === "dire" ? "radiant" : "dire"}-base.webp`;
         }
         window.addEventListener("load", () => {
             if ("requestIdleCallback" in window) requestIdleCallback(preloadScenery, { timeout: 1500 });

@@ -18,7 +18,7 @@
     --faction-on-button: 255, 242, 232;
     --faction-trim: 121, 75, 67;
     --faction-name: "THE DIRE";
-    --faction-scenery: url(images/background/dire-base.png);
+    --faction-scenery: url(images/background/dire-base.webp);
     --stone-texture: url(images/ui/dire-stone.svg);
     --primary-color: #e4eaee;
     --font-family: "DotaFont", sans-serif;
@@ -1229,7 +1229,7 @@ footer p {
     --faction-on-button: 27, 43, 44;
     --faction-trim: 155, 137, 78;
     --faction-name: "THE RADIANT";
-    --faction-scenery: url(images/background/radiant-base.png);
+    --faction-scenery: url(images/background/radiant-base.webp);
     --stone-texture: url(images/ui/radiant-stone.svg);
     --radius: 12px;
     --background:

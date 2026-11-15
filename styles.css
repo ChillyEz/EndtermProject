@@ -1625,24 +1625,33 @@ header {
     overflow: hidden;
     padding-top: 110px;
 }
-/* A full, uncropped banner over a softly blurred copy; no extra header height. */
-header::before, header::after {
+/* Full-width artwork; navigation overlaps its lower edge on a readable surface. */
+header {
+    isolation: isolate;
+    container-type: inline-size;
+    padding-top: clamp(90px, 27vw, 300px);
+}
+header::before {
     content: "";
     position: absolute;
     inset: 0 0 auto;
-    height: 94px;
+    width: 100%;
+    aspect-ratio: 12 / 5;
+    background: var(--faction-banner) center top / 100% 100% no-repeat;
+    z-index: -2;
     pointer-events: none;
 }
-header::before {
-    background: var(--faction-banner) center / cover no-repeat;
-    filter: blur(12px) brightness(0.55);
-    opacity: 0.75;
-}
 header::after {
-    background: var(--faction-banner) center / contain no-repeat;
-    border-bottom: 2px solid rgb(var(--faction-trim));
-    box-shadow: 0 1px 10px rgba(var(--faction-glow), 0.3);
+    content: "";
+    position: absolute;
+    inset: auto 0 0;
+    height: 220px;
+    background: linear-gradient(to bottom, rgba(var(--color-background-panel), 0.88), rgb(var(--color-background-main)) 55%);
+    backdrop-filter: blur(8px);
+    z-index: -1;
+    pointer-events: none;
 }
+header > :not(.logo) { position: relative; }
 main::before {
     content: "";
     position: absolute;
@@ -1772,14 +1781,13 @@ input::placeholder, textarea::placeholder { color: rgb(var(--color-text-muted));
     transition: color 0.4s ease, background-color 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease;
 }
 @media (max-width: 768px) {
-    header { gap: 12px; padding-top: 88px; }
-    header::before, header::after { height: 72px; }
+    header { gap: 12px; padding-top: clamp(100px, 29vw, 220px); }
     .theme-toggle { order: 2; }
     .register-link { order: 2; }
 }
 @media (max-width: 480px) {
-    header { display: grid; grid-template-columns: minmax(0, 1fr) auto; padding: 82px 12px 12px; column-gap: 10px; }
-    header::before, header::after { height: 66px; }
+    header { display: grid; grid-template-columns: minmax(0, 1fr) auto; padding: 38% 12px 12px; column-gap: 10px; }
+    header::after { height: 280px; }
     header > .logo { justify-self: start; }
     .menu-toggle { margin-right: 0; justify-self: end; }
     .top-navbar, .page-search { grid-column: 1 / -1; }

@@ -82,6 +82,19 @@
                         <ul id="pool-positions" class="pool-positions"></ul>
                     </section>
                 </div>
+                <section class="profile-panel dota-stats" aria-labelledby="dota-stats-title">
+                    <h2 id="dota-stats-title">My Dota 2 statistics</h2>
+                    <p>Enter your Dota 2 friend ID to load public statistics from OpenDota. Match history must be public in the game settings.</p>
+                    <form id="dota-id-form" class="dota-id-form" novalidate>
+                        <label for="dota-id">Friend ID</label>
+                        <input id="dota-id" type="text" inputmode="numeric" placeholder="For example 86745912" autocomplete="off" aria-describedby="dota-id-error">
+                        <button class="quiz-button quiz-next" type="submit">Load statistics</button>
+                        <button id="dota-id-clear" class="quiz-button" type="button" hidden>Remove</button>
+                    </form>
+                    <p id="dota-id-error" class="field-error" role="alert"></p>
+                    <p id="dota-status" role="status"></p>
+                    <div id="dota-result"></div>
+                </section>
                 <section aria-labelledby="pool-title">
                     <div class="section-heading">
                         <h2 id="pool-title" tabindex="-1">My hero pool <span id="pool-count" class="count-badge">0</span></h2>

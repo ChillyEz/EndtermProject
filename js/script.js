@@ -4,8 +4,9 @@ import { isValidEmail } from "./validation.js";
 import { initAccount, createSaveHeroButton } from "./account.js";
 import { initProMatches } from "./esports.js";
 import { initHeroDetails, loadHeroStats } from "./hero-details.js";
+import { initDotaProfile } from "./dota-profile.js";
 
-$(document).ready(() => { initAccount(); initProMatches(); initHeroDetails(); });
+$(document).ready(() => { initAccount(); initProMatches(); initHeroDetails(); initDotaProfile(); });
 
 // ==================== [1] HERO CATALOG, LIVE SEARCH & AUTOCOMPLETE (heroes.html | A6 Tasks 0-2) ====================
 $(document).ready(function () {

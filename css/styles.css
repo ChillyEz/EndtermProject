@@ -1978,3 +1978,43 @@ body:not(.home) header::before {
     pointer-events: none;
 }
 .hero-winrate.winning { background: rgba(38, 110, 58, 0.92); }
+
+/* Final: Dota 2 statistics on the profile page. */
+.dota-stats { margin-bottom: var(--space-4); }
+.dota-id-form { display: flex; flex-wrap: wrap; gap: var(--space-2); align-items: center; }
+.dota-id-form input {
+    flex: 1 1 200px;
+    min-width: 0;
+    padding: 10px 12px;
+    font: inherit;
+    font-size: 14px;
+    color: rgb(var(--color-text-main));
+    background: rgb(var(--color-background-main));
+    border: 1px solid rgb(var(--color-border));
+    border-radius: 4px;
+}
+.dota-id-form input:focus-visible { outline: 2px solid rgb(var(--faction-accent)); outline-offset: 2px; }
+#dota-status { font-size: 0.8rem; color: rgb(var(--color-text-secondary)); }
+#dota-status:empty { display: none; }
+.dota-player { display: flex; gap: var(--space-3); align-items: center; margin: var(--space-3) 0; }
+.dota-player img { width: 64px; height: 64px; border-radius: 50%; border: 1px solid rgb(var(--faction-accent)); }
+.dota-player h3, .dota-player p { margin: 0; }
+.recent-matches { margin: 0; padding: 0; list-style: none; font-size: 0.85rem; }
+.recent-matches li {
+    display: grid;
+    grid-template-columns: 64px minmax(0, 1fr) 48px 90px 60px;
+    gap: var(--space-2);
+    align-items: center;
+    padding: 6px 0;
+    border-top: 1px solid rgba(var(--color-border), 0.65);
+}
+.recent-matches img { width: 64px; aspect-ratio: 16 / 9; object-fit: cover; border-radius: 4px; }
+.match-result { color: #e08a7c; }
+.match-result.won { color: #6fc27c; }
+:root[data-theme="radiant"] .match-result { color: #8e2a1e; }
+:root[data-theme="radiant"] .match-result.won { color: #1f6b34; }
+@media (max-width: 480px) {
+    .recent-matches li { grid-template-columns: 48px minmax(0, 1fr) 40px; }
+    .recent-matches img { width: 48px; }
+    .recent-matches li span:nth-last-child(-n+2) { grid-column: 2 / -1; font-size: 0.75rem; color: rgb(var(--color-text-secondary)); }
+}

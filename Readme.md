@@ -19,6 +19,7 @@ Code organization:
 - `js/validation.js`: shared email format checker.
 - `js/esports.js`: OpenDota match requests, loading state, timeout, error/retry and match rendering. Only the latest game of each series is listed.
 - `js/hero-details.js`: hero details dialog with live win rates, pick counts and base stats from OpenDota.
+- `js/dota-profile.js`: Profile page statistics. A friend ID is validated, saved per account under `dota-wiki-dota-ids`, and used to request the player, win/loss and recent matches from OpenDota.
 - `js/vendor`: bundled jQuery.
 - `images/heroes`, `images/items`, `images/attributes`, `images/background`, `images/ui`: local images.
 - `sounds`, `fonts`: interface sounds and web fonts.

@@ -1963,3 +1963,18 @@ body:not(.home) header::before {
     .base-stats { grid-template-columns: auto 1fr; }
     .hero-details .detail-icon { width: 88px; }
 }
+
+/* Final: live win rate badge on hero cards. */
+.hero-card { position: relative; }
+.hero-winrate {
+    position: absolute;
+    top: 6px;
+    right: 6px;
+    padding: 2px 6px;
+    font-size: 11px;
+    color: #fff;
+    background: rgba(150, 52, 40, 0.92);
+    border-radius: 4px;
+    pointer-events: none;
+}
+.hero-winrate.winning { background: rgba(38, 110, 58, 0.92); }

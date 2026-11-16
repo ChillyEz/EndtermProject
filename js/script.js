@@ -3,7 +3,7 @@ import { items } from "./data/items.js";
 import { isValidEmail } from "./validation.js";
 import { initAccount, createSaveHeroButton } from "./account.js";
 import { initProMatches } from "./esports.js";
-import { initHeroDetails } from "./hero-details.js";
+import { initHeroDetails, loadHeroStats } from "./hero-details.js";
 
 $(document).ready(() => { initAccount(); initProMatches(); initHeroDetails(); });
 
@@ -17,6 +17,10 @@ $(document).ready(function () {
         const $complexityFilter = $("#complexity-filter");
         const $positionFilter = $("#position-filter");
         const $attackTypeFilter = $("#attack-type-filter");
+        const $sort = $("#hero-sort");
+        const filterStorageKey = "dota-wiki-hero-filters";
+        // Live numbers from OpenDota by hero id: { winRate, games }. Empty until the request finishes.
+        const liveStats = {};
 
         const attributes = ["Strength", "Agility", "Intelligence", "Universal"];
         const attributeImages = {
@@ -36,6 +40,7 @@ $(document).ready(function () {
             attributes.forEach((attribute) => {
                 const group = heroList.filter((hero) => hero.attribute === attribute);
                 if (!group.length) return;
+                sortHeroes(group);
                 const $section = $("<section>").addClass("hero-section");
                 const $title = $("<h3>").addClass("attribute-title").append(
                     $("<img>").attr({ src: attributeImages[attribute], alt: attribute }),
@@ -52,11 +57,54 @@ $(document).ready(function () {
                             .text(`${hero.preferredPosition} | Complexity ${hero.complexity}/3`),
                         createSaveHeroButton(hero)
                     );
+                    const stats = liveStats[hero.id];
+                    if (stats) {
+                        $("<span>").addClass(stats.winRate >= 50 ? "hero-winrate winning" : "hero-winrate")
+                            .attr("title", "Win rate in recent public matches")
+                            .text(`${stats.winRate.toFixed(1)}%`).appendTo($card);
+                    }
                     $gallery.append($card);
                 });
                 $heroSections.append($section.append($title, $gallery));
             });
             $(document).trigger("pagecontentchange");
+        }
+
+        // Sort heroes inside an attribute group by a live number: "winRate" or "games".
+        function sortHeroes(group) {
+            const sortBy = $sort.val();
+            if (sortBy === "name") return;
+            group.sort((a, b) => (liveStats[b.id]?.[sortBy] ?? 0) - (liveStats[a.id]?.[sortBy] ?? 0));
+        }
+
+        // Remember the chosen filters in localStorage and restore them on the next visit.
+        function saveFilters() {
+            try {
+                localStorage.setItem(filterStorageKey, JSON.stringify({
+                    search: $searchInput.val(),
+                    attribute: $attributeFilter.val(),
+                    complexity: $complexityFilter.val(),
+                    position: $positionFilter.val(),
+                    attackType: $attackTypeFilter.val(),
+                    sort: $sort.val()
+                }));
+            } catch { /* storage can be blocked; filters still work */ }
+        }
+        function setSelect($select, value) {
+            $select.val(value);
+            if ($select.val() === null) $select.prop("selectedIndex", 0);
+        }
+        function restoreFilters() {
+            try {
+                const saved = JSON.parse(localStorage.getItem(filterStorageKey));
+                if (!saved) return;
+                $searchInput.val(saved.search || "");
+                setSelect($attributeFilter, saved.attribute);
+                setSelect($complexityFilter, saved.complexity);
+                setSelect($positionFilter, saved.position);
+                setSelect($attackTypeFilter, saved.attackType);
+                setSelect($sort, saved.sort);
+            } catch { /* damaged saved data is ignored */ }
         }
 
         // Autocomplete search dropdown (Task 2)
@@ -78,8 +126,13 @@ $(document).ready(function () {
         }
 
         $searchInput.on("input focus", () => filterHeroes());
-        $("#attribute-filter, #complexity-filter, #position-filter, #attack-type-filter")
+        $("#attribute-filter, #complexity-filter, #position-filter, #attack-type-filter, #hero-sort")
             .on("change", () => filterHeroes());
+        $("#reset-filters").on("click", () => {
+            $searchInput.val("");
+            $(".hero-filters select").prop("selectedIndex", 0);
+            filterHeroes(false);
+        });
         $suggestions.on("click", "button", function () {
             $searchInput.val($(this).text());
             $searchInput.trigger("focus");
@@ -99,7 +152,24 @@ $(document).ready(function () {
             }, 0);
         });
 
-        renderHeroes(heroes);
+        restoreFilters();
+        filterHeroes(false);
+
+        // The same OpenDota request as the details dialog. When it arrives, cards get win rates.
+        loadHeroStats().then((allStats) => {
+            allStats.forEach((stats) => {
+                let games = 0;
+                let wins = 0;
+                for (let rank = 1; rank <= 8; rank++) {
+                    games += stats[`${rank}_pick`] || 0;
+                    wins += stats[`${rank}_win`] || 0;
+                }
+                if (games) liveStats[stats.id] = { winRate: (wins / games) * 100, games };
+            });
+            filterHeroes(false);
+        }).catch(() => {
+            $sort.attr("title", "Live statistics are unavailable right now.");
+        });
 
         // Filter heroes by search text, attribute (switch), complexity, position and attack type (Task 1)
         function filterHeroes(withSuggestions = true) {
@@ -143,6 +213,7 @@ $(document).ready(function () {
             });
 
             renderHeroes(filteredHeroes);
+            saveFilters();
             if (withSuggestions) showSuggestions(filteredHeroes);
             else hideSuggestions();
         }

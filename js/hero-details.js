@@ -6,7 +6,7 @@ const rankNames = ["Herald", "Guardian", "Crusader", "Archon", "Legend", "Ancien
 // One request returns statistics for every hero, so the answer is kept and reused.
 let savedStats = null;
 
-async function loadHeroStats() {
+export async function loadHeroStats() {
     if (savedStats) return savedStats;
     const controller = new AbortController();
     const timeout = setTimeout(() => controller.abort(), 12000);

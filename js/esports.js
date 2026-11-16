@@ -21,10 +21,18 @@ export function initProMatches() {
             if (!response.ok) throw new Error(`HTTP ${response.status}`);
             const data = await response.json();
             if (!Array.isArray(data)) throw new Error("Unexpected response");
-            const matches = data.filter((match) => match && Number.isSafeInteger(match.match_id) &&
+            const validMatches = data.filter((match) => match && Number.isSafeInteger(match.match_id) &&
                 Number.isFinite(match.start_time) && Number.isFinite(match.duration) &&
                 Number.isFinite(match.radiant_score) && Number.isFinite(match.dire_score) &&
-                typeof match.radiant_win === "boolean").slice(0, 6);
+                typeof match.radiant_win === "boolean");
+            // A series has several games. Keep only the latest game of each series.
+            const shownSeries = new Set();
+            const matches = validMatches.filter((match) => {
+                const series = match.series_id || match.match_id;
+                if (shownSeries.has(series)) return false;
+                shownSeries.add(series);
+                return true;
+            }).slice(0, 6);
             matches.forEach((match) => {
                 const radiant = match.radiant_name || "Radiant";
                 const dire = match.dire_name || "Dire";

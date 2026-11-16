@@ -1,10 +1,11 @@
-import { heroes } from "./heroes.js";
-import { items } from "./items.js";
-import { isValidEmail } from "./js/validation.js";
-import { initAccount, createSaveHeroButton } from "./js/account.js";
-import { initProMatches } from "./js/esports.js";
+import { heroes } from "./data/heroes.js";
+import { items } from "./data/items.js";
+import { isValidEmail } from "./validation.js";
+import { initAccount, createSaveHeroButton } from "./account.js";
+import { initProMatches } from "./esports.js";
+import { initHeroDetails } from "./hero-details.js";
 
-$(document).ready(() => { initAccount(); initProMatches(); });
+$(document).ready(() => { initAccount(); initProMatches(); initHeroDetails(); });
 
 // ==================== [1] HERO CATALOG, LIVE SEARCH & AUTOCOMPLETE (heroes.html | A6 Tasks 0-2) ====================
 $(document).ready(function () {
@@ -19,10 +20,10 @@ $(document).ready(function () {
 
         const attributes = ["Strength", "Agility", "Intelligence", "Universal"];
         const attributeImages = {
-            Strength: "heroes/web-ui/strength.png",
-            Agility: "heroes/web-ui/agility.png",
-            Intelligence: "heroes/web-ui/intelligence.png",
-            Universal: "heroes/web-ui/universal.png"
+            Strength: "images/attributes/strength.png",
+            Agility: "images/attributes/agility.png",
+            Intelligence: "images/attributes/intelligence.png",
+            Universal: "images/attributes/universal.png"
         };
 
         // Render attribute sections and hero cards
@@ -42,9 +43,11 @@ $(document).ready(function () {
                 );
                 const $gallery = $("<div>").addClass("hero-gallery");
                 group.forEach((hero) => {
-                    const $card = $("<article>").addClass("hero-card").append(
+                    // The name is a button: it opens the details dialog (js/hero-details.js).
+                    const $card = $("<article>").addClass("hero-card").attr("data-hero-id", hero.id).append(
                         createHeroPortrait(hero),
-                        $("<div>").addClass("hero-caption").text(hero.name),
+                        $("<button>").addClass("hero-caption hero-open")
+                            .attr({ type: "button", "aria-haspopup": "dialog" }).text(hero.name),
                         $("<p>").addClass("hero-card-info")
                             .text(`${hero.preferredPosition} | Complexity ${hero.complexity}/3`),
                         createSaveHeroButton(hero)
@@ -505,16 +508,16 @@ if (navbar) {
 
 // ==================== [8] SOUND EFFECTS & 5-STAR RATING (A5 Tasks 1, 8) ====================
 const ratingSounds = {
-    1: "heroes/sounds/Ui_magic_immune.mp3.mpeg",
-    2: "heroes/sounds/Ui_deny_mana.mp3.mpeg",
-    3: "heroes/sounds/Ui_ping_rune.mp3.mpeg",
-    4: "heroes/sounds/Ui_coins.mp3.mpeg",
-    5: "heroes/sounds/Ui_coins_big.mp3.mpeg"
+    1: "sounds/Ui_magic_immune.mp3.mpeg",
+    2: "sounds/Ui_deny_mana.mp3.mpeg",
+    3: "sounds/Ui_ping_rune.mp3.mpeg",
+    4: "sounds/Ui_coins.mp3.mpeg",
+    5: "sounds/Ui_coins_big.mp3.mpeg"
 };
 const quizSounds = {
-    next: "heroes/sounds/Ui_panorama_panorama_select_md_01.mp3.mpeg",
-    back: "heroes/sounds/Ui_panorama_panorama_misc_click_02.mp3.mpeg",
-    result: "heroes/sounds/Ui_panorama_panorama_hero_transition_01.mp3.mpeg"
+    next: "sounds/Ui_panorama_panorama_select_md_01.mp3.mpeg",
+    back: "sounds/Ui_panorama_panorama_misc_click_02.mp3.mpeg",
+    result: "sounds/Ui_panorama_panorama_hero_transition_01.mp3.mpeg"
 };
 const actionSound = new Audio();
 actionSound.volume = 0.4;
@@ -977,4 +980,27 @@ if (laneMap) {
     });
     select.addEventListener("change", () => showPlace(select.selectedIndex));
     showPlace(0);
+}
+
+// ==================== [14] HOME: HERO OF THE DAY (index.html) ====================
+const dailyHeroBox = document.getElementById("daily-hero");
+if (dailyHeroBox) {
+    // The day number picks one hero, so everyone sees the same hero until midnight.
+    const dayNumber = Math.floor(Date.now() / (24 * 60 * 60 * 1000));
+    const hero = heroes[dayNumber % heroes.length];
+
+    const name = document.createElement("h2");
+    name.textContent = hero.name;
+    const info = document.createElement("p");
+    info.textContent = `${hero.attribute} · ${hero.attackType.join(" / ")} · ${hero.preferredPosition}`;
+    const roles = document.createElement("p");
+    roles.className = "daily-hero-roles";
+    roles.textContent = hero.roles.join(", ");
+    const link = document.createElement("a");
+    link.href = "heroes.html";
+    link.textContent = "See all heroes →";
+
+    dailyHeroBox.append(createHeroPortrait(hero), name, info, roles, link);
+    document.getElementById("home-hero-count").textContent = heroes.length;
+    $(document).trigger("pagecontentchange");
 }

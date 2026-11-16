@@ -1,11 +1,11 @@
 @font-face {
     font-family: "DotaFont";
-    src: url("fonts/Reaver-Bold.woff");
+    src: url("../fonts/Reaver-Bold.woff");
 }
 
 @font-face {
     font-family: "DotaFont2";
-    src: url("fonts/Reaver-SemiBold.woff");
+    src: url("../fonts/Reaver-SemiBold.woff");
 }
 
 :root {
@@ -18,9 +18,9 @@
     --faction-on-button: 255, 242, 232;
     --faction-trim: 121, 75, 67;
     --faction-name: "THE DIRE";
-    --faction-scenery: url(images/background/dire-base.webp);
-    --faction-banner: url(images/background/dire-banner.webp);
-    --stone-texture: url(images/ui/dire-stone.svg);
+    --faction-scenery: url(../images/background/dire-base.webp);
+    --faction-banner: url(../images/background/dire-banner.webp);
+    --stone-texture: url(../images/ui/dire-stone.svg);
     --primary-color: #e4eaee;
     --font-family: "DotaFont", sans-serif;
     --font-family-2: "DotaFont2", sans-serif;
@@ -1230,9 +1230,9 @@ footer p {
     --faction-on-button: 27, 43, 44;
     --faction-trim: 155, 137, 78;
     --faction-name: "THE RADIANT";
-    --faction-scenery: url(images/background/radiant-base.webp);
-    --faction-banner: url(images/background/radiant-banner.webp);
-    --stone-texture: url(images/ui/radiant-stone.svg);
+    --faction-scenery: url(../images/background/radiant-base.webp);
+    --faction-banner: url(../images/background/radiant-banner.webp);
+    --stone-texture: url(../images/ui/radiant-stone.svg);
     --radius: 12px;
     --background:
         radial-gradient(ellipse at 20% 4%, rgba(164, 232, 248, 0.16), transparent 60%),
@@ -1766,8 +1766,8 @@ input::placeholder, textarea::placeholder { color: rgb(var(--color-text-muted));
 :root[data-theme="radiant"] .theme-toggle::before { transform: translateX(0); }
 .theme-side { display: inline-flex; gap: 5px; align-items: center; justify-content: center; white-space: nowrap; }
 .theme-emblem { display: inline-block; width: 18px; height: 20px; background: currentColor; mask: var(--faction-mark) center / contain no-repeat; }
-.theme-radiant { --faction-mark: url(images/ui/radiant-mark.svg); }
-.theme-dire { --faction-mark: url(images/ui/dire-mark.svg); }
+.theme-radiant { --faction-mark: url(../images/ui/radiant-mark.svg); }
+.theme-dire { --faction-mark: url(../images/ui/dire-mark.svg); }
 :root:not([data-theme="radiant"]) .theme-dire,
 :root[data-theme="radiant"] .theme-radiant { color: rgb(var(--faction-accent)); }
 .theme-toggle:hover { border-color: rgb(var(--faction-accent)); }
@@ -1799,4 +1799,161 @@ input::placeholder, textarea::placeholder { color: rgb(var(--color-text-muted));
 @media (prefers-reduced-motion: reduce) {
     .theme-toggle::before { transition: none; }
     ::view-transition-group(*), ::view-transition-old(*), ::view-transition-new(*) { animation: none !important; }
+}
+
+/* Final: compact banner on inner pages. Home keeps the full artwork. */
+a img.logo { width: 72px; height: 72px; }
+body:not(.home) header { padding-top: clamp(64px, 12vw, 140px); }
+body:not(.home) header::before {
+    aspect-ratio: auto;
+    height: clamp(100px, 17vw, 200px);
+    background-size: cover;
+    background-position: center 8%;
+}
+body:not(.home) header::after { height: 190px; }
+
+/* Final: home intro with call-to-action buttons and the hero of the day. */
+.home-hero {
+    display: grid;
+    grid-template-columns: minmax(0, 1.6fr) minmax(220px, 1fr);
+    gap: var(--space-4);
+    align-items: center;
+}
+.home-hero h1 { margin: 0 0 var(--space-2); font-size: clamp(1.8rem, 4.2vw, 2.8rem); line-height: 1.15; }
+.home-hero .eyebrow { margin: 0 0 var(--space-1); }
+.home-lead { max-width: 60ch; font-size: 1rem; color: rgb(var(--color-text-secondary)); }
+.home-actions { display: flex; flex-wrap: wrap; gap: var(--space-2); margin: var(--space-3) 0; }
+.home-actions .quiz-button { padding: 12px 20px; font-size: 14px; }
+.home-actions .quiz-next { color: rgb(var(--faction-on-button)); }
+.home-stats {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2) var(--space-4);
+    margin: 0;
+    padding: var(--space-3) 0 0;
+    list-style: none;
+    border-top: 1px solid rgba(var(--color-border), 0.65);
+    font-size: 0.85rem;
+    color: rgb(var(--color-text-secondary));
+}
+.home-stats strong { display: block; font-size: 1.5rem; color: rgb(var(--faction-accent)); }
+
+.daily-hero {
+    padding: var(--space-3);
+    border: 1px solid rgba(var(--color-border), 0.85);
+    border-top: 3px solid rgb(var(--faction-accent));
+    border-radius: var(--radius);
+    background: linear-gradient(135deg, rgb(var(--color-background-panel)), rgb(var(--color-background-panel-light)));
+    box-shadow: 0 10px 24px rgba(var(--faction-shadow), 0.22);
+    transition: transform 0.2s ease;
+}
+.daily-hero:hover { transform: translateY(-3px); }
+.daily-hero .eyebrow { margin: 0 0 var(--space-2); }
+.daily-hero .hero-portrait { border-radius: var(--radius); }
+.daily-hero h2 { margin: var(--space-2) 0 4px; }
+.daily-hero p { margin: 0 0 6px; font-size: 0.85rem; }
+.daily-hero-roles { color: rgb(var(--color-text-secondary)); }
+
+/* Basic gameplay: numbered step cards instead of a plain list. */
+.gameplay-steps {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: var(--space-2);
+    margin: var(--space-3) 0 var(--space-4);
+    padding: 0;
+    list-style: none;
+    counter-reset: step;
+}
+.gameplay-steps li {
+    counter-increment: step;
+    padding: var(--space-3);
+    font-size: 0.85rem;
+    border: 1px solid rgba(var(--color-border), 0.85);
+    border-radius: var(--radius);
+    background: rgb(var(--color-background-panel));
+    transition: transform 0.2s ease, border-color 0.2s ease;
+}
+.gameplay-steps li:hover { transform: translateY(-3px); border-color: rgb(var(--faction-accent)); }
+.gameplay-steps li::before {
+    content: "0" counter(step);
+    display: block;
+    margin-bottom: var(--space-1);
+    font-size: 1.4rem;
+    color: rgb(var(--faction-accent));
+}
+
+@media (max-width: 800px) {
+    .home-hero { grid-template-columns: 1fr; }
+    .gameplay-steps { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+/* Final: phones. Shorter banner, hidden search label, two heroes per row. */
+@media (max-width: 480px) {
+    header { padding-top: 30%; }
+    body:not(.home) header { padding-top: 22%; }
+    header::after { height: 230px; }
+    a img.logo { width: 56px; height: 56px; }
+    .page-search label { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
+    .hero-gallery { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-2); padding: var(--space-1) 0; }
+    .hero-card .hero-caption { font-size: 13px; padding: 6px; }
+    .hero-card-info { font-size: 12px; }
+    .hero-card .save-hero { width: calc(100% - 16px); }
+    .gameplay-steps { grid-template-columns: 1fr; }
+    main { padding: var(--space-3); }
+}
+
+/* Final: hero details dialog with live OpenDota statistics. */
+.hero-details { width: min(520px, calc(100% - 24px)); }
+.hero-details .detail-icon { width: 120px; aspect-ratio: 16 / 9; }
+.hero-details h4 { margin: var(--space-3) 0 var(--space-1); color: rgb(var(--faction-accent)); font-size: 0.8rem; letter-spacing: 0.08em; text-transform: uppercase; }
+#hero-detail-type { margin: 4px 0 0; font-size: 0.8rem; color: rgb(var(--color-text-secondary)); }
+#hero-stats-status { margin: 0 0 var(--space-2); font-size: 0.8rem; color: rgb(var(--color-text-secondary)); }
+.hero-detail-list, .base-stats {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 4px var(--space-3);
+    margin: var(--space-2) 0 0;
+    font-size: 0.85rem;
+}
+.hero-detail-list dt, .base-stats dt { color: rgb(var(--color-text-secondary)); }
+.hero-detail-list dd, .base-stats dd { margin: 0; }
+.base-stats { grid-template-columns: auto 1fr auto 1fr; }
+
+.stat-tiles { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: var(--space-1); }
+.stat-tile {
+    padding: var(--space-2) var(--space-1);
+    text-align: center;
+    border: 1px solid rgba(var(--color-border), 0.85);
+    border-radius: var(--radius);
+    background: rgb(var(--color-background-main));
+}
+.stat-tile strong { display: block; font-size: 1.1rem; color: rgb(var(--color-value)); }
+.stat-tile span { font-size: 0.7rem; color: rgb(var(--color-text-secondary)); }
+
+.rank-bars { margin: 0; padding: 0; list-style: none; font-size: 0.8rem; }
+.rank-bars li { display: grid; grid-template-columns: 76px 1fr 48px; gap: var(--space-1); align-items: center; padding: 3px 0; }
+.rank-track { height: 8px; border-radius: 4px; background: rgb(var(--color-background-main)); overflow: hidden; }
+.rank-fill { display: block; height: 100%; border-radius: 4px; background: #c96a5b; animation: rank-grow 0.6s ease-out; transform-origin: left; }
+.rank-fill.winning { background: #5fae6b; }
+.rank-value { text-align: right; color: rgb(var(--color-value)); }
+@keyframes rank-grow { from { transform: scaleX(0); } }
+
+/* The hero name is a button that opens the dialog. */
+.hero-card .hero-open {
+    display: block;
+    width: 100%;
+    border: 0;
+    font: inherit;
+    font-size: 14px;
+    cursor: pointer;
+    transition: color 0.2s ease;
+}
+.hero-card .hero-open:hover { color: rgb(var(--faction-accent)); }
+.hero-card .hero-open:focus-visible { outline: 2px solid rgb(var(--faction-accent)); outline-offset: -2px; }
+.hero-card .hero-portrait { cursor: pointer; }
+
+@media (max-width: 480px) {
+    .stat-tiles { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .base-stats { grid-template-columns: auto 1fr; }
+    .hero-details .detail-icon { width: 88px; }
 }

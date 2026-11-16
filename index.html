@@ -5,12 +5,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="js/theme.js"></script>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="css/styles.css">
     <link rel="icon" href="images/icon.png">
     <script src="js/vendor/jquery-4.0.0.min.js"></script>
-    <script src="script.js"  type="module" defer></script>
+    <script src="js/script.js" type="module" defer></script>
 </head>
-<body>
+<body class="home">
     <noscript><p>This website needs JavaScript for its catalogs and interactive features. Please enable it in your browser.</p></noscript>
     <div class="page-shell">
     <header>
@@ -58,23 +58,48 @@
 
         <main>
             <div class="main-content">
-            <h1>Welcome to the Dota 2 Wiki</h1>
-            <p>
-                Dota 2 is a multiplayer online battle arena game developed by Valve.
-                Two teams of five players compete against each other, with the main
-                objective being to destroy the enemy Ancient.
-            </p>
-            <p>
-                Every player controls a unique hero with their own abilities and
-                playstyle. Heroes become stronger during the match by gaining
-                experience and gold, which can be used to purchase items.
-            </p>
+            <section class="home-hero">
+                <div class="home-intro">
+                    <p class="eyebrow">A BEGINNER'S GUIDE TO DOTA 2</p>
+                    <h1>Learn the game. Find your hero.</h1>
+                    <p class="home-lead">
+                        Dota 2 is a multiplayer online battle arena game developed by Valve.
+                        Two teams of five players fight to destroy the enemy Ancient. Every
+                        hero has unique abilities and grows stronger with experience, gold
+                        and items.
+                    </p>
+                    <div class="home-actions">
+                        <a class="quiz-button quiz-next" href="#hero-quiz">Take the hero quiz</a>
+                        <a class="quiz-button" href="heroes.html">Browse all heroes</a>
+                    </div>
+                    <ul class="home-stats" aria-label="Wiki in numbers">
+                        <li><strong id="home-hero-count">127</strong> heroes</li>
+                        <li><strong>5</strong> positions</li>
+                        <li><strong>4</strong> attributes</li>
+                        <li><strong>Live</strong> pro matches</li>
+                    </ul>
+                </div>
+                <aside class="daily-hero" aria-labelledby="daily-hero-title">
+                    <p class="eyebrow" id="daily-hero-title">HERO OF THE DAY</p>
+                    <div id="daily-hero"></div>
+                </aside>
+            </section>
 
             <nav class="home-routes" aria-label="Start exploring">
                 <a href="#hero-quiz"><span>01 / DISCOVER</span><strong>Find your hero →</strong><p>A short quiz to match your role and playstyle.</p></a>
                 <a href="heroes.html"><span>02 / COLLECT</span><strong>Build your pool →</strong><p>Save your favourites and cover more positions.</p></a>
                 <a href="esports.html"><span>03 / FOLLOW</span><strong>Explore pro matches →</strong><p>Recent results from the professional scene.</p></a>
             </nav>
+
+            <h2>Basic Gameplay</h2>
+            <p>A typical match has several stages. New players can focus on these five steps:</p>
+            <ol class="gameplay-steps">
+                <li>Choose a hero that fits your preferred playstyle.</li>
+                <li>Learn the hero's abilities and basic mechanics.</li>
+                <li>Collect gold and purchase useful items.</li>
+                <li>Work together with your teammates.</li>
+                <li>Destroy enemy structures and eventually the Ancient.</li>
+            </ol>
 
             <hr>
 
@@ -124,35 +149,6 @@
         </div>
     </section>
 </section>
-
-            <h2>What You Can Find in This Wiki</h2>
-            
-            <p>
-                This wiki provides information about the main elements of Dota 2.
-                You can explore:
-            </p>
-
-            <ul>
-                <li><a href="heroes.html">Browse heroes</a> by attribute, complexity and position.</li>
-                <li><a href="items.html">Explore items</a> and their effects.</li>
-                <li><a href="map.html">View the Dota 2 map</a> to locate the lanes and bases.</li>
-                <li><a href="esports.html">See The International winners</a> and tournament prize pools.</li>
-            </ul>
-            
-            <h2>Basic Gameplay</h2>
-
-            <p>
-                A typical Dota 2 match consists of several important stages. New
-                players can focus on these basic steps:
-            </p>
-            
-            <ol>
-                <li>Choose a hero that fits your preferred playstyle.</li>
-                <li>Learn the hero's abilities and basic mechanics.</li>
-                <li>Collect gold and purchase useful items.</li>
-                <li>Work together with your teammates.</li>
-                <li>Destroy enemy structures and eventually the Ancient.</li>
-            </ol>
 
             <hr>
 

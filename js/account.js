@@ -1,4 +1,4 @@
-import { heroes } from "../heroes.js";
+import { heroes } from "./data/heroes.js";
 import { isValidEmail } from "./validation.js";
 
 // A browser-only account simulation. It is not server-side authentication.

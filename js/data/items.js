@@ -2,7 +2,7 @@ export const items = [
     {
         "name": "Town Portal Scroll",
         "purpose": "Mobility",
-        "image": "images/item-icons/town-portal-scroll.png",
+        "image": "images/items/town-portal-scroll.png",
         "summary": "Carry a scroll to reinforce a lane or return to base.",
         "cost": 100,
         "properties": {
@@ -28,7 +28,7 @@ export const items = [
     {
         "name": "Clarity",
         "purpose": "Recovery",
-        "image": "images/item-icons/clarity.png",
+        "image": "images/items/clarity.png",
         "summary": "Recover mana between fights while you can avoid enemy attacks.",
         "cost": 60,
         "properties": {
@@ -54,7 +54,7 @@ export const items = [
     {
         "name": "Faerie Fire",
         "purpose": "Recovery",
-        "image": "images/item-icons/faerie-fire.jpg",
+        "image": "images/items/faerie-fire.jpg",
         "summary": "Carry a Faerie Fire for a burst of healing during an early trade.",
         "cost": 65,
         "properties": {
@@ -81,7 +81,7 @@ export const items = [
     {
         "name": "Smoke of Deceit",
         "purpose": "Utility",
-        "image": "images/item-icons/smoke-of-deceit.png",
+        "image": "images/items/smoke-of-deceit.png",
         "summary": "Move your team together for a surprise attack.",
         "cost": 50,
         "properties": {
@@ -109,7 +109,7 @@ export const items = [
     {
         "name": "Observer Ward",
         "purpose": "Vision",
-        "image": "images/item-icons/observer-ward.png",
+        "image": "images/items/observer-ward.png",
         "summary": "Watch an approach to a lane or objective before enemies arrive.",
         "properties": {
             "Ability": "Point Target",
@@ -134,7 +134,7 @@ export const items = [
     {
         "name": "Sentry Ward",
         "purpose": "Vision",
-        "image": "images/item-icons/sentry-ward.png",
+        "image": "images/items/sentry-ward.png",
         "summary": "Reveal hidden wards where your team already has vision.",
         "cost": 50,
         "properties": {
@@ -161,7 +161,7 @@ export const items = [
     {
         "name": "Enchanted Mango",
         "purpose": "Recovery",
-        "image": "images/item-icons/enchanted-mango.png",
+        "image": "images/items/enchanted-mango.png",
         "summary": "Keep enough mana on hand for one more spell.",
         "cost": 65,
         "properties": {
@@ -188,7 +188,7 @@ export const items = [
     {
         "name": "Healing Salve",
         "purpose": "Recovery",
-        "image": "images/item-icons/healing-salve.png",
+        "image": "images/items/healing-salve.png",
         "summary": "Heal up between fights when you can avoid incoming attacks.",
         "cost": 100,
         "properties": {
@@ -215,7 +215,7 @@ export const items = [
     {
         "name": "Tango",
         "purpose": "Recovery",
-        "image": "images/item-icons/tango.jpg",
+        "image": "images/items/tango.jpg",
         "summary": "Bring Tangos to recover between trades without leaving your lane.",
         "cost": 90,
         "abilities": [
@@ -233,7 +233,7 @@ export const items = [
     {
         "name": "Bloodthorn",
         "purpose": "Damage",
-        "image": "images/item-icons/bloodthorn.jpg",
+        "image": "images/items/bloodthorn.jpg",
         "summary": "Choose Bloodthorn when your team can focus attacks on a silenced target.",
         "cost": 6800,
         "stats": [
@@ -266,7 +266,7 @@ export const items = [
     {
         "name": "Black King Bar",
         "purpose": "Defense",
-        "image": "images/item-icons/black_king_bar.jpg",
+        "image": "images/items/black_king_bar.jpg",
         "summary": "Activate Black King Bar before committing to a fight against enemy disables.",
         "cost": 4050,
         "stats": [
@@ -289,7 +289,7 @@ export const items = [
     {
         "name": "Blink Dagger",
         "purpose": "Mobility",
-        "image": "images/item-icons/blink_dagger.png",
+        "image": "images/items/blink_dagger.png",
         "summary": "Use Blink Dagger to close the gap before an initiation spell.",
         "cost": 2250,
         "abilities": [
@@ -307,7 +307,7 @@ export const items = [
     {
         "name": "Monkey King Bar",
         "purpose": "Damage",
-        "image": "images/item-icons/Monkey_King_Bar.jpg",
+        "image": "images/items/Monkey_King_Bar.jpg",
         "summary": "Consider Monkey King Bar when evasion makes your attacks miss.",
         "cost": 4700,
         "stats": [
@@ -328,7 +328,7 @@ export const items = [
     {
         "name": "Magic Stick",
         "purpose": "Recovery",
-        "image": "images/item-icons/stick.jpg",
+        "image": "images/items/stick.jpg",
         "summary": "Pick up a Magic Stick in a lane where opponents cast spells frequently.",
         "abilities": [
             {

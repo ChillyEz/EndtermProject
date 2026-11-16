@@ -10,7 +10,7 @@ export const heroes = [
         preferredPosition: "Offlane",
         positions: ["Offlane", "Hard Support", "Carry"],
         playstyles: ["Protect", "Initiate"],
-        image: "heroes/icons/abaddon.jpg"
+        image: "images/heroes/abaddon.jpg"
     },
 
     {
@@ -23,7 +23,7 @@ export const heroes = [
         preferredPosition: "Carry",
         positions: ["Carry", "Mid"],
         playstyles: ["Farm", "Push"],
-        image: "heroes/icons/alchemist.jpg"
+        image: "images/heroes/alchemist.jpg"
     },
 
     {
@@ -36,7 +36,7 @@ export const heroes = [
         preferredPosition: "Hard Support",
         positions: ["Hard Support", "Soft Support"],
         playstyles: ["Burst", "Protect"],
-        image: "heroes/icons/ancient_apparition.jpg"
+        image: "images/heroes/ancient_apparition.jpg"
     },
 
     {
@@ -49,7 +49,7 @@ export const heroes = [
         preferredPosition: "Carry",
         positions: ["Carry"],
         playstyles: ["Farm", "Push"],
-        image: "heroes/icons/anti_mage.jpg"
+        image: "images/heroes/anti_mage.jpg"
     },
 
     {
@@ -62,7 +62,7 @@ export const heroes = [
         preferredPosition: "Mid",
         positions: ["Mid", "Carry"],
         playstyles: ["Farm", "Push"],
-        image: "heroes/icons/arc_warden.jpg"
+        image: "images/heroes/arc_warden.jpg"
     },
 
     {
@@ -75,7 +75,7 @@ export const heroes = [
         preferredPosition: "Offlane",
         positions: ["Offlane"],
         playstyles: ["Initiate"],
-        image: "heroes/icons/axe.jpg"
+        image: "images/heroes/axe.jpg"
     },
 
     {
@@ -88,7 +88,7 @@ export const heroes = [
         preferredPosition: "Hard Support",
         positions: ["Hard Support", "Soft Support"],
         playstyles: ["Protect", "Roam"],
-        image: "heroes/icons/bane.jpg"
+        image: "images/heroes/bane.jpg"
     },
 
     {
@@ -101,7 +101,7 @@ export const heroes = [
         preferredPosition: "Offlane",
         positions: ["Offlane", "Mid", "Soft Support"],
         playstyles: ["Initiate", "Roam"],
-        image: "heroes/icons/batrider.jpg"
+        image: "images/heroes/batrider.jpg"
     },
 
     {
@@ -114,7 +114,7 @@ export const heroes = [
         preferredPosition: "Offlane",
         positions: ["Offlane"],
         playstyles: ["Initiate", "Push"],
-        image: "heroes/icons/beastmaster.jpg"
+        image: "images/heroes/beastmaster.jpg"
     },
 
     {
@@ -127,7 +127,7 @@ export const heroes = [
         preferredPosition: "Carry",
         positions: ["Carry", "Offlane", "Mid"],
         playstyles: ["Farm", "Burst"],
-        image: "heroes/icons/bloodseeker.jpg"
+        image: "images/heroes/bloodseeker.jpg"
     },
 
     {
@@ -140,7 +140,7 @@ export const heroes = [
         preferredPosition: "Soft Support",
         positions: ["Soft Support", "Offlane"],
         playstyles: ["Roam", "Burst"],
-        image: "heroes/icons/bounty_hunter.jpg"
+        image: "images/heroes/bounty_hunter.jpg"
     },
 
     {
@@ -153,7 +153,7 @@ export const heroes = [
         preferredPosition: "Offlane",
         positions: ["Offlane"],
         playstyles: ["Initiate", "Push"],
-        image: "heroes/icons/brewmaster.jpg"
+        image: "images/heroes/brewmaster.jpg"
     },
 
     {
@@ -166,7 +166,7 @@ export const heroes = [
         preferredPosition: "Offlane",
         positions: ["Offlane", "Carry"],
         playstyles: ["Initiate", "Farm"],
-        image: "heroes/icons/bristleback.jpg"
+        image: "images/heroes/bristleback.jpg"
     },
 
     {
@@ -179,7 +179,7 @@ export const heroes = [
         preferredPosition: "Offlane",
         positions: ["Offlane", "Mid"],
         playstyles: ["Push", "Farm"],
-        image: "heroes/icons/broodmother.jpg"
+        image: "images/heroes/broodmother.jpg"
     },
 
     {
@@ -192,7 +192,7 @@ export const heroes = [
         preferredPosition: "Offlane",
         positions: ["Offlane"],
         playstyles: ["Initiate", "Protect"],
-        image: "heroes/icons/centaur_warrunner.jpg"
+        image: "images/heroes/centaur_warrunner.jpg"
     },
 
     {
@@ -205,7 +205,7 @@ export const heroes = [
         preferredPosition: "Carry",
         positions: ["Carry", "Offlane"],
         playstyles: ["Farm", "Push", "Initiate"],
-        image: "heroes/icons/chaos_knight.jpg"
+        image: "images/heroes/chaos_knight.jpg"
     },
 
     {
@@ -218,7 +218,7 @@ export const heroes = [
         preferredPosition: "Hard Support",
         positions: ["Hard Support"],
         playstyles: ["Protect", "Push"],
-        image: "heroes/icons/chen.jpg"
+        image: "images/heroes/chen.jpg"
     },
 
     {
@@ -231,7 +231,7 @@ export const heroes = [
         preferredPosition: "Carry",
         positions: ["Carry", "Mid"],
         playstyles: ["Burst", "Push", "Roam"],
-        image: "heroes/icons/clinkz.jpg"
+        image: "images/heroes/clinkz.jpg"
     },
 
     {
@@ -244,7 +244,7 @@ export const heroes = [
         preferredPosition: "Soft Support",
         positions: ["Soft Support", "Offlane", "Hard Support"],
         playstyles: ["Initiate", "Roam"],
-        image: "heroes/icons/clockwerk.jpg"
+        image: "images/heroes/clockwerk.jpg"
     },
 
     {
@@ -257,7 +257,7 @@ export const heroes = [
         preferredPosition: "Hard Support",
         positions: ["Hard Support", "Soft Support"],
         playstyles: ["Protect", "Burst"],
-        image: "heroes/icons/crystal_maiden.jpg"
+        image: "images/heroes/crystal_maiden.jpg"
     },
 
     {
@@ -270,7 +270,7 @@ export const heroes = [
         preferredPosition: "Offlane",
         positions: ["Offlane"],
         playstyles: ["Initiate", "Protect", "Push"],
-        image: "heroes/icons/dark_seer.jpg"
+        image: "images/heroes/dark_seer.jpg"
     },
 
     {
@@ -283,7 +283,7 @@ export const heroes = [
         preferredPosition: "Soft Support",
         positions: ["Soft Support", "Hard Support"],
         playstyles: ["Burst", "Roam", "Protect"],
-        image: "heroes/icons/dark_willow.jpg"
+        image: "images/heroes/dark_willow.jpg"
     },
 
     {
@@ -296,7 +296,7 @@ export const heroes = [
         preferredPosition: "Offlane",
         positions: ["Offlane", "Carry", "Soft Support"],
         playstyles: ["Initiate", "Protect"],
-        image: "heroes/icons/dawnbreaker.jpg"
+        image: "images/heroes/dawnbreaker.jpg"
     },
 
     {
@@ -309,7 +309,7 @@ export const heroes = [
         preferredPosition: "Hard Support",
         positions: ["Hard Support", "Soft Support", "Mid"],
         playstyles: ["Protect", "Push"],
-        image: "heroes/icons/dazzle.jpg"
+        image: "images/heroes/dazzle.jpg"
     },
 
     {
@@ -322,7 +322,7 @@ export const heroes = [
         preferredPosition: "Mid",
         positions: ["Mid", "Offlane"],
         playstyles: ["Push", "Initiate"],
-        image: "heroes/icons/death_prophet.jpg"
+        image: "images/heroes/death_prophet.jpg"
     },
 
     {
@@ -335,7 +335,7 @@ export const heroes = [
         preferredPosition: "Hard Support",
         positions: ["Hard Support", "Soft Support"],
         playstyles: ["Protect", "Initiate"],
-        image: "heroes/icons/disruptor.jpg"
+        image: "images/heroes/disruptor.jpg"
     },
 
     {
@@ -348,7 +348,7 @@ export const heroes = [
         preferredPosition: "Offlane",
         positions: ["Offlane"],
         playstyles: ["Initiate"],
-        image: "heroes/icons/doom.jpg"
+        image: "images/heroes/doom.jpg"
     },
 
     {
@@ -361,7 +361,7 @@ export const heroes = [
         preferredPosition: "Mid",
         positions: ["Mid", "Offlane", "Carry"],
         playstyles: ["Push", "Initiate", "Farm"],
-        image: "heroes/icons/dragon_knight.jpg"
+        image: "images/heroes/dragon_knight.jpg"
     },
 
     {
@@ -374,7 +374,7 @@ export const heroes = [
         preferredPosition: "Carry",
         positions: ["Carry"],
         playstyles: ["Farm", "Push"],
-        image: "heroes/icons/drow_ranger.jpg"
+        image: "images/heroes/drow_ranger.jpg"
     },
 
     {
@@ -387,7 +387,7 @@ export const heroes = [
         preferredPosition: "Soft Support",
         positions: ["Soft Support", "Mid"],
         playstyles: ["Roam", "Initiate"],
-        image: "heroes/icons/earth_spirit.jpg"
+        image: "images/heroes/earth_spirit.jpg"
     },
 
     {
@@ -400,7 +400,7 @@ export const heroes = [
         preferredPosition: "Soft Support",
         positions: ["Soft Support", "Offlane", "Mid"],
         playstyles: ["Initiate", "Burst"],
-        image: "heroes/icons/earthshaker.jpg"
+        image: "images/heroes/earthshaker.jpg"
     },
 
     {
@@ -413,7 +413,7 @@ export const heroes = [
         preferredPosition: "Hard Support",
         positions: ["Hard Support", "Soft Support", "Offlane"],
         playstyles: ["Initiate", "Protect"],
-        image: "heroes/icons/elder_titan.jpg"
+        image: "images/heroes/elder_titan.jpg"
     },
 
     {
@@ -426,7 +426,7 @@ export const heroes = [
         preferredPosition: "Mid",
         positions: ["Mid"],
         playstyles: ["Roam", "Burst"],
-        image: "heroes/icons/ember_spirit.jpg"
+        image: "images/heroes/ember_spirit.jpg"
     },
 
     {
@@ -439,7 +439,7 @@ export const heroes = [
         preferredPosition: "Hard Support",
         positions: ["Hard Support", "Soft Support", "Offlane"],
         playstyles: ["Protect", "Push"],
-        image: "heroes/icons/enchantress.jpg"
+        image: "images/heroes/enchantress.jpg"
     },
 
     {
@@ -452,7 +452,7 @@ export const heroes = [
         preferredPosition: "Offlane",
         positions: ["Offlane", "Soft Support"],
         playstyles: ["Initiate", "Push"],
-        image: "heroes/icons/enigma.jpg"
+        image: "images/heroes/enigma.jpg"
     },
 
     {
@@ -465,7 +465,7 @@ export const heroes = [
         preferredPosition: "Carry",
         positions: ["Carry"],
         playstyles: ["Farm", "Initiate"],
-        image: "heroes/icons/faceless_void.jpg"
+        image: "images/heroes/faceless_void.jpg"
     },
 
     {
@@ -478,7 +478,7 @@ export const heroes = [
         preferredPosition: "Hard Support",
         positions: ["Hard Support", "Soft Support"],
         playstyles: ["Protect", "Burst"],
-        image: "heroes/icons/grimstroke.jpg"
+        image: "images/heroes/grimstroke.jpg"
     },
 
     {
@@ -491,7 +491,7 @@ export const heroes = [
         preferredPosition: "Carry",
         positions: ["Carry", "Soft Support"],
         playstyles: ["Farm", "Burst"],
-        image: "heroes/icons/gyrocopter.jpg"
+        image: "images/heroes/gyrocopter.jpg"
     },
 
     {
@@ -504,7 +504,7 @@ export const heroes = [
         preferredPosition: "Soft Support",
         positions: ["Soft Support", "Hard Support"],
         playstyles: ["Burst", "Roam"],
-        image: "heroes/icons/hoodwink.jpg"
+        image: "images/heroes/hoodwink.jpg"
     },
 
     {
@@ -517,7 +517,7 @@ export const heroes = [
         preferredPosition: "Mid",
         positions: ["Mid"],
         playstyles: ["Burst", "Push"],
-        image: "heroes/icons/huskar.jpg"
+        image: "images/heroes/huskar.jpg"
     },
 
     {
@@ -530,7 +530,7 @@ export const heroes = [
         preferredPosition: "Mid",
         positions: ["Mid", "Soft Support"],
         playstyles: ["Burst", "Roam"],
-        image: "heroes/icons/invoker.jpg"
+        image: "images/heroes/invoker.jpg"
     },
 
     {
@@ -543,7 +543,7 @@ export const heroes = [
         preferredPosition: "Hard Support",
         positions: ["Hard Support", "Soft Support"],
         playstyles: ["Protect", "Roam"],
-        image: "heroes/icons/io.jpg"
+        image: "images/heroes/io.jpg"
     },
 
     {
@@ -556,7 +556,7 @@ export const heroes = [
         preferredPosition: "Hard Support",
         positions: ["Hard Support", "Soft Support"],
         playstyles: ["Push", "Protect"],
-        image: "heroes/icons/jakiro.jpg"
+        image: "images/heroes/jakiro.jpg"
     },
 
     {
@@ -569,7 +569,7 @@ export const heroes = [
         preferredPosition: "Carry",
         positions: ["Carry"],
         playstyles: ["Farm", "Push"],
-        image: "heroes/icons/juggernaut.jpg"
+        image: "images/heroes/juggernaut.jpg"
     },
 
     {
@@ -582,7 +582,7 @@ export const heroes = [
         preferredPosition: "Soft Support",
         positions: ["Soft Support", "Hard Support", "Mid"],
         playstyles: ["Protect", "Push"],
-        image: "heroes/icons/keeper_of_the_light.jpg"
+        image: "images/heroes/keeper_of_the_light.jpg"
     },
 
     {
@@ -595,7 +595,7 @@ export const heroes = [
         preferredPosition: "Carry",
         positions: ["Carry", "Mid"],
         playstyles: ["Farm", "Burst"],
-        image: "heroes/icons/kez.jpg"
+        image: "images/heroes/kez.jpg"
     },
 
     {
@@ -608,7 +608,7 @@ export const heroes = [
         preferredPosition: "Mid",
         positions: ["Mid", "Offlane"],
         playstyles: ["Initiate", "Burst"],
-        image: "heroes/icons/kunkka.jpg"
+        image: "images/heroes/kunkka.jpg"
     },
 
     {
@@ -621,7 +621,7 @@ export const heroes = [
         preferredPosition: "Hard Support",
         positions: ["Hard Support", "Soft Support", "Offlane"],
         playstyles: ["Protect", "Initiate"],
-        image: "heroes/icons/largo.jpg"
+        image: "images/heroes/largo.jpg"
     },
 
     {
@@ -634,7 +634,7 @@ export const heroes = [
         preferredPosition: "Offlane",
         positions: ["Offlane"],
         playstyles: ["Initiate", "Roam"],
-        image: "heroes/icons/legion_commander.jpg"
+        image: "images/heroes/legion_commander.jpg"
     },
 
     {
@@ -647,7 +647,7 @@ export const heroes = [
         preferredPosition: "Mid",
         positions: ["Mid", "Offlane"],
         playstyles: ["Burst", "Push"],
-        image: "heroes/icons/leshrac.jpg"
+        image: "images/heroes/leshrac.jpg"
     },
 
     {
@@ -660,7 +660,7 @@ export const heroes = [
         preferredPosition: "Hard Support",
         positions: ["Hard Support"],
         playstyles: ["Protect", "Burst"],
-        image: "heroes/icons/lich.jpg"
+        image: "images/heroes/lich.jpg"
     },
 
     {
@@ -673,7 +673,7 @@ export const heroes = [
         preferredPosition: "Carry",
         positions: ["Carry"],
         playstyles: ["Farm"],
-        image: "heroes/icons/lifestealer.jpg"
+        image: "images/heroes/lifestealer.jpg"
     },
 
     {
@@ -686,7 +686,7 @@ export const heroes = [
         preferredPosition: "Mid",
         positions: ["Mid", "Carry", "Soft Support"],
         playstyles: ["Burst", "Farm"],
-        image: "heroes/icons/lina.jpg"
+        image: "images/heroes/lina.jpg"
     },
 
     {
@@ -699,7 +699,7 @@ export const heroes = [
         preferredPosition: "Soft Support",
         positions: ["Soft Support", "Hard Support"],
         playstyles: ["Burst", "Roam"],
-        image: "heroes/icons/lion.jpg"
+        image: "images/heroes/lion.jpg"
     },
 
     {
@@ -712,7 +712,7 @@ export const heroes = [
         preferredPosition: "Offlane",
         positions: ["Offlane", "Mid", "Carry"],
         playstyles: ["Farm", "Push"],
-        image: "heroes/icons/lone_druid.jpg"
+        image: "images/heroes/lone_druid.jpg"
     },
 
     {
@@ -725,7 +725,7 @@ export const heroes = [
         preferredPosition: "Carry",
         positions: ["Carry"],
         playstyles: ["Farm", "Push"],
-        image: "heroes/icons/luna.jpg"
+        image: "images/heroes/luna.jpg"
     },
 
     {
@@ -738,7 +738,7 @@ export const heroes = [
         preferredPosition: "Offlane",
         positions: ["Offlane", "Carry"],
         playstyles: ["Push", "Farm"],
-        image: "heroes/icons/lycan.jpg"
+        image: "images/heroes/lycan.jpg"
     },
 
     {
@@ -751,7 +751,7 @@ export const heroes = [
         preferredPosition: "Offlane",
         positions: ["Offlane", "Mid"],
         playstyles: ["Initiate", "Protect"],
-        image: "heroes/icons/magnus.jpg"
+        image: "images/heroes/magnus.jpg"
     },
 
     {
@@ -764,7 +764,7 @@ export const heroes = [
         preferredPosition: "Soft Support",
         positions: ["Soft Support", "Offlane", "Carry"],
         playstyles: ["Roam", "Initiate", "Burst"],
-        image: "heroes/icons/marci.jpg"
+        image: "images/heroes/marci.jpg"
     },
 
     {
@@ -777,7 +777,7 @@ export const heroes = [
         preferredPosition: "Offlane",
         positions: ["Offlane"],
         playstyles: ["Initiate"],
-        image: "heroes/icons/mars.jpg"
+        image: "images/heroes/mars.jpg"
     },
 
     {
@@ -790,7 +790,7 @@ export const heroes = [
         preferredPosition: "Carry",
         positions: ["Carry"],
         playstyles: ["Farm", "Push"],
-        image: "heroes/icons/medusa.jpg"
+        image: "images/heroes/medusa.jpg"
     },
 
     {
@@ -803,7 +803,7 @@ export const heroes = [
         preferredPosition: "Mid",
         positions: ["Mid", "Carry"],
         playstyles: ["Farm", "Push", "Burst"],
-        image: "heroes/icons/meepo.jpg"
+        image: "images/heroes/meepo.jpg"
     },
 
     {
@@ -816,7 +816,7 @@ export const heroes = [
         preferredPosition: "Soft Support",
         positions: ["Soft Support", "Hard Support", "Mid"],
         playstyles: ["Roam", "Protect"],
-        image: "heroes/icons/mirana.jpg"
+        image: "images/heroes/mirana.jpg"
     },
 
     {
@@ -829,7 +829,7 @@ export const heroes = [
         preferredPosition: "Carry",
         positions: ["Carry", "Mid"],
         playstyles: ["Farm", "Roam"],
-        image: "heroes/icons/monkey_king.jpg"
+        image: "images/heroes/monkey_king.jpg"
     },
 
     {
@@ -842,7 +842,7 @@ export const heroes = [
         preferredPosition: "Carry",
         positions: ["Carry", "Mid"],
         playstyles: ["Farm", "Burst"],
-        image: "heroes/icons/morphling.jpg"
+        image: "images/heroes/morphling.jpg"
     },
 
     {
@@ -855,7 +855,7 @@ export const heroes = [
         preferredPosition: "Carry",
         positions: ["Carry", "Soft Support"],
         playstyles: ["Farm", "Burst"],
-        image: "heroes/icons/muerta.jpg"
+        image: "images/heroes/muerta.jpg"
     },
 
     {
@@ -868,7 +868,7 @@ export const heroes = [
         preferredPosition: "Carry",
         positions: ["Carry", "Hard Support"],
         playstyles: ["Farm", "Push", "Protect"],
-        image: "heroes/icons/naga_siren.jpg"
+        image: "images/heroes/naga_siren.jpg"
     },
 
     {
@@ -881,7 +881,7 @@ export const heroes = [
         preferredPosition: "Offlane",
         positions: ["Offlane", "Mid", "Soft Support", "Carry"],
         playstyles: ["Push", "Roam", "Farm"],
-        image: "heroes/icons/natures_prophet.jpg"
+        image: "images/heroes/natures_prophet.jpg"
     },
 
     {
@@ -894,7 +894,7 @@ export const heroes = [
         preferredPosition: "Mid",
         positions: ["Mid", "Offlane"],
         playstyles: ["Protect", "Burst"],
-        image: "heroes/icons/necrophos.jpg"
+        image: "images/heroes/necrophos.jpg"
     },
 
     {
@@ -907,7 +907,7 @@ export const heroes = [
         preferredPosition: "Offlane",
         positions: ["Offlane"],
         playstyles: ["Roam", "Initiate"],
-        image: "heroes/icons/night_stalker.jpg"
+        image: "images/heroes/night_stalker.jpg"
     },
 
     {
@@ -920,7 +920,7 @@ export const heroes = [
         preferredPosition: "Soft Support",
         positions: ["Soft Support"],
         playstyles: ["Burst", "Roam"],
-        image: "heroes/icons/nyx_assassin.jpg"
+        image: "images/heroes/nyx_assassin.jpg"
     },
 
     {
@@ -933,7 +933,7 @@ export const heroes = [
         preferredPosition: "Hard Support",
         positions: ["Hard Support", "Soft Support"],
         playstyles: ["Protect", "Initiate"],
-        image: "heroes/icons/ogre_magi.jpg"
+        image: "images/heroes/ogre_magi.jpg"
     },
 
     {
@@ -946,7 +946,7 @@ export const heroes = [
         preferredPosition: "Hard Support",
         positions: ["Hard Support", "Offlane"],
         playstyles: ["Protect"],
-        image: "heroes/icons/omniknight.jpg"
+        image: "images/heroes/omniknight.jpg"
     },
 
     {
@@ -959,7 +959,7 @@ export const heroes = [
         preferredPosition: "Hard Support",
         positions: ["Hard Support"],
         playstyles: ["Protect"],
-        image: "heroes/icons/oracle.jpg"
+        image: "images/heroes/oracle.jpg"
     },
 
     {
@@ -972,7 +972,7 @@ export const heroes = [
         preferredPosition: "Mid",
         positions: ["Mid"],
         playstyles: ["Burst"],
-        image: "heroes/icons/outworld_destroyer.jpg"
+        image: "images/heroes/outworld_destroyer.jpg"
     },
 
     {
@@ -985,7 +985,7 @@ export const heroes = [
         preferredPosition: "Mid",
         positions: ["Mid", "Offlane"],
         playstyles: ["Initiate", "Roam"],
-        image: "heroes/icons/pangolier.jpg"
+        image: "images/heroes/pangolier.jpg"
     },
 
     {
@@ -998,7 +998,7 @@ export const heroes = [
         preferredPosition: "Carry",
         positions: ["Carry"],
         playstyles: ["Farm", "Burst"],
-        image: "heroes/icons/phantom_assassin.jpg"
+        image: "images/heroes/phantom_assassin.jpg"
     },
 
     {
@@ -1011,7 +1011,7 @@ export const heroes = [
         preferredPosition: "Carry",
         positions: ["Carry"],
         playstyles: ["Farm", "Push"],
-        image: "heroes/icons/phantom_lancer.jpg"
+        image: "images/heroes/phantom_lancer.jpg"
     },
 
     {
@@ -1024,7 +1024,7 @@ export const heroes = [
         preferredPosition: "Hard Support",
         positions: ["Hard Support", "Soft Support", "Offlane"],
         playstyles: ["Protect", "Initiate"],
-        image: "heroes/icons/phoenix.jpg"
+        image: "images/heroes/phoenix.jpg"
     },
 
     {
@@ -1037,7 +1037,7 @@ export const heroes = [
         preferredPosition: "Offlane",
         positions: ["Offlane", "Mid"],
         playstyles: ["Initiate", "Roam"],
-        image: "heroes/icons/primal_beast.jpg"
+        image: "images/heroes/primal_beast.jpg"
     },
 
     {
@@ -1050,7 +1050,7 @@ export const heroes = [
         preferredPosition: "Mid",
         positions: ["Mid"],
         playstyles: ["Roam", "Initiate", "Burst"],
-        image: "heroes/icons/puck.jpg"
+        image: "images/heroes/puck.jpg"
     },
 
     {
@@ -1063,7 +1063,7 @@ export const heroes = [
         preferredPosition: "Soft Support",
         positions: ["Soft Support", "Offlane", "Mid"],
         playstyles: ["Initiate", "Roam"],
-        image: "heroes/icons/pudge.jpg"
+        image: "images/heroes/pudge.jpg"
     },
 
     {
@@ -1076,7 +1076,7 @@ export const heroes = [
         preferredPosition: "Soft Support",
         positions: ["Soft Support", "Hard Support", "Mid"],
         playstyles: ["Protect", "Push", "Burst"],
-        image: "heroes/icons/pugna.jpg"
+        image: "images/heroes/pugna.jpg"
     },
 
     {
@@ -1089,7 +1089,7 @@ export const heroes = [
         preferredPosition: "Mid",
         positions: ["Mid"],
         playstyles: ["Burst", "Roam"],
-        image: "heroes/icons/queen_of_pain.jpg"
+        image: "images/heroes/queen_of_pain.jpg"
     },
 
     {
@@ -1102,7 +1102,7 @@ export const heroes = [
         preferredPosition: "Offlane",
         positions: ["Offlane", "Mid", "Carry"],
         playstyles: ["Farm", "Initiate"],
-        image: "heroes/icons/razor.jpg"
+        image: "images/heroes/razor.jpg"
     },
 
     {
@@ -1115,7 +1115,7 @@ export const heroes = [
         preferredPosition: "Carry",
         positions: ["Carry", "Soft Support"],
         playstyles: ["Burst", "Roam"],
-        image: "heroes/icons/riki.jpg"
+        image: "images/heroes/riki.jpg"
     },
 
     {
@@ -1128,7 +1128,7 @@ export const heroes = [
         preferredPosition: "Hard Support",
         positions: ["Hard Support", "Soft Support"],
         playstyles: ["Protect", "Burst"],
-        image: "heroes/icons/ringmaster.jpg"
+        image: "images/heroes/ringmaster.jpg"
     },
 
     {
@@ -1141,7 +1141,7 @@ export const heroes = [
         preferredPosition: "Soft Support",
         positions: ["Soft Support", "Hard Support"],
         playstyles: ["Roam", "Burst"],
-        image: "heroes/icons/rubick.jpg"
+        image: "images/heroes/rubick.jpg"
     },
 
     {
@@ -1154,7 +1154,7 @@ export const heroes = [
         preferredPosition: "Offlane",
         positions: ["Offlane", "Mid"],
         playstyles: ["Initiate", "Burst"],
-        image: "heroes/icons/sand_king.jpg"
+        image: "images/heroes/sand_king.jpg"
     },
 
     {
@@ -1167,7 +1167,7 @@ export const heroes = [
         preferredPosition: "Hard Support",
         positions: ["Hard Support", "Soft Support"],
         playstyles: ["Protect", "Burst"],
-        image: "heroes/icons/shadow_demon.jpg"
+        image: "images/heroes/shadow_demon.jpg"
     },
 
     {
@@ -1180,7 +1180,7 @@ export const heroes = [
         preferredPosition: "Mid",
         positions: ["Mid", "Carry"],
         playstyles: ["Farm", "Burst"],
-        image: "heroes/icons/shadow_fiend.jpg"
+        image: "images/heroes/shadow_fiend.jpg"
     },
 
     {
@@ -1193,7 +1193,7 @@ export const heroes = [
         preferredPosition: "Soft Support",
         positions: ["Soft Support", "Hard Support"],
         playstyles: ["Push", "Roam"],
-        image: "heroes/icons/shadow_shaman.jpg"
+        image: "images/heroes/shadow_shaman.jpg"
     },
 
     {
@@ -1206,7 +1206,7 @@ export const heroes = [
         preferredPosition: "Hard Support",
         positions: ["Hard Support", "Soft Support", "Mid"],
         playstyles: ["Protect", "Burst"],
-        image: "heroes/icons/silencer.jpg"
+        image: "images/heroes/silencer.jpg"
     },
 
     {
@@ -1219,7 +1219,7 @@ export const heroes = [
         preferredPosition: "Soft Support",
         positions: ["Soft Support", "Hard Support", "Mid"],
         playstyles: ["Burst", "Roam"],
-        image: "heroes/icons/skywrath_mage.jpg"
+        image: "images/heroes/skywrath_mage.jpg"
     },
 
     {
@@ -1232,7 +1232,7 @@ export const heroes = [
         preferredPosition: "Offlane",
         positions: ["Offlane"],
         playstyles: ["Initiate", "Roam"],
-        image: "heroes/icons/slardar.jpg"
+        image: "images/heroes/slardar.jpg"
     },
 
     {
@@ -1245,7 +1245,7 @@ export const heroes = [
         preferredPosition: "Carry",
         positions: ["Carry"],
         playstyles: ["Farm", "Roam"],
-        image: "heroes/icons/slark.jpg"
+        image: "images/heroes/slark.jpg"
     },
 
     {
@@ -1258,7 +1258,7 @@ export const heroes = [
         preferredPosition: "Soft Support",
         positions: ["Soft Support", "Hard Support", "Offlane"],
         playstyles: ["Burst", "Protect"],
-        image: "heroes/icons/snapfire.jpg"
+        image: "images/heroes/snapfire.jpg"
     },
 
     {
@@ -1271,7 +1271,7 @@ export const heroes = [
         preferredPosition: "Mid",
         positions: ["Mid", "Carry"],
         playstyles: ["Farm", "Burst"],
-        image: "heroes/icons/sniper.jpg"
+        image: "images/heroes/sniper.jpg"
     },
 
     {
@@ -1284,7 +1284,7 @@ export const heroes = [
         preferredPosition: "Carry",
         positions: ["Carry"],
         playstyles: ["Farm", "Roam"],
-        image: "heroes/icons/spectre.jpg"
+        image: "images/heroes/spectre.jpg"
     },
 
     {
@@ -1297,7 +1297,7 @@ export const heroes = [
         preferredPosition: "Soft Support",
         positions: ["Soft Support", "Offlane"],
         playstyles: ["Roam", "Initiate"],
-        image: "heroes/icons/spirit_breaker.jpg"
+        image: "images/heroes/spirit_breaker.jpg"
     },
 
     {
@@ -1310,7 +1310,7 @@ export const heroes = [
         preferredPosition: "Mid",
         positions: ["Mid"],
         playstyles: ["Roam", "Burst"],
-        image: "heroes/icons/storm_spirit.jpg"
+        image: "images/heroes/storm_spirit.jpg"
     },
 
     {
@@ -1323,7 +1323,7 @@ export const heroes = [
         preferredPosition: "Carry",
         positions: ["Carry"],
         playstyles: ["Farm", "Burst"],
-        image: "heroes/icons/sven.jpg"
+        image: "images/heroes/sven.jpg"
     },
 
     {
@@ -1336,7 +1336,7 @@ export const heroes = [
         preferredPosition: "Soft Support",
         positions: ["Soft Support", "Hard Support"],
         playstyles: ["Burst", "Roam"],
-        image: "heroes/icons/techies.jpg"
+        image: "images/heroes/techies.jpg"
     },
 
     {
@@ -1349,7 +1349,7 @@ export const heroes = [
         preferredPosition: "Mid",
         positions: ["Mid", "Carry"],
         playstyles: ["Farm", "Burst"],
-        image: "heroes/icons/templar_assassin.jpg"
+        image: "images/heroes/templar_assassin.jpg"
     },
 
     {
@@ -1362,7 +1362,7 @@ export const heroes = [
         preferredPosition: "Carry",
         positions: ["Carry"],
         playstyles: ["Farm", "Push"],
-        image: "heroes/icons/terrorblade.jpg"
+        image: "images/heroes/terrorblade.jpg"
     },
 
     {
@@ -1375,7 +1375,7 @@ export const heroes = [
         preferredPosition: "Offlane",
         positions: ["Offlane"],
         playstyles: ["Initiate", "Protect"],
-        image: "heroes/icons/tidehunter.jpg"
+        image: "images/heroes/tidehunter.jpg"
     },
 
     {
@@ -1388,7 +1388,7 @@ export const heroes = [
         preferredPosition: "Offlane",
         positions: ["Offlane", "Mid"],
         playstyles: ["Burst", "Initiate"],
-        image: "heroes/icons/timbersaw.jpg"
+        image: "images/heroes/timbersaw.jpg"
     },
 
     {
@@ -1401,7 +1401,7 @@ export const heroes = [
         preferredPosition: "Mid",
         positions: ["Mid", "Soft Support"],
         playstyles: ["Burst", "Protect"],
-        image: "heroes/icons/tinker.jpg"
+        image: "images/heroes/tinker.jpg"
     },
 
     {
@@ -1414,7 +1414,7 @@ export const heroes = [
         preferredPosition: "Mid",
         positions: ["Mid", "Soft Support", "Offlane"],
         playstyles: ["Burst", "Initiate", "Roam"],
-        image: "heroes/icons/tiny.jpg"
+        image: "images/heroes/tiny.jpg"
     },
 
     {
@@ -1427,7 +1427,7 @@ export const heroes = [
         preferredPosition: "Hard Support",
         positions: ["Hard Support"],
         playstyles: ["Protect", "Initiate"],
-        image: "heroes/icons/treant_protector.jpg"
+        image: "images/heroes/treant_protector.jpg"
     },
 
     {
@@ -1440,7 +1440,7 @@ export const heroes = [
         preferredPosition: "Carry",
         positions: ["Carry"],
         playstyles: ["Farm", "Push"],
-        image: "heroes/icons/troll_warlord.jpg"
+        image: "images/heroes/troll_warlord.jpg"
     },
 
     {
@@ -1453,7 +1453,7 @@ export const heroes = [
         preferredPosition: "Soft Support",
         positions: ["Soft Support", "Offlane"],
         playstyles: ["Roam", "Initiate", "Protect"],
-        image: "heroes/icons/tusk.jpg"
+        image: "images/heroes/tusk.jpg"
     },
 
     {
@@ -1466,7 +1466,7 @@ export const heroes = [
         preferredPosition: "Offlane",
         positions: ["Offlane"],
         playstyles: ["Push", "Protect", "Initiate"],
-        image: "heroes/icons/underlord.jpg"
+        image: "images/heroes/underlord.jpg"
     },
 
     {
@@ -1479,7 +1479,7 @@ export const heroes = [
         preferredPosition: "Hard Support",
         positions: ["Hard Support", "Soft Support", "Offlane"],
         playstyles: ["Protect", "Initiate"],
-        image: "heroes/icons/undying.jpg"
+        image: "images/heroes/undying.jpg"
     },
 
     {
@@ -1492,7 +1492,7 @@ export const heroes = [
         preferredPosition: "Carry",
         positions: ["Carry"],
         playstyles: ["Farm", "Burst"],
-        image: "heroes/icons/ursa.jpg"
+        image: "images/heroes/ursa.jpg"
     },
 
     {
@@ -1505,7 +1505,7 @@ export const heroes = [
         preferredPosition: "Hard Support",
         positions: ["Hard Support", "Soft Support", "Offlane"],
         playstyles: ["Protect", "Initiate"],
-        image: "heroes/icons/vengeful_spirit.jpg"
+        image: "images/heroes/vengeful_spirit.jpg"
     },
 
     {
@@ -1518,7 +1518,7 @@ export const heroes = [
         preferredPosition: "Hard Support",
         positions: ["Hard Support", "Soft Support", "Offlane"],
         playstyles: ["Push", "Protect"],
-        image: "heroes/icons/venomancer.jpg"
+        image: "images/heroes/venomancer.jpg"
     },
 
     {
@@ -1531,7 +1531,7 @@ export const heroes = [
         preferredPosition: "Mid",
         positions: ["Mid", "Offlane"],
         playstyles: ["Burst", "Initiate"],
-        image: "heroes/icons/viper.jpg"
+        image: "images/heroes/viper.jpg"
     },
 
     {
@@ -1544,7 +1544,7 @@ export const heroes = [
         preferredPosition: "Offlane",
         positions: ["Offlane", "Mid"],
         playstyles: ["Push", "Burst"],
-        image: "heroes/icons/visage.jpg"
+        image: "images/heroes/visage.jpg"
     },
 
     {
@@ -1557,7 +1557,7 @@ export const heroes = [
         preferredPosition: "Mid",
         positions: ["Mid"],
         playstyles: ["Burst", "Roam"],
-        image: "heroes/icons/void_spirit.jpg"
+        image: "images/heroes/void_spirit.jpg"
     },
 
     {
@@ -1570,7 +1570,7 @@ export const heroes = [
         preferredPosition: "Hard Support",
         positions: ["Hard Support"],
         playstyles: ["Protect", "Initiate"],
-        image: "heroes/icons/warlock.jpg"
+        image: "images/heroes/warlock.jpg"
     },
 
     {
@@ -1583,7 +1583,7 @@ export const heroes = [
         preferredPosition: "Carry",
         positions: ["Carry", "Soft Support", "Offlane"],
         playstyles: ["Farm", "Roam"],
-        image: "heroes/icons/weaver.jpg"
+        image: "images/heroes/weaver.jpg"
     },
 
     {
@@ -1596,7 +1596,7 @@ export const heroes = [
         preferredPosition: "Mid",
         positions: ["Mid", "Carry", "Soft Support"],
         playstyles: ["Burst", "Roam"],
-        image: "heroes/icons/windranger.jpg"
+        image: "images/heroes/windranger.jpg"
     },
 
     {
@@ -1609,7 +1609,7 @@ export const heroes = [
         preferredPosition: "Hard Support",
         positions: ["Hard Support", "Soft Support", "Mid"],
         playstyles: ["Protect", "Initiate"],
-        image: "heroes/icons/winter_wyvern.jpg"
+        image: "images/heroes/winter_wyvern.jpg"
     },
 
     {
@@ -1622,7 +1622,7 @@ export const heroes = [
         preferredPosition: "Hard Support",
         positions: ["Hard Support", "Soft Support"],
         playstyles: ["Protect", "Burst"],
-        image: "heroes/icons/witch_doctor.jpg"
+        image: "images/heroes/witch_doctor.jpg"
     },
 
     {
@@ -1635,7 +1635,7 @@ export const heroes = [
         preferredPosition: "Carry",
         positions: ["Carry", "Offlane"],
         playstyles: ["Farm", "Push"],
-        image: "heroes/icons/wraith_king.jpg"
+        image: "images/heroes/wraith_king.jpg"
     },
 
     {
@@ -1648,6 +1648,6 @@ export const heroes = [
         preferredPosition: "Mid",
         positions: ["Mid", "Soft Support"],
         playstyles: ["Burst"],
-        image: "heroes/icons/zeus.jpg"
+        image: "images/heroes/zeus.jpg"
     }
 ];

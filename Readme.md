@@ -10,20 +10,24 @@ Pages: Home, Heroes, Items, Map, Esports, Register, Log In and Profile. Profile 
 
 Code organization:
 
-- `script.js`: shared navigation, search, catalogs, quiz, contact form, animations and map interactions, with numbered sections.
+- `*.html`: the eight pages, in the project root.
+- `css/styles.css`: shared design tokens, layouts and component styles; Final additions are at the end.
+- `js/script.js`: shared navigation, search, catalogs, quiz, contact form, animations, map interactions and the hero of the day, with numbered sections.
 - `js/theme.js`: Radiant (light) and Dire (dark) themes, early palette restoration and a radial View Transition. Older browsers use a color fade; reduced-motion mode changes themes immediately.
-- `heroes.js`, `items.js`: local catalog objects.
+- `js/data/heroes.js`, `js/data/items.js`: local catalog objects.
 - `js/account.js`: JavaScript form validation, local signup/login/logout and per-account favourites.
 - `js/validation.js`: shared email format checker.
-- `js/esports.js`: OpenDota requests, loading state, timeout, error/retry and match rendering.
-- `styles.css`: shared design tokens, layouts and component styles; Final additions are at the end.
-- `heroes`, `images`, `fonts`: existing local assets.
+- `js/esports.js`: OpenDota match requests, loading state, timeout, error/retry and match rendering. Only the latest game of each series is listed.
+- `js/hero-details.js`: hero details dialog with live win rates, pick counts and base stats from OpenDota.
+- `js/vendor`: bundled jQuery.
+- `images/heroes`, `images/items`, `images/attributes`, `images/background`, `images/ui`: local images.
+- `sounds`, `fonts`: interface sounds and web fonts.
 
 Registration collects a player name, email, phone and password. Use fictional details and an unused demo password. Passwords are stored as salted PBKDF2 hashes; accounts and favourites are saved under `dota-wiki-users-v1`, and the current account under `dota-wiki-current-user`. Theme uses `dota-wiki-theme`. This is the required browser-only authentication simulation, not secure backend authentication; browser storage can be inspected or modified. Clear these site storage keys to reset the demo. The contact form validates its input but does not send a message.
 
 Radiant uses light stone, cyan rune highlights and gold details; Dire uses cool dark stone, crimson and fire. Each faction uses supplied base artwork for the page background and a separate hero-silhouette banner in the header. All four images use WebP at their original dimensions. The other background preloads after the page has loaded. The theme is restored before CSS paints to avoid flashing the other faction during navigation. The existing `light`/`dark` storage values remain compatible. The faction marks and textures are custom SVG graphics. Ability colors remain semantic: Use is green, Active is blue and Passive is grey.
 
-The Esports page requests `https://api.opendota.com/api/proMatches` using `fetch` and displays up to six recent matches. It handles HTTP/network failures, empty responses and a 12-second timeout. OpenDota may delay or rate-limit responses. Catalog values and the lane diagram are educational reference material, not an automatically updated patch database.
+The Esports page requests `https://api.opendota.com/api/proMatches` using `fetch` and displays up to six recent matches. It handles HTTP/network failures, empty responses and a 12-second timeout. On the Heroes page, selecting a hero name or portrait opens a dialog that requests `https://api.opendota.com/api/heroStats` once and shows that hero's win rate by rank, pick counts and base stats, with loading, error and retry states. OpenDota may delay or rate-limit responses. Catalog values and the lane diagram are educational reference material, not an automatically updated patch database.
 
 Repository: https://github.com/ChillyEz/EndtermProject
 

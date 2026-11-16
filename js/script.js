@@ -1024,7 +1024,10 @@ if (laneMap) {
         { name: "Top lane", pin: "T", x: 26, y: 11, guide: "Top is the Dire safe lane and the Radiant offlane. As a Dire carry, keep the creep wave close to your tower so you have a shorter retreat." },
         { name: "Bottom lane", pin: "B", x: 64, y: 89, guide: "Bottom is the Radiant safe lane and the Dire offlane. A Radiant support can protect the carry by watching the paths from the river." },
         { name: "Radiant base", pin: "R", x: 13, y: 83, guide: "Radiant starts in the southwest. The three lanes lead back to this high ground. If the enemy pushes into the base, defend the Ancient." },
-        { name: "Dire base", pin: "D", x: 87, y: 17, guide: "Dire starts in the northeast. From here, choose a lane to leave the base. As Radiant, breaking through these defenses opens the way to the Dire Ancient." }
+        { name: "Dire base", pin: "D", x: 87, y: 17, guide: "Dire starts in the northeast. From here, choose a lane to leave the base. As Radiant, breaking through these defenses opens the way to the Dire Ancient." },
+        { name: "River", pin: "~", x: 36, y: 37, guide: "The river divides the map between the two teams. Runes appear here, so both mid players and supports fight for control of it. Crossing the river means entering enemy territory." },
+        { name: "Radiant jungle", pin: "J", x: 47, y: 74, guide: "The forest between the lanes holds neutral creep camps. Carries farm here when the lane is dangerous, and supports stack camps to give them more gold." },
+        { name: "Dire jungle", pin: "J", x: 56, y: 27, guide: "The Dire forest mirrors the Radiant one. Entering the enemy jungle is risky without vision, so place wards before you farm or hunt there." }
     ];
     const select = document.getElementById("map-location");
     function showPlace(index) {
@@ -1075,4 +1078,91 @@ if (dailyHeroBox) {
     dailyHeroBox.append(createHeroPortrait(hero), name, info, roles, link);
     document.getElementById("home-hero-count").textContent = heroes.length;
     $(document).trigger("pagecontentchange");
+}
+
+// ==================== [15] MATCH CLOCK (map.html) ====================
+const clockSlider = document.getElementById("clock-slider");
+if (clockSlider) {
+    // start: first minute, every: repeat interval in minutes, end: last minute (optional).
+    const clockEvents = [
+        { name: "Bounty runes", start: 0, every: 3, tip: "Supports collect them for team gold." },
+        { name: "Neutral creeps", start: 1, every: 1, end: 1, tip: "Jungle camps spawn for the first time." },
+        { name: "Water runes", start: 2, every: 2, end: 4, tip: "They restore health and mana for the mid players." },
+        { name: "Siege creeps", start: 5, every: 5, tip: "A catapult joins each lane and damages towers." },
+        { name: "Power runes", start: 6, every: 2, tip: "One spawns in the river: haste, double damage and others." },
+        { name: "Wisdom runes", start: 7, every: 7, tip: "They give bonus experience at the edges of the map." }
+    ];
+    const lastMinute = 40;
+    clockSlider.max = lastMinute;
+
+    function happensAt(event, minute) {
+        if (minute < event.start || (event.end !== undefined && minute > event.end)) return false;
+        return (minute - event.start) % event.every === 0;
+    }
+
+    function showMinute(minute) {
+        document.getElementById("clock-time").textContent = `${minute}:00`;
+        // Day and night switch every five minutes. Matches start in the daytime.
+        const isNight = Math.floor(minute / 5) % 2 === 1;
+        const phase = document.getElementById("clock-phase");
+        phase.textContent = isNight ? "Night" : "Day";
+        phase.classList.toggle("night", isNight);
+        laneMap.classList.toggle("night", isNight);
+
+        const nowList = document.getElementById("clock-now");
+        nowList.replaceChildren();
+        clockEvents.filter((event) => happensAt(event, minute)).forEach((event) => {
+            const item = document.createElement("li");
+            const name = document.createElement("strong");
+            name.textContent = event.name;
+            item.append(name, ` — ${event.tip}`);
+            nowList.append(item);
+        });
+        if (!nowList.children.length) {
+            const item = document.createElement("li");
+            item.textContent = "Nothing new this minute. Farm and watch the minimap.";
+            nowList.append(item);
+        }
+
+        // For every event, find the first later minute when it happens again.
+        const upcoming = [];
+        clockEvents.forEach((event) => {
+            for (let next = minute + 1; next <= lastMinute; next++) {
+                if (happensAt(event, next)) {
+                    upcoming.push({ minute: next, name: event.name });
+                    break;
+                }
+            }
+        });
+        upcoming.sort((a, b) => a.minute - b.minute);
+        const nextList = document.getElementById("clock-next");
+        nextList.replaceChildren();
+        upcoming.forEach((entry) => {
+            const item = document.createElement("li");
+            item.textContent = `${entry.minute}:00 — ${entry.name}`;
+            nextList.append(item);
+        });
+        $(document).trigger("pagecontentchange");
+    }
+
+    // Play moves the slider one minute forward every 0.7 seconds.
+    const playButton = document.getElementById("clock-play");
+    let playTimer = null;
+    function stopClock() {
+        clearInterval(playTimer);
+        playTimer = null;
+        playButton.textContent = "Play";
+    }
+    playButton.addEventListener("click", () => {
+        if (playTimer) { stopClock(); return; }
+        if (Number(clockSlider.value) >= lastMinute) clockSlider.value = 0;
+        playButton.textContent = "Pause";
+        playTimer = setInterval(() => {
+            clockSlider.value = Number(clockSlider.value) + 1;
+            showMinute(Number(clockSlider.value));
+            if (Number(clockSlider.value) >= lastMinute) stopClock();
+        }, 700);
+    });
+    clockSlider.addEventListener("input", () => showMinute(Number(clockSlider.value)));
+    showMinute(0);
 }

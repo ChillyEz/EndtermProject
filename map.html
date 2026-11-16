@@ -69,6 +69,26 @@
                 <a href="images/dota2_map.png">Open the full diagram and legend</a>
             </section>
         </div>
+        <section class="match-clock" aria-labelledby="clock-title">
+            <h2 id="clock-title">Match clock</h2>
+            <p>Move the slider or press Play to see what appears on the map at each minute of a match.</p>
+            <div class="clock-controls">
+                <button id="clock-play" class="quiz-button" type="button">Play</button>
+                <input id="clock-slider" type="range" value="0" aria-label="Match minute">
+                <output id="clock-time" for="clock-slider">0:00</output>
+                <span id="clock-phase" class="clock-phase">Day</span>
+            </div>
+            <div class="clock-columns">
+                <div>
+                    <h3>Happening now</h3>
+                    <ul id="clock-now"></ul>
+                </div>
+                <div>
+                    <h3>Coming next</h3>
+                    <ul id="clock-next"></ul>
+                </div>
+            </div>
+        </section>
     </main>
 <footer>
     <p>&copy; 2026 Dota 2 Wiki. All rights reserved. Amir Baiseitov</p>

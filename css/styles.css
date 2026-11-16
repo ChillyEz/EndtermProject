@@ -1803,14 +1803,21 @@ input::placeholder, textarea::placeholder { color: rgb(var(--color-text-muted));
 
 /* Final: compact banner on inner pages. Home keeps the full artwork. */
 a img.logo { width: 72px; height: 72px; }
-body:not(.home) header { padding-top: clamp(64px, 12vw, 140px); }
+/* --banner-space is the visible banner height. The dark panel behind the navigation
+   starts right below it, so wrapped header rows never sit on top of the artwork. */
+header { --banner-space: clamp(90px, 27vw, 300px); padding-top: var(--banner-space); }
+body:not(.home) header { --banner-space: clamp(64px, 12vw, 140px); }
+header::after { top: calc(var(--banner-space) - 24px); bottom: 0; height: auto; }
 body:not(.home) header::before {
     aspect-ratio: auto;
-    height: clamp(100px, 17vw, 200px);
+    height: calc(var(--banner-space) + 24px);
     background-size: cover;
-    background-position: center 8%;
+    background-position: center 12%;
 }
-body:not(.home) header::after { height: 190px; }
+@media (max-width: 768px) {
+    header { --banner-space: clamp(100px, 29vw, 220px); }
+    body:not(.home) header { --banner-space: clamp(72px, 17vw, 130px); }
+}
 
 /* Final: home intro with call-to-action buttons and the hero of the day. */
 .home-hero {
@@ -1889,9 +1896,8 @@ body:not(.home) header::after { height: 190px; }
 
 /* Final: phones. Shorter banner, hidden search label, two heroes per row. */
 @media (max-width: 480px) {
-    header { padding-top: 30%; }
-    body:not(.home) header { padding-top: 22%; }
-    header::after { height: 230px; }
+    header { --banner-space: 27vw; padding-top: var(--banner-space); }
+    body:not(.home) header { --banner-space: 20vw; }
     a img.logo { width: 56px; height: 56px; }
     .page-search label { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
     .hero-gallery { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-2); padding: var(--space-1) 0; }

@@ -67,17 +67,30 @@
             <p id="matches-status" role="status"></p>
             <div id="match-list" class="match-list"></div>
         </section>
+        <section class="top-teams-section" aria-labelledby="top-teams-title">
+            <h2 id="top-teams-title">Top teams right now</h2>
+            <p id="top-teams-status" role="status">Loading the team rating…</p>
+            <ol id="top-teams" class="top-teams"></ol>
+        </section>
+        <!-- One trophy drawing, reused in every card with <use>. -->
+        <svg width="0" height="0" class="svg-sprite" aria-hidden="true">
+            <symbol id="trophy" viewBox="0 0 24 24">
+                <path fill="currentColor" d="M7 2h10v2h4v3a5 5 0 0 1-4.6 5 5 5 0 0 1-3.4 2.9V17h3v2H8v-2h3v-2.1A5 5 0 0 1 7.6 12 5 5 0 0 1 3 7V4h4V2zm0 4H5v1a3 3 0 0 0 2 2.8V6zm10 0v3.8A3 3 0 0 0 19 7V6h-2zM6 20h12v2H6v-2z"/>
+            </symbol>
+        </svg>
         <h2>The International Winners</h2>
         <p>The International is Dota 2's world championship. Team Spirit won two of these four editions. Gaimin Gladiators reached consecutive grand finals in 2023 and 2024.</p>
         <div class="ti-editions">
             <article class="ti-edition">
+                <svg class="ti-trophy" aria-hidden="true"><use href="#trophy"></use></svg>
                 <h2>2026 · Shanghai</h2>
-                <h3>Team Spirit</h3>
+                <h3>Team Spirit <span class="ti-badge">2× champion</span></h3>
                 <p>Defeated TEAM VISION in the grand final.</p>
                 <p>Event prize pool: <strong>$3,906,263</strong></p>
                 <a href="https://liquipedia.net/dota2/The_International/2026">Tournament results for 2026</a>
             </article>
             <article class="ti-edition">
+                <svg class="ti-trophy" aria-hidden="true"><use href="#trophy"></use></svg>
                 <h2>2025 · Hamburg</h2>
                 <h3>Team Falcons</h3>
                 <p>Defeated Xtreme Gaming in the grand final.</p>
@@ -85,6 +98,7 @@
                 <a href="https://liquipedia.net/dota2/The_International/2025">Tournament results for 2025</a>
             </article>
             <article class="ti-edition">
+                <svg class="ti-trophy" aria-hidden="true"><use href="#trophy"></use></svg>
                 <h2>2024 · Copenhagen</h2>
                 <h3>Team Liquid</h3>
                 <p>Defeated Gaimin Gladiators in the grand final.</p>
@@ -92,8 +106,9 @@
                 <a href="https://liquipedia.net/dota2/The_International/2024">Tournament results for 2024</a>
             </article>
             <article class="ti-edition">
+                <svg class="ti-trophy" aria-hidden="true"><use href="#trophy"></use></svg>
                 <h2>2023 · Seattle</h2>
-                <h3>Team Spirit</h3>
+                <h3>Team Spirit <span class="ti-badge">2× champion</span></h3>
                 <p>Defeated Gaimin Gladiators in the grand final.</p>
                 <p>Event prize pool: <strong>$3,380,455</strong></p>
                 <a href="https://liquipedia.net/dota2/The_International/2023">Tournament results for 2023</a>

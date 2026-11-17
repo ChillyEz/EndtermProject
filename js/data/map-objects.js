@@ -25,7 +25,7 @@ export const objectTypes = {
         text: "The Tormentor is a neutral object that reflects damage back to the heroes who attack it. The team that kills it gets an Aghanim's Shard. During the day it is in the bottom corner, at night in the top corner."
     },
     tower: {
-        layer: "buildings", label: "Tower", icon: "images/map/tower.png",
+        layer: "buildings", label: "Tower", icon: "images/map/tower.png", direIcon: "images/map/tower-dire.png",
         text: "Towers guard each lane. They must be destroyed in order, from tier 1 at the river to tier 4 beside the Ancient."
     },
     ancient: {
@@ -208,7 +208,7 @@ export const mapObjects = [
 
     // Outposts and watchers
     { type: "outpost", name: "Radiant outpost", x: 27.9, y: 55.3 },
-    { type: "outpost", name: "Dire outpost", x: 66.0, y: 55.8 },
+    { type: "outpost", name: "Dire outpost", x: 66.0, y: 55.8, icon: "images/map/outpost-dire.png" },
     { type: "watcher", name: "Watcher", x: 13.5, y: 18.5 },
     { type: "watcher", name: "Watcher", x: 40.7, y: 31.5 },
     { type: "watcher", name: "Watcher", x: 30.7, y: 52.8 },

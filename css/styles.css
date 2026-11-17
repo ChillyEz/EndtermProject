@@ -2076,7 +2076,6 @@ body:not(.home) header::before {
 /* Team colours: Radiant buildings glow green, Dire buildings glow red. */
 .map-marker.radiant { filter: drop-shadow(0 0 2px #000) drop-shadow(0 0 5px #4fe06a); }
 .map-marker.dire { filter: drop-shadow(0 0 2px #000) drop-shadow(0 0 5px #ff4b3a); }
-.marker-tower.dire img { filter: hue-rotate(150deg) saturate(1.5); }
 /* Roshan sits on a dark badge so the grey icon is readable on any ground. */
 .marker-roshan { padding: 4px; border: 2px solid #f1c166; border-radius: 50%; background: rgba(20, 16, 24, 0.85); }
 .marker-campFlooded img { filter: hue-rotate(220deg) saturate(1.4); }

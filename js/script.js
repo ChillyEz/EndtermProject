@@ -273,26 +273,131 @@ $(document).ready(function () {
         $purpose.append(new Option(purpose, purpose));
     }
 
-    for (const item of items) {
+    // Price tier shown on the card: cheap items for the lane, mid-game parts, big core items.
+    function priceTier(cost) {
+        if (cost <= 500) return { id: "cheap", label: "Cheap" };
+        if (cost <= 2500) return { id: "mid", label: "Mid" };
+        return { id: "core", label: "Core" };
+    }
+
+    // Every card is created once; filters only hide them and change their order.
+    const cards = items.map((item, index) => {
         const $card = $(template.content.firstElementChild.cloneNode(true));
         $card.attr("data-purpose", item.purpose);
         $card.find(".item-name").text(item.name);
         $card.find(".item-image img").attr({ src: item.image, alt: item.name });
         $card.find(".item-description").text(item.summary);
         $card.find(".item-button").on("click", () => showDetails(item));
+        if (item.cost != null) {
+            const tier = priceTier(item.cost);
+            $card.find(".item-tier").addClass(tier.id).text(tier.label);
+            $card.find(".item-price span").text(item.cost);
+            $card.find(".item-add").attr("aria-label", `Add ${item.name} to the starting purchase`)
+                .on("click", () => addToBuild(item));
+        } else {
+            $card.find(".item-tier, .item-price, .item-add").remove();
+        }
         $grid.append($card);
-    }
+        return { item, index, $card };
+    });
+
+    // ---------- Search, purpose filter and sorting (saved in localStorage) ----------
+    const $search = $("#item-search");
+    const $sort = $("#item-sort");
+    const filtersKey = "dota-wiki-item-filters";
 
     function filterItems() {
+        const text = $search.val().trim().toLowerCase();
         const purpose = $purpose.val();
-        let count = 0;
-        $grid.children().each(function () {
-            this.hidden = Boolean(purpose) && this.dataset.purpose !== purpose;
-            if (!this.hidden) count++;
-        });
+        const sort = $sort.val();
+        const visible = cards.filter(({ item }) =>
+            item.name.toLowerCase().includes(text) && (!purpose || item.purpose === purpose));
+        // Items without a price go to the end when sorting by price.
+        const price = (entry, empty) => entry.item.cost ?? empty;
+        if (sort === "priceLow") visible.sort((a, b) => price(a, Infinity) - price(b, Infinity));
+        else if (sort === "priceHigh") visible.sort((a, b) => price(b, -1) - price(a, -1));
+        else if (sort === "name") visible.sort((a, b) => a.item.name.localeCompare(b.item.name));
+        else visible.sort((a, b) => a.index - b.index);
+
+        cards.forEach(({ $card }) => $card.prop("hidden", true));
+        // append() moves the existing cards into the new order.
+        visible.forEach(({ $card }) => $grid.append($card.prop("hidden", false)));
+        const count = visible.length;
         $("#item-count").text(count === 1 ? "1 item" : `${count} items`);
+        $("#item-empty").prop("hidden", count > 0);
+        localStorage.setItem(filtersKey, JSON.stringify({ text: $search.val(), purpose, sort }));
         $(document).trigger("pagecontentchange");
     }
+
+    function restoreFilters() {
+        try {
+            const saved = JSON.parse(localStorage.getItem(filtersKey)) || {};
+            $search.val(saved.text || "");
+            // Only restore values that still exist in the lists.
+            if ($purpose.find(`option[value="${saved.purpose}"]`).length) $purpose.val(saved.purpose);
+            if ($sort.find(`option[value="${saved.sort}"]`).length) $sort.val(saved.sort);
+        } catch {
+            localStorage.removeItem(filtersKey);
+        }
+    }
+
+    // ---------- Starting purchase: 600 gold ----------
+    const startingGold = 600;
+    const buildKey = "dota-wiki-starting-build";
+    let build = [];
+    try {
+        // Only names are saved; they are turned back into items here.
+        build = (JSON.parse(localStorage.getItem(buildKey)) || [])
+            .map((name) => items.find((item) => item.name === name)).filter(Boolean);
+    } catch {
+        build = [];
+    }
+
+    function spentGold() {
+        return build.reduce((sum, item) => sum + item.cost, 0);
+    }
+
+    function renderBuild(message) {
+        const spent = spentGold();
+        $("#build-left").text(startingGold - spent);
+        $("#build-bar-fill").css("width", `${(spent / startingGold) * 100}%`);
+        const $list = $("#build-list").empty();
+        build.forEach((item, position) => {
+            $("<li>").append(
+                $("<button>").attr({ type: "button", title: `Remove ${item.name}` }).append(
+                    $("<img>").attr({ src: item.image, alt: "" }),
+                    $("<span>").text(item.name),
+                    $("<small>").text(item.cost)
+                ).on("click", () => {
+                    build.splice(position, 1);
+                    saveBuild(`${item.name} removed.`);
+                })
+            ).appendTo($list);
+        });
+        $("#build-status").toggleClass("field-error", Boolean(message && message.startsWith("Not enough")))
+            .text(message || (build.length ? "Click an item here to remove it." : "Press + on an item card to add it. Click an item here to remove it."));
+        $(document).trigger("pagecontentchange");
+    }
+
+    function saveBuild(message) {
+        localStorage.setItem(buildKey, JSON.stringify(build.map((item) => item.name)));
+        renderBuild(message);
+    }
+
+    function addToBuild(item) {
+        const left = startingGold - spentGold();
+        if (item.cost > left) {
+            renderBuild(`Not enough gold for ${item.name}: it costs ${item.cost}, you have ${left} left.`);
+            return;
+        }
+        build.push(item);
+        saveBuild(`${item.name} added.`);
+    }
+
+    $("#build-clear").on("click", () => {
+        build = [];
+        saveBuild("The starting purchase is empty.");
+    });
 
     // Close modal via close button or outside backdrop click
     let mouseDownOutside = false;
@@ -307,7 +412,12 @@ $(document).ready(function () {
     });
     $dialog.on("close", () => $(document).trigger("pagecontentchange"));
     $purpose.on("change", filterItems);
+    $sort.on("change", filterItems);
+    $search.on("input", filterItems);
+    $(".item-filters").on("submit", (event) => event.preventDefault());
+    restoreFilters();
     filterItems();
+    renderBuild();
 });
 
 // ==================== [3] CONTACT FORM, SUBMIT SPINNER & POPUP (index.html | A6 Task 6) ====================

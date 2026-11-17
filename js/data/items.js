@@ -330,6 +330,7 @@ export const items = [
         "purpose": "Recovery",
         "image": "images/items/stick.jpg",
         "summary": "Pick up a Magic Stick in a lane where opponents cast spells frequently.",
+        "cost": 200,
         "abilities": [
             {
                 "type": "Active",
@@ -339,5 +340,256 @@ export const items = [
                 ]
             }
         ]
+    },
+    {
+        "name": "Blood Grenade",
+        "purpose": "Damage",
+        "image": "images/items/blood-grenade.png",
+        "summary": "A cheap support item: throw it to harass and slow enemies in the lane.",
+        "cost": 50,
+        "properties": {
+            "Ability": "Point Target",
+            "Affects": "Enemy Units"
+        },
+        "stats": [
+            "+50 Health"
+        ],
+        "abilities": [
+            {
+                "type": "Use",
+                "name": "Throw Grenade",
+                "metrics": {
+                    "Range": 900,
+                    "Health cost": 75,
+                    "Cooldown": "10 s"
+                },
+                "text": [
+                    "Throw a grenade at the target area. Enemies in the area take 50 damage on impact, are slowed by 15% and take 15 damage every 1 s for 5 seconds. Radius 300."
+                ]
+            }
+        ],
+        "lore": "Both the hunter and the hunted must pay the blood price."
+    },
+    {
+        "name": "Dust of Appearance",
+        "purpose": "Vision",
+        "image": "images/items/dust-of-appearance.png",
+        "summary": "Buy it against invisible heroes: it reveals and slows them around you.",
+        "cost": 80,
+        "properties": {
+            "Ability": "No Target",
+            "Dispellable": "Yes"
+        },
+        "abilities": [
+            {
+                "type": "Use",
+                "name": "Reveal",
+                "metrics": {
+                    "Radius": 1050,
+                    "Cooldown": "30 s"
+                },
+                "text": [
+                    "For 12 seconds, creates an area that reveals and slows invisible heroes by 20% in a 1050 radius where the caster was standing. Invisible units revealed by dust take 25 damage.",
+                    "The debuff on enemies lingers for 8 s after they leave the area."
+                ]
+            }
+        ],
+        "lore": "One may hide visage, but never volume."
+    },
+    {
+        "name": "Bottle",
+        "purpose": "Recovery",
+        "image": "images/items/bottle.png",
+        "summary": "A mid lane favourite: refill it at the fountain and store runes inside.",
+        "cost": 675,
+        "properties": {
+            "Ability": "No Target",
+            "Affects": "Allied Heroes"
+        },
+        "abilities": [
+            {
+                "type": "Active",
+                "name": "Regenerate",
+                "metrics": {
+                    "Range": 350,
+                    "Cooldown": "0.5 s"
+                },
+                "text": [
+                    "Consumes a charge to restore 110 health and 60 mana over 2.7 seconds. If the hero is attacked by an enemy hero or Roshan, the effect is lost.",
+                    "The Bottle automatically refills at the fountain."
+                ]
+            },
+            {
+                "type": "Passive",
+                "name": "Store Rune",
+                "text": [
+                    "Runes can be stored in the Bottle for later use. Unused runes activate automatically after 90 seconds.",
+                    "Using a stored rune fully refills the Bottle."
+                ]
+            }
+        ],
+        "lore": "An old bottle that survived the ages, the contents placed inside become enchanted."
+    },
+    {
+        "name": "Infused Raindrops",
+        "purpose": "Defense",
+        "image": "images/items/infused-raindrops.png",
+        "summary": "Cheap protection against heroes with strong magic burst in the lane.",
+        "cost": 225,
+        "properties": {
+            "Ability": "Passive"
+        },
+        "stats": [
+            "+0.6 Mana Regeneration"
+        ],
+        "abilities": [
+            {
+                "type": "Passive",
+                "name": "Magical Damage Block",
+                "metrics": {
+                    "Cooldown": "7 s"
+                },
+                "text": [
+                    "Consumes a charge to block 120 magic damage from damage instances over 75 damage.",
+                    "Comes with 6 charges. When the charges are gone, the item disappears."
+                ]
+            }
+        ],
+        "lore": "Elemental protection from magical assaults."
+    },
+    {
+        "name": "Quelling Blade",
+        "purpose": "Utility",
+        "image": "images/items/quelling-blade.png",
+        "summary": "A melee core's first item: last-hit creeps more easily and cut trees.",
+        "cost": 100,
+        "properties": {
+            "Ability": "Unit Target",
+            "Affects": "Trees"
+        },
+        "abilities": [
+            {
+                "type": "Active",
+                "name": "Chop Tree",
+                "metrics": {
+                    "Range": 350,
+                    "Cooldown": "4 s"
+                },
+                "text": [
+                    "Destroy a target tree."
+                ]
+            },
+            {
+                "type": "Passive",
+                "name": "Quell",
+                "text": [
+                    "Increases attack damage against non-hero units by 8 for melee heroes, and 4 for ranged."
+                ]
+            }
+        ],
+        "lore": "The axe of a fallen gnome, it allows you to effectively maneuver the forest."
+    },
+    {
+        "name": "Ring of Protection",
+        "purpose": "Defense",
+        "image": "images/items/ring-of-protection.png",
+        "summary": "Cheap armor for the lane, later used in bigger defensive items.",
+        "cost": 175,
+        "properties": {
+            "Ability": "Passive"
+        },
+        "stats": [
+            "+2 Armor"
+        ],
+        "abilities": [],
+        "lore": "A glimmering ring that defends its bearer."
+    },
+    {
+        "name": "Blades of Attack",
+        "purpose": "Damage",
+        "image": "images/items/blades-of-attack.png",
+        "summary": "A small damage component that helps with last hits.",
+        "cost": 450,
+        "properties": {
+            "Ability": "Passive"
+        },
+        "stats": [
+            "+9 Damage"
+        ],
+        "abilities": [],
+        "lore": "The damage of these small, concealable blades should not be underestimated."
+    },
+    {
+        "name": "Orb of Frost",
+        "purpose": "Damage",
+        "image": "images/items/orb-of-frost.png",
+        "summary": "Slows the enemy you hit, so it is harder for them to escape.",
+        "cost": 300,
+        "properties": {
+            "Ability": "Passive"
+        },
+        "abilities": [
+            {
+                "type": "Passive",
+                "name": "Frost",
+                "text": [
+                    "Your attacks slow the target's movement by 13% (6% against melee targets) and reduce Health Restoration by 15%. Lasts for 3 seconds."
+                ]
+            }
+        ],
+        "lore": "Slowly growing since the universe began, it will envelop everything when it ends."
+    },
+    {
+        "name": "Chainmail",
+        "purpose": "Defense",
+        "image": "images/items/chainmail.png",
+        "summary": "More armor than the ring: good against heroes that attack a lot.",
+        "cost": 500,
+        "properties": {
+            "Ability": "Passive",
+            "Affects": "Allied Heroes"
+        },
+        "stats": [
+            "+4 Armor"
+        ],
+        "abilities": [],
+        "lore": "A medium weave of metal chains."
+    },
+    {
+        "name": "Broadsword",
+        "purpose": "Damage",
+        "image": "images/items/broadsword.png",
+        "summary": "A solid damage component for many carry items.",
+        "cost": 1000,
+        "properties": {
+            "Ability": "Passive"
+        },
+        "stats": [
+            "+15 Damage"
+        ],
+        "abilities": [],
+        "lore": "The classic weapon of choice for knights, this blade is sturdy and reliable for slaying enemies."
+    },
+    {
+        "name": "Orb of Blight",
+        "purpose": "Damage",
+        "image": "images/items/orb-of-blight.png",
+        "summary": "Lowers the armor of the enemy you attack, so your team hits harder.",
+        "cost": 300,
+        "properties": {
+            "Ability": "Passive",
+            "Pierces Debuff Immunity": "Yes",
+            "Dispellable": "Yes"
+        },
+        "abilities": [
+            {
+                "type": "Passive",
+                "name": "Lesser Corruption",
+                "text": [
+                    "Your attacks reduce the target's armor by 2 for 3 seconds."
+                ]
+            }
+        ],
+        "lore": "An unnerving stone unearthed beneath the Fields of Endless Carnage."
     }
 ];

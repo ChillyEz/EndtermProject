@@ -54,22 +54,56 @@
 <div class="overlay"></div>
     
     <main>
+        <p class="eyebrow">THE SHOP</p>
         <h1>Items</h1>
-        <div class="item-filters">
-            <label for="item-purpose">What do you need?</label>
-            <select id="item-purpose">
-                <option value="">All items</option>
-            </select>
+        <p class="items-lead">Every hero starts the match with 600 gold. Find the items you need, compare their prices and plan your first purchase below.</p>
+
+        <section class="starting-build" aria-labelledby="build-title">
+            <div class="build-header">
+                <h2 id="build-title">Starting purchase</h2>
+                <p class="build-gold"><img src="images/items/gold.png" alt="Gold"> <span id="build-left">600</span> of 600 left</p>
+                <button id="build-clear" class="quiz-button" type="button">Clear</button>
+            </div>
+            <div class="build-bar" aria-hidden="true"><span id="build-bar-fill"></span></div>
+            <ul id="build-list" class="build-list"></ul>
+            <p id="build-status" role="status">Press + on an item card to add it. Click an item here to remove it.</p>
+        </section>
+
+        <form class="item-filters" novalidate>
+            <div class="item-filter">
+                <label for="item-search">Search</label>
+                <input id="item-search" type="search" placeholder="Item name..." autocomplete="off">
+            </div>
+            <div class="item-filter">
+                <label for="item-purpose">What do you need?</label>
+                <select id="item-purpose">
+                    <option value="">All items</option>
+                </select>
+            </div>
+            <div class="item-filter">
+                <label for="item-sort">Sort by</label>
+                <select id="item-sort">
+                    <option value="default">Shop order</option>
+                    <option value="priceLow">Price: low to high</option>
+                    <option value="priceHigh">Price: high to low</option>
+                    <option value="name">Name</option>
+                </select>
+            </div>
             <span id="item-count" role="status"></span>
-        </div>
+        </form>
+        <p id="item-empty" class="empty-state" hidden>No items match your search.</p>
         <div class="item-grid"></div>
         <template id="item-card-template">
             <article class="item-card">
                 <div class="item-basic">
                     <h3 class="item-name"></h3>
-                    <div class="item-image"><img alt=""></div>
+                    <div class="item-image"><img alt=""><span class="item-tier"></span></div>
+                    <p class="item-price"><img src="images/items/gold.png" alt="Gold"> <span></span></p>
                     <p class="item-description"></p>
-                    <button class="item-button" type="button" aria-haspopup="dialog">View Details</button>
+                    <div class="item-actions">
+                        <button class="item-button" type="button" aria-haspopup="dialog">View Details</button>
+                        <button class="item-add" type="button">+</button>
+                    </div>
                 </div>
             </article>
         </template>

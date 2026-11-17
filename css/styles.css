@@ -2276,3 +2276,118 @@ body:not(.home) header::before {
     .top-team { grid-template-columns: 24px 40px minmax(0, 1fr) auto; }
     .top-team-record { grid-column: 3 / -1; grid-row: 2; }
 }
+
+/* ===== Final: items page — intro, filters, price tiers, starting purchase ===== */
+.items-lead { max-width: 68ch; color: rgb(var(--color-text-secondary)); }
+
+.item-filters { align-items: flex-end; }
+.item-filter { display: grid; gap: 4px; }
+.item-filter label { font-size: 0.8rem; color: rgb(var(--color-text-secondary)); }
+.item-filters input[type="search"] {
+    min-width: 200px;
+    padding: 8px;
+    color: rgb(var(--color-text-main));
+    background: rgb(var(--color-background-main));
+    border: 1px solid rgb(var(--color-border));
+    border-radius: 4px;
+    font: inherit;
+}
+#item-count { margin-left: auto; align-self: center; }
+
+/* Price and tier on the card */
+.item-image { position: relative; width: max-content; margin-inline: auto; }
+.item-tier {
+    position: absolute;
+    top: -8px;
+    right: -14px;
+    padding: 1px 8px;
+    border-radius: 999px;
+    font-size: 0.65rem;
+    font-weight: 800;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: #172127;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.5);
+}
+.item-tier.cheap { background: #8fd19e; }
+.item-tier.mid { background: #7fb5e8; }
+.item-tier.core { background: #f1c166; }
+.item-price {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 6px;
+    margin: 0 0 6px;
+    font-weight: 800;
+    color: rgb(var(--color-text-gold));
+}
+.item-price img { width: 22px; height: auto; }
+.item-actions { display: flex; gap: 8px; margin-top: auto; }
+.item-actions .item-button { flex: 1; margin-top: 0; }
+.item-add {
+    width: 38px;
+    border: 1px solid rgb(var(--color-border));
+    border-radius: 4px;
+    background: rgb(var(--color-background-main));
+    color: rgb(var(--color-text-gold));
+    font-size: 1.3rem;
+    font-weight: 800;
+    line-height: 1;
+    cursor: pointer;
+    transition: transform 0.15s ease, background-color 0.2s ease;
+}
+.item-add:hover { background: rgb(var(--color-background-panel-light)); transform: scale(1.08); }
+.item-add:active { transform: scale(0.92); }
+
+/* Starting purchase */
+.starting-build {
+    margin: var(--space-3) 0;
+    padding: var(--space-3);
+    border: 1px solid rgb(var(--color-border));
+    border-left: 3px solid rgb(var(--faction-accent));
+    border-radius: var(--radius);
+    background: linear-gradient(145deg, rgb(var(--color-background-panel-light)), rgb(var(--color-background-panel)));
+}
+.build-header { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-2); }
+.build-header h2 { margin: 0; }
+.build-gold { display: flex; align-items: center; gap: 6px; margin: 0 0 0 auto; color: rgb(var(--color-text-secondary)); }
+.build-gold img { width: 24px; height: auto; }
+#build-left { font-size: 1.4rem; font-weight: 800; color: rgb(var(--color-text-gold)); font-variant-numeric: tabular-nums; }
+.build-bar { height: 8px; margin: 12px 0; overflow: hidden; border-radius: 999px; background: rgb(var(--color-background-main)); }
+#build-bar-fill {
+    display: block;
+    width: 0;
+    height: 100%;
+    border-radius: inherit;
+    background: linear-gradient(90deg, #f1c166, rgb(var(--faction-accent)));
+    transition: width 0.4s ease;
+}
+.build-list { display: flex; flex-wrap: wrap; gap: 8px; margin: 0; padding: 0; list-style: none; }
+.build-list button {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 4px 10px 4px 4px;
+    border: 1px solid rgb(var(--color-border));
+    border-radius: 6px;
+    background: rgb(var(--color-background-main));
+    color: rgb(var(--color-text-main));
+    font: inherit;
+    font-size: 0.85rem;
+    cursor: pointer;
+    animation: build-pop 0.25s ease;
+    transition: border-color 0.2s ease;
+}
+.build-list button:hover { border-color: #e0715f; text-decoration: line-through; }
+.build-list img { width: 44px; height: 32px; object-fit: cover; border-radius: 3px; }
+.build-list small { color: rgb(var(--color-text-gold)); font-weight: 800; }
+#build-status { margin: 10px 0 0; font-size: 0.85rem; color: rgb(var(--color-text-secondary)); }
+#build-status.field-error { color: #e0715f; }
+@keyframes build-pop { from { transform: scale(0.6); opacity: 0; } }
+
+@media (max-width: 560px) {
+    .item-filter, .item-filters input[type="search"] { width: 100%; min-width: 0; }
+    .item-filters select { width: 100%; }
+    #item-count { margin-left: 0; }
+    .build-gold { margin-left: 0; }
+}

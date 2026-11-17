@@ -54,28 +54,34 @@
 <div class="overlay"></div>
     <main>
         <h1>Dota 2 Map</h1>
-        <p>Select a lane or base to learn its role in a match.</p>
-        <div class="map-guide">
-            <div class="map-container" id="lane-map">
-                <img id="dota2-map" src="images/dota2_map.png" alt="Lane diagram with Radiant in the southwest and Dire in the northeast">
+        <p>Select a marker to learn what it is. Move the match clock to see runes, neutral camps and Roshan change during a match.</p>
+        <div class="map-layout">
+            <div class="map-stage" id="map-stage">
+                <img id="dota2-map" src="images/map/map.jpg" alt="Dota 2 map with the Radiant base in the southwest and the Dire base in the northeast">
             </div>
-            <section class="location-guide" aria-label="Location guide">
-                <label for="map-location">Explore a location</label>
-                <select id="map-location"></select>
-                <div aria-live="polite">
-                    <h2 id="location-title">Mid lane</h2>
-                    <p id="location-description"></p>
-                </div>
-                <a href="images/dota2_map.png">Open the full diagram and legend</a>
-            </section>
+            <aside class="map-panel" aria-label="Map guide">
+                <section class="map-info" aria-live="polite">
+                    <div class="map-info-heading">
+                        <img id="map-info-icon" alt="" hidden>
+                        <h2 id="map-info-title">Select a marker</h2>
+                    </div>
+                    <p id="map-info-text">Every icon on the map can be selected: towers, neutral camps, runes, watchers and Roshan.</p>
+                    <p id="map-info-status"></p>
+                </section>
+                <section>
+                    <h2>Layers</h2>
+                    <div id="map-layers" class="map-layers"></div>
+                </section>
+            </aside>
         </div>
         <section class="match-clock" aria-labelledby="clock-title">
             <h2 id="clock-title">Match clock</h2>
-            <p>Move the slider or press Play to see what appears on the map at each minute of a match.</p>
+            <p>Move the slider or press Play. The map above changes with the minute of the match.</p>
             <div class="clock-controls">
-                <button id="clock-play" class="quiz-button" type="button">Play</button>
-                <input id="clock-slider" type="range" value="0" aria-label="Match minute">
-                <output id="clock-time" for="clock-slider">0:00</output>
+                <button id="clock-play" class="quiz-button quiz-next" type="button">Play</button>
+                <button id="clock-reset" class="quiz-button" type="button">Reset</button>
+                <input id="clock-slider" type="range" aria-label="Match minute">
+                <output id="clock-time" for="clock-slider">-1:00</output>
                 <span id="clock-phase" class="clock-phase">Day</span>
             </div>
             <div class="clock-columns">

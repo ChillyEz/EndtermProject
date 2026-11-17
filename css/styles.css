@@ -1467,35 +1467,6 @@ main a { color: rgb(var(--color-text-gold)); }
     .ti-editions { grid-template-columns: 1fr; }
 }
 
-.map-guide {
-    display: grid;
-    grid-template-columns: minmax(0, 3fr) minmax(210px, 2fr);
-    align-items: start;
-    gap: var(--space-3);
-}
-.map-guide .map-container {
-    aspect-ratio: 1;
-    overflow: hidden;
-    border-radius: var(--radius);
-}
-.map-guide #dota2-map { height: 100%; width: auto; max-width: none; }
-.map-pin {
-    position: absolute;
-    transform: translate(-50%, -50%);
-    width: 36px;
-    height: 36px;
-    border: 2px solid #fff;
-    border-radius: 50%;
-    background: #172127;
-    color: #fff;
-    box-shadow: 0 2px 6px #101418;
-    font: bold 16px var(--font-family);
-    cursor: pointer;
-    transition: transform 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease;
-}
-.map-pin:hover { transform: translate(-50%, -50%) scale(1.12); }
-.map-pin[aria-pressed="true"] { background: #ffd168; border-color: #1c2527; color: #172127; }
-.map-pin:focus-visible { outline: 3px solid #fff; outline-offset: 3px; }
 .location-guide, .item-filters {
     padding: var(--space-3);
     border: 1px solid rgb(var(--color-border));
@@ -1517,7 +1488,6 @@ main a { color: rgb(var(--color-text-gold)); }
 #item-count { color: rgb(var(--color-text-secondary)); }
 @media (max-width: 700px) {
     main { padding: var(--space-3); }
-    .map-guide { grid-template-columns: minmax(0, 1fr); }
     .item-grid { justify-content: center; }
 }
 
@@ -2020,8 +1990,6 @@ body:not(.home) header::before {
 }
 
 /* Final: match clock on the map page. The map darkens at night. */
-#lane-map img { transition: filter 0.6s ease; }
-#lane-map.night img { filter: brightness(0.55) saturate(0.75) hue-rotate(20deg); }
 .match-clock {
     margin-top: var(--space-4);
     padding: var(--space-3);
@@ -2050,4 +2018,115 @@ body:not(.home) header::before {
 .clock-columns li { padding: 6px 0; border-top: 1px solid rgba(var(--color-border), 0.5); }
 @media (max-width: 600px) {
     .clock-columns { grid-template-columns: 1fr; gap: var(--space-3); }
+}
+
+/* Final: interactive map. Markers are placed with left/top percentages from js/data/map-objects.js. */
+.map-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 250px;
+    gap: var(--space-3);
+    align-items: start;
+}
+.map-stage {
+    position: relative;
+    container-type: inline-size;
+    overflow: hidden;
+    border: 1px solid rgba(var(--color-border), 0.85);
+    border-radius: var(--radius);
+    background: #0b0f12;
+}
+.map-stage #dota2-map { width: 100%; transition: filter 0.8s ease; }
+.map-stage.night #dota2-map { filter: brightness(0.62) saturate(0.7) hue-rotate(25deg); }
+
+.map-marker {
+    --marker-size: clamp(16px, 3.4cqw, 34px);
+    position: absolute;
+    width: var(--marker-size);
+    height: var(--marker-size);
+    padding: 0;
+    transform: translate(-50%, -50%);
+    border: 0;
+    background: none;
+    cursor: pointer;
+    filter: drop-shadow(0 1px 2px #000) drop-shadow(0 0 3px rgba(0, 0, 0, 0.8));
+    transition: transform 0.2s ease, opacity 0.4s ease, filter 0.3s ease, left 1.2s ease, top 1.2s ease;
+}
+.map-marker img { display: block; width: 100%; height: 100%; object-fit: contain; pointer-events: none; }
+.map-marker:hover, .map-marker:focus-visible { transform: translate(-50%, -50%) scale(1.35); z-index: 3; outline: none; }
+.map-marker:focus-visible { filter: drop-shadow(0 0 2px #fff) drop-shadow(0 0 6px #fff); }
+.map-marker.waiting { opacity: 0.3; filter: grayscale(0.8) drop-shadow(0 1px 2px #000); }
+.map-marker[aria-pressed="true"] {
+    transform: translate(-50%, -50%) scale(1.45);
+    z-index: 4;
+    filter: drop-shadow(0 0 3px #fff) drop-shadow(0 0 10px #ffd168);
+}
+
+/* Sizes by kind: important objects are larger. */
+.marker-tower { --marker-size: clamp(9px, 2.2cqw, 22px); height: calc(var(--marker-size) * 2); }
+.marker-ancient { --marker-size: clamp(22px, 5cqw, 50px); }
+.marker-roshan { --marker-size: clamp(22px, 4.6cqw, 46px); z-index: 2; }
+.marker-campSmall, .marker-campMedium, .marker-campLarge, .marker-campReserved { --marker-size: clamp(11px, 2.6cqw, 26px); }
+.marker-campAncient { --marker-size: clamp(13px, 3.2cqw, 32px); }
+.marker-bounty, .marker-river, .marker-wisdom { --marker-size: clamp(18px, 3.6cqw, 36px); z-index: 2; }
+
+/* Team colours: Radiant buildings glow green, Dire buildings glow red. */
+.map-marker.radiant { filter: drop-shadow(0 0 2px #000) drop-shadow(0 0 5px #4fe06a); }
+.map-marker.dire { filter: drop-shadow(0 0 2px #000) drop-shadow(0 0 5px #ff4b3a); }
+.marker-tower.dire img, .marker-ancient.dire img { filter: hue-rotate(150deg) saturate(1.5); }
+/* Roshan sits on a dark badge so the grey icon is readable on any ground. */
+.marker-roshan { padding: 4px; border: 2px solid #f1c166; border-radius: 50%; background: rgba(20, 16, 24, 0.85); }
+.marker-campReserved img { filter: hue-rotate(220deg) saturate(1.4); }
+/* Runes that are on the map right now pulse. */
+.marker-bounty:not(.waiting), .marker-river:not(.waiting), .marker-wisdom:not(.waiting) { animation: rune-pulse 1.2s ease-in-out infinite; }
+@keyframes rune-pulse {
+    50% { filter: drop-shadow(0 0 4px #fff) drop-shadow(0 0 12px #9be7ff); transform: translate(-50%, -58%) scale(1.15); }
+}
+/* Lane pins are round letters. */
+.marker-lane {
+    --marker-size: clamp(18px, 3.2cqw, 32px);
+    border: 2px solid #fff;
+    border-radius: 50%;
+    background: #172127;
+    color: #fff;
+    font: bold clamp(10px, 1.6cqw, 15px) var(--font-family);
+}
+.marker-lane[aria-pressed="true"] { background: #ffd168; color: #172127; }
+
+/* Hidden layers, and highlight of the layer under the mouse or of the selected kind. */
+.map-stage.hide-buildings [data-layer="buildings"],
+.map-stage.hide-camps [data-layer="camps"],
+.map-stage.hide-runes [data-layer="runes"],
+.map-stage.hide-roshan [data-layer="roshan"],
+.map-stage.hide-lanes [data-layer="lanes"] { display: none; }
+.map-stage[data-highlight="buildings"] .map-marker:not([data-layer="buildings"]),
+.map-stage[data-highlight="camps"] .map-marker:not([data-layer="camps"]),
+.map-stage[data-highlight="runes"] .map-marker:not([data-layer="runes"]),
+.map-stage[data-highlight="roshan"] .map-marker:not([data-layer="roshan"]),
+.map-stage[data-highlight="lanes"] .map-marker:not([data-layer="lanes"]) { opacity: 0.15; }
+
+.map-panel { display: grid; gap: var(--space-3); }
+.map-panel section {
+    padding: var(--space-3);
+    border: 1px solid rgba(var(--color-border), 0.85);
+    border-left: 3px solid rgb(var(--faction-accent));
+    border-radius: var(--radius);
+    background: linear-gradient(135deg, rgb(var(--color-background-panel)), rgb(var(--color-background-panel-light)));
+}
+.map-panel h2 { margin: 0; font-size: 1.1rem; }
+.map-info-heading { display: flex; gap: var(--space-2); align-items: center; }
+#map-info-icon { width: 44px; height: 44px; object-fit: contain; }
+#map-info-text { font-size: 0.9rem; }
+#map-info-status { margin-bottom: 0; font-size: 0.85rem; color: rgb(var(--faction-accent)); }
+#map-info-status:empty { display: none; }
+.map-layers { display: grid; gap: 6px; margin-top: var(--space-2); font-size: 0.9rem; }
+.map-layers label { display: flex; gap: var(--space-1); align-items: center; padding: 4px 6px; border-radius: 4px; cursor: pointer; transition: background-color 0.2s ease; }
+.map-layers label:hover { background: var(--color-navbar-hover); }
+.map-layers input { accent-color: rgb(var(--faction-accent)); }
+
+@media (max-width: 860px) {
+    .map-layout { grid-template-columns: minmax(0, 1fr); }
+    .map-layers { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (prefers-reduced-motion: reduce) {
+    .map-marker { animation: none !important; }
 }

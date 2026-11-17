@@ -3,7 +3,27 @@
 // Tip: hold Shift and click the map on the page to read the coordinates of any point.
 
 // One entry per kind of marker: its layer, legend label, icon and description.
+// "direIcon" is used instead of "icon" for objects with side: "dire".
 export const objectTypes = {
+    barracksMelee: {
+        layer: "buildings", label: "Melee barracks",
+        icon: "images/map/barracks-melee-radiant.png", direIcon: "images/map/barracks-melee-dire.png",
+        text: "Melee barracks. Every lane has one melee and one ranged barracks behind the tier 3 tower. If the enemy destroys it, they get stronger melee creeps in this lane."
+    },
+    barracksRanged: {
+        layer: "buildings", label: "Ranged barracks",
+        icon: "images/map/barracks-ranged-radiant.png", direIcon: "images/map/barracks-ranged-dire.png",
+        text: "Ranged barracks. If the enemy destroys it, they get stronger ranged creeps in this lane. When all six barracks of a team fall, the enemy gets mega creeps."
+    },
+    building: {
+        layer: "buildings", label: "Base building",
+        icon: "images/map/building-radiant.png", direIcon: "images/map/building-dire.png",
+        text: "A building inside the base. It does not attack, but destroying it gives gold to the enemy team."
+    },
+    tormentor: {
+        layer: "roshan", label: "Tormentor", icon: "images/map/tormentor-radiant.png",
+        text: "The Tormentor is a neutral object that reflects damage back to the heroes who attack it. The team that kills it gets an Aghanim's Shard. During the day it is in the bottom corner, at night in the top corner."
+    },
     tower: {
         layer: "buildings", label: "Tower", icon: "images/map/tower.png",
         text: "Towers guard each lane. They must be destroyed in order, from tier 1 at the river to tier 4 beside the Ancient."
@@ -26,7 +46,7 @@ export const objectTypes = {
     },
     lotus: {
         layer: "objects", label: "Lotus Pool", icon: "images/map/lotus-pool.png",
-        text: "Healing Lotuses grow in this pool over time. A hero can pick them up to restore health and mana."
+        text: "Healing Lotuses grow in this pool. The first one appears at 3:00, then a new one is added every 3 minutes. A hero can pick them up to restore health and mana."
     },
     watcher: {
         layer: "buildings", label: "Watcher", icon: "images/map/watcher.png",
@@ -80,7 +100,7 @@ export const layers = [
     { id: "objects", label: "Gates and Lotus" },
     { id: "camps", label: "Neutral camps" },
     { id: "runes", label: "Runes" },
-    { id: "roshan", label: "Roshan" },
+    { id: "roshan", label: "Roshan and Tormentor" },
     { id: "lanes", label: "Lanes" }
 ];
 
@@ -88,6 +108,12 @@ export const layers = [
 export const roshanPits = {
     top: { x: 32.8, y: 40.7 },
     bottom: { x: 62.8, y: 67.6 }
+};
+
+// The two Tormentor spots: top at night, bottom during the day.
+export const tormentorSpots = {
+    top: { x: 11.2, y: 9.6, icon: "images/map/tormentor-dire.png" },
+    bottom: { x: 87.1, y: 95.7, icon: "images/map/tormentor-radiant.png" }
 };
 
 // Power runes that can appear in the river from 6:00.
@@ -129,10 +155,40 @@ export const mapObjects = [
     { type: "tower", side: "radiant", name: "Radiant mid tower, tier 1", x: 40.5, y: 60.5 },
     { type: "tower", side: "radiant", name: "Radiant mid tower, tier 2", x: 31.9, y: 69.2 },
     { type: "tower", side: "radiant", name: "Radiant mid tower, tier 3", x: 24.7, y: 75.1 },
+    { type: "tower", side: "radiant", name: "Radiant top tower, tier 3", x: 14.5, y: 71.8 },
+    { type: "tower", side: "radiant", name: "Radiant bottom tower, tier 3", x: 28.3, y: 86.6 },
     { type: "tower", side: "radiant", name: "Radiant bottom tower, tier 1", x: 73.3, y: 85.9 },
     { type: "tower", side: "radiant", name: "Radiant bottom tower, tier 2", x: 46.5, y: 86.8 },
     { type: "tower", side: "radiant", name: "Radiant tier 4 tower", x: 20.4, y: 78.4 },
     { type: "tower", side: "radiant", name: "Radiant tier 4 tower", x: 22.2, y: 81.2 },
+
+    // Barracks
+    { type: "barracksMelee", side: "dire", name: "Dire melee barracks", x: 72.8, y: 32.9 },
+    { type: "barracksMelee", side: "dire", name: "Dire melee barracks", x: 82.9, y: 35.0 },
+    { type: "barracksMelee", side: "dire", name: "Dire melee barracks", x: 68.5, y: 23.5 },
+    { type: "barracksRanged", side: "dire", name: "Dire ranged barracks", x: 68.5, y: 19.7 },
+    { type: "barracksRanged", side: "dire", name: "Dire ranged barracks", x: 70.5, y: 30.0 },
+    { type: "barracksRanged", side: "dire", name: "Dire ranged barracks", x: 79.2, y: 35.0 },
+    { type: "barracksMelee", side: "radiant", name: "Radiant melee barracks", x: 26.5, y: 87.8 },
+    { type: "barracksMelee", side: "radiant", name: "Radiant melee barracks", x: 15.9, y: 73.8 },
+    { type: "barracksMelee", side: "radiant", name: "Radiant melee barracks", x: 24.5, y: 78.0 },
+    { type: "barracksRanged", side: "radiant", name: "Radiant ranged barracks", x: 13.3, y: 73.8 },
+    { type: "barracksRanged", side: "radiant", name: "Radiant ranged barracks", x: 22.3, y: 76.2 },
+    { type: "barracksRanged", side: "radiant", name: "Radiant ranged barracks", x: 26.5, y: 85.2 },
+
+    // Other buildings inside the bases
+    { type: "building", side: "radiant", name: "Radiant building", x: 14.7, y: 76.4 },
+    { type: "building", side: "radiant", name: "Radiant building", x: 18.5, y: 76.7 },
+    { type: "building", side: "radiant", name: "Radiant building", x: 19.7, y: 73.8 },
+    { type: "building", side: "radiant", name: "Radiant building", x: 23.9, y: 81.9 },
+    { type: "building", side: "radiant", name: "Radiant building", x: 26.5, y: 81.4 },
+    { type: "building", side: "radiant", name: "Radiant building", x: 24.0, y: 86.3 },
+    { type: "building", side: "dire", name: "Dire building", x: 71.2, y: 21.7 },
+    { type: "building", side: "dire", name: "Dire building", x: 71.5, y: 25.7 },
+    { type: "building", side: "dire", name: "Dire building", x: 68.0, y: 27.4 },
+    { type: "building", side: "dire", name: "Dire building", x: 76.9, y: 31.6 },
+    { type: "building", side: "dire", name: "Dire building", x: 81.2, y: 32.4 },
+    { type: "building", side: "dire", name: "Dire building", x: 75.7, y: 34.8 },
 
     // Ancients
     { type: "ancient", side: "radiant", name: "Radiant Ancient", x: 18.2, y: 83.2,
@@ -151,7 +207,8 @@ export const mapObjects = [
     { type: "lotus", name: "Lotus Pool (bottom)", x: 87.8, y: 79.3 },
 
     // Outposts and watchers
-    { type: "outpost", name: "Outpost", x: 27.9, y: 55.3 },
+    { type: "outpost", name: "Radiant outpost", x: 27.9, y: 55.3 },
+    { type: "outpost", name: "Dire outpost", x: 66.0, y: 55.8 },
     { type: "watcher", name: "Watcher", x: 13.5, y: 18.5 },
     { type: "watcher", name: "Watcher", x: 40.7, y: 31.5 },
     { type: "watcher", name: "Watcher", x: 30.7, y: 52.8 },
@@ -196,6 +253,8 @@ export const mapObjects = [
 
     // Roshan starts in the top pit; js/map.js moves him between the pits.
     { type: "roshan", name: "Roshan", x: 32.8, y: 40.7 },
+    // The Tormentor starts in the bottom corner (day); js/map.js moves it at night.
+    { type: "tormentor", name: "Tormentor", x: 87.1, y: 95.7 },
 
     // Lanes
     { type: "lane", pin: "T", name: "Top lane", x: 14.5, y: 30.5,

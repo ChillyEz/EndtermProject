@@ -1,5 +1,5 @@
 // Interactive map (map.html): markers, layers, the info panel and the match clock.
-import { objectTypes, layers, mapObjects, roshanPits, powerRunes, floodedCampStages } from "./data/map-objects.js";
+import { objectTypes, layers, mapObjects, roshanPits, tormentorSpots, powerRunes, floodedCampStages } from "./data/map-objects.js";
 
 const firstMinute = -1;
 const lastMinute = 40;
@@ -56,7 +56,7 @@ export function initMap() {
         button.title = object.name;
         button.setAttribute("aria-label", object.name);
         // An object can have its own icon (for example the Dire Ancient), otherwise the icon of its type.
-        const iconSrc = object.icon || type.icon;
+        const iconSrc = object.icon || (object.side === "dire" && type.direIcon) || type.icon;
         if (iconSrc) {
             const icon = document.createElement("img");
             icon.src = iconSrc;
@@ -149,6 +149,19 @@ export function initMap() {
                     active: true,
                     status: isNight(minute) ? "Night: Roshan is in the bottom pit." : "Day: Roshan is in the top pit."
                 };
+            case "tormentor": {
+                const spot = isNight(minute) ? tormentorSpots.top : tormentorSpots.bottom;
+                return {
+                    active: true, icon: spot.icon,
+                    status: isNight(minute) ? "Night: the Tormentor is in the top corner." : "Day: the Tormentor is in the bottom corner."
+                };
+            }
+            case "lotus": {
+                if (minute < 3) return { active: false, status: "The first lotus grows at 3:00." };
+                const fresh = minute % 3 === 0;
+                const next = minute + 3 - (minute % 3);
+                return { active: true, status: fresh ? "A new lotus has just grown." : `Next lotus at ${formatTime(next)}.` };
+            }
             default:
                 return { active: true, status: "" };
         }
@@ -195,9 +208,10 @@ export function initMap() {
         { name: "Flooded camps", start: 5, every: 5, tip: () => "One creep in every flooded camp is upgraded." },
         { name: "Neutral creeps", start: 1, every: 1, end: 1, tip: () => "Jungle camps fill for the first time and refill every minute." },
         { name: "Water runes", start: 2, every: 2, end: 4, tip: () => "Both river spots. They restore health and mana." },
+        { name: "Healing Lotus", start: 3, every: 3, tip: () => "A new lotus grows in both Lotus Pools." },
         { name: "Day and night", start: 5, every: 5, tip: (minute) => isNight(minute)
-            ? "Night falls. Roshan moves to the bottom pit."
-            : "Day breaks. Roshan returns to the top pit." },
+            ? "Night falls. Roshan moves to the bottom pit, the Tormentor to the top corner."
+            : "Day breaks. Roshan returns to the top pit, the Tormentor to the bottom corner." },
         { name: "Power rune", start: 6, every: 2, tip: (minute) =>
             `${powerSchedule[minute].name}, at the top or the bottom river spot (random). Check both.` },
         { name: "Wisdom runes", start: 7, every: 7, tip: () => "Bonus experience at both edges of the map." }
@@ -238,12 +252,17 @@ export function initMap() {
                 object.button.style.left = `${pit.x}%`;
                 object.button.style.top = `${pit.y}%`;
             }
+            if (object.type === "tormentor") {
+                const spot = night ? tormentorSpots.top : tormentorSpots.bottom;
+                object.button.style.left = `${spot.x}%`;
+                object.button.style.top = `${spot.y}%`;
+            }
         });
         if (selected) showInfo(selected, minute);
 
         const nowList = document.getElementById("clock-now");
         nowList.replaceChildren();
-        if (minute < 0) addListItem(nowList, "Pre-game", "Heroes buy items and walk to their lanes. Roshan is already in the top pit.");
+        if (minute < 0) addListItem(nowList, "Pre-game", "Heroes buy items and walk to their lanes. Roshan is already in the top pit, the Tormentor in the bottom corner.");
         clockEvents.filter((event) => happensAt(event, minute))
             .forEach((event) => addListItem(nowList, event.name, event.tip(minute)));
         if (!nowList.children.length) addListItem(nowList, "", "Nothing new this minute. Farm and watch the minimap.");

@@ -2064,6 +2064,8 @@ body:not(.home) header::before {
 /* Sizes by kind: important objects are larger. */
 .marker-tower { --marker-size: clamp(9px, 2.2cqw, 22px); height: calc(var(--marker-size) * 2); }
 .marker-ancient { --marker-size: clamp(22px, 5cqw, 50px); }
+.marker-fountain, .marker-gate { --marker-size: clamp(20px, 4.4cqw, 44px); }
+.marker-lotus { --marker-size: clamp(18px, 3.8cqw, 38px); }
 .marker-roshan { --marker-size: clamp(22px, 4.6cqw, 46px); z-index: 2; }
 .marker-campSmall, .marker-campMedium, .marker-campLarge, .marker-campFlooded { --marker-size: clamp(11px, 2.6cqw, 26px); }
 .marker-campAncient { --marker-size: clamp(13px, 3.2cqw, 32px); }
@@ -2072,7 +2074,7 @@ body:not(.home) header::before {
 /* Team colours: Radiant buildings glow green, Dire buildings glow red. */
 .map-marker.radiant { filter: drop-shadow(0 0 2px #000) drop-shadow(0 0 5px #4fe06a); }
 .map-marker.dire { filter: drop-shadow(0 0 2px #000) drop-shadow(0 0 5px #ff4b3a); }
-.marker-tower.dire img, .marker-ancient.dire img { filter: hue-rotate(150deg) saturate(1.5); }
+.marker-tower.dire img { filter: hue-rotate(150deg) saturate(1.5); }
 /* Roshan sits on a dark badge so the grey icon is readable on any ground. */
 .marker-roshan { padding: 4px; border: 2px solid #f1c166; border-radius: 50%; background: rgba(20, 16, 24, 0.85); }
 .marker-campFlooded img { filter: hue-rotate(220deg) saturate(1.4); }

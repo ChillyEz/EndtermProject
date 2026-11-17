@@ -55,9 +55,11 @@ export function initMap() {
         button.style.top = `${object.y}%`;
         button.title = object.name;
         button.setAttribute("aria-label", object.name);
-        if (type.icon) {
+        // An object can have its own icon (for example the Dire Ancient), otherwise the icon of its type.
+        const iconSrc = object.icon || type.icon;
+        if (iconSrc) {
             const icon = document.createElement("img");
-            icon.src = type.icon;
+            icon.src = iconSrc;
             icon.alt = "";
             button.append(icon);
         } else {

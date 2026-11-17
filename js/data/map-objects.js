@@ -16,6 +16,18 @@ export const objectTypes = {
         layer: "buildings", label: "Outpost", icon: "images/map/outpost.png",
         text: "A captured outpost gives vision of the area and can be used as a teleport destination."
     },
+    fountain: {
+        layer: "buildings", label: "Fountain", icon: "images/map/fountain-radiant.png",
+        text: "The fountain is where heroes start the match and come back to life. It quickly restores health and mana, and the shop is next to it."
+    },
+    gate: {
+        layer: "objects", label: "Twin Gate", icon: "images/map/gate-radiant.png",
+        text: "Twin Gates stand in two opposite corners of the map. Channel at one gate to travel to the other one: a quick way to cross the map."
+    },
+    lotus: {
+        layer: "objects", label: "Lotus Pool", icon: "images/map/lotus-pool.png",
+        text: "Healing Lotuses grow in this pool over time. A hero can pick them up to restore health and mana."
+    },
     watcher: {
         layer: "buildings", label: "Watcher", icon: "images/map/watcher.png",
         text: "A watcher gives vision to the team that activates it. Take the ones on your side before a fight."
@@ -65,6 +77,7 @@ export const objectTypes = {
 // Legend order and names of the layers that can be switched on and off.
 export const layers = [
     { id: "buildings", label: "Buildings" },
+    { id: "objects", label: "Gates and Lotus" },
     { id: "camps", label: "Neutral camps" },
     { id: "runes", label: "Runes" },
     { id: "roshan", label: "Roshan" },
@@ -124,8 +137,18 @@ export const mapObjects = [
     // Ancients
     { type: "ancient", side: "radiant", name: "Radiant Ancient", x: 18.2, y: 83.2,
         text: "Radiant starts in the southwest. The three lanes lead back to this high ground. If the enemy pushes into the base, defend the Ancient." },
-    { type: "ancient", side: "dire", name: "Dire Ancient", x: 77.2, y: 24.4,
+    { type: "ancient", side: "dire", name: "Dire Ancient", x: 77.2, y: 24.4, icon: "images/map/ancient-dire.png",
         text: "Dire starts in the northeast. As Radiant, breaking through these defenses opens the way to the Dire Ancient." },
+
+    // Fountains. "icon" replaces the icon of the type for one object.
+    { type: "fountain", side: "radiant", name: "Radiant fountain", x: 10.4, y: 91.1 },
+    { type: "fountain", side: "dire", name: "Dire fountain", x: 86.5, y: 15.9, icon: "images/map/fountain-dire.png" },
+
+    // Twin Gates and Lotus Pools
+    { type: "gate", name: "Twin Gate (top)", x: 10.0, y: 15.1, icon: "images/map/gate-dire.png" },
+    { type: "gate", name: "Twin Gate (bottom)", x: 86.4, y: 88.5 },
+    { type: "lotus", name: "Lotus Pool (top)", x: 9.5, y: 28.1 },
+    { type: "lotus", name: "Lotus Pool (bottom)", x: 87.8, y: 79.3 },
 
     // Outposts and watchers
     { type: "outpost", name: "Outpost", x: 27.9, y: 55.3 },

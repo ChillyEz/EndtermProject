@@ -1,5 +1,5 @@
 // Interactive map (map.html): markers, layers, the info panel and the match clock.
-import { objectTypes, layers, mapObjects, roshanPits, powerRunes, reservedCampStages } from "./data/map-objects.js";
+import { objectTypes, layers, mapObjects, roshanPits, powerRunes, floodedCampStages } from "./data/map-objects.js";
 
 const firstMinute = -1;
 const lastMinute = 40;
@@ -18,14 +18,15 @@ function shuffle(list) {
     return copy;
 }
 
-// Decide once which power rune appears at every even minute from 6:00 and at which river spot.
+// Decide once which power rune appears at every even minute from 6:00.
 // A rune type is not repeated until all seven have appeared.
+// The spot (top or bottom) is random in the game, so the map shows both spots as possible.
 function buildPowerSchedule() {
     const schedule = {};
     let bag = [];
     for (let minute = 6; minute <= lastMinute; minute += 2) {
         if (!bag.length) bag = shuffle(powerRunes);
-        schedule[minute] = { rune: bag.pop(), spot: Math.random() < 0.5 ? "top" : "bottom" };
+        schedule[minute] = bag.pop();
     }
     return schedule;
 }
@@ -93,9 +94,10 @@ export function initMap() {
         const type = objectTypes[object.type];
         switch (object.type) {
             case "bounty": {
-                const active = minute >= 0 && minute % 3 === 0;
-                const next = minute < 0 ? 0 : minute + 3 - (minute % 3);
-                return { active, status: active ? "A bounty rune is here now." : `Next bounty rune at ${formatTime(next)}.` };
+                // The first bounty runes (0:00) are in the river; this spot starts at 3:00.
+                const active = minute >= 3 && minute % 3 === 0;
+                const next = minute < 3 ? 3 : minute + 3 - (minute % 3);
+                return { active, status: active ? "A bounty rune is here now." : `Next bounty rune here at ${formatTime(next)}.` };
             }
             case "wisdom": {
                 const active = minute >= 7 && minute % 7 === 0;
@@ -103,17 +105,23 @@ export function initMap() {
                 return { active, status: active ? "A wisdom rune is here now." : `Next wisdom rune at ${formatTime(next)}.` };
             }
             case "river": {
+                if (minute === 0) {
+                    return { active: true, icon: objectTypes.bounty.icon, status: "The first bounty rune is here (only at 0:00)." };
+                }
                 if (minute === 2 || minute === 4) {
                     return { active: true, icon: type.icon, status: "A water rune is here now." };
                 }
                 const power = powerSchedule[minute];
-                if (power && power.spot === object.spot) {
-                    return { active: true, icon: power.rune.icon, status: `${power.rune.name} rune is here now.` };
+                if (power) {
+                    return {
+                        active: true, maybe: true, icon: power.icon,
+                        status: `${power.name} rune appears now at the top OR the bottom spot. The game picks one at random.`
+                    };
                 }
-                if (power) return { active: false, status: "This time the power rune appeared at the other river spot." };
+                if (minute < 0) return { active: false, icon: objectTypes.bounty.icon, status: "A bounty rune appears here at 0:00." };
                 if (minute < 2) return { active: false, icon: type.icon, status: "First water rune at 2:00." };
                 if (minute < 4) return { active: false, icon: type.icon, status: "Next water rune at 4:00." };
-                return { active: false, status: `Next power rune at ${formatTime(minute < 6 ? 6 : minute + 1)}.` };
+                return { active: false, status: `Next power rune at ${formatTime(minute < 6 ? 6 : minute + 1)}, here or at the other spot.` };
             }
             case "campSmall":
             case "campMedium":
@@ -122,11 +130,17 @@ export function initMap() {
                 return minute >= 1
                     ? { active: true, status: "Creeps are in the camp. An empty camp refills every minute." }
                     : { active: false, status: "Empty. Neutral creeps first appear at 1:00." };
-            case "campReserved": {
-                if (minute < 1) return { active: false, icon: reservedCampStages[0].icon, status: "Empty. Neutral creeps first appear at 1:00." };
-                // Take the last stage whose start minute has already passed.
-                const current = reservedCampStages.filter((entry) => minute >= entry.from).pop();
-                return { active: true, icon: current.icon, status: `Now a ${current.size} camp.` };
+            case "campFlooded": {
+                if (minute < 1) return { active: false, icon: floodedCampStages[0].icon, status: "Empty. Neutral creeps first appear at 1:00." };
+                // Take the last icon whose start minute has already passed.
+                const current = floodedCampStages.filter((entry) => minute >= entry.from).pop();
+                const upgrades = Math.floor(minute / 5);
+                return {
+                    active: true, icon: current.icon,
+                    status: upgrades
+                        ? `Creeps upgraded so far: ${upgrades}. Next upgrade at ${formatTime((upgrades + 1) * 5)}.`
+                        : "No upgrades yet. The first creep is upgraded at 5:00."
+                };
             }
             case "roshan":
                 return {
@@ -173,14 +187,17 @@ export function initMap() {
     // ---------- Match clock ----------
     // Events for the "Happening now" and "Coming next" lists.
     const clockEvents = [
-        { name: "Bounty runes", start: 0, every: 3, tip: () => "They appear in two places. Supports collect them for team gold." },
+        { name: "Bounty runes", start: 0, every: 3, tip: (minute) => minute === 0
+            ? "The first two appear at the river rune spots (only this time)."
+            : "One in each team's jungle by the river. Supports collect them for team gold." },
+        { name: "Flooded camps", start: 5, every: 5, tip: () => "One creep in every flooded camp is upgraded." },
         { name: "Neutral creeps", start: 1, every: 1, end: 1, tip: () => "Jungle camps fill for the first time and refill every minute." },
         { name: "Water runes", start: 2, every: 2, end: 4, tip: () => "Both river spots. They restore health and mana." },
         { name: "Day and night", start: 5, every: 5, tip: (minute) => isNight(minute)
             ? "Night falls. Roshan moves to the bottom pit."
             : "Day breaks. Roshan returns to the top pit." },
         { name: "Power rune", start: 6, every: 2, tip: (minute) =>
-            `${powerSchedule[minute].rune.name} at the ${powerSchedule[minute].spot} river spot.` },
+            `${powerSchedule[minute].name}, at the top or the bottom river spot (random). Check both.` },
         { name: "Wisdom runes", start: 7, every: 7, tip: () => "Bonus experience at both edges of the map." }
     ];
 
@@ -212,6 +229,7 @@ export function initMap() {
         mapObjects.forEach((object) => {
             const state = stateOf(object, minute);
             object.button.classList.toggle("waiting", !state.active);
+            object.button.classList.toggle("maybe", Boolean(state.maybe));
             if (state.icon) object.button.querySelector("img").src = state.icon;
             if (object.type === "roshan") {
                 const pit = night ? roshanPits.bottom : roshanPits.top;

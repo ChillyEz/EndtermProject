@@ -2065,7 +2065,7 @@ body:not(.home) header::before {
 .marker-tower { --marker-size: clamp(9px, 2.2cqw, 22px); height: calc(var(--marker-size) * 2); }
 .marker-ancient { --marker-size: clamp(22px, 5cqw, 50px); }
 .marker-roshan { --marker-size: clamp(22px, 4.6cqw, 46px); z-index: 2; }
-.marker-campSmall, .marker-campMedium, .marker-campLarge, .marker-campReserved { --marker-size: clamp(11px, 2.6cqw, 26px); }
+.marker-campSmall, .marker-campMedium, .marker-campLarge, .marker-campFlooded { --marker-size: clamp(11px, 2.6cqw, 26px); }
 .marker-campAncient { --marker-size: clamp(13px, 3.2cqw, 32px); }
 .marker-bounty, .marker-river, .marker-wisdom { --marker-size: clamp(18px, 3.6cqw, 36px); z-index: 2; }
 
@@ -2075,7 +2075,22 @@ body:not(.home) header::before {
 .marker-tower.dire img, .marker-ancient.dire img { filter: hue-rotate(150deg) saturate(1.5); }
 /* Roshan sits on a dark badge so the grey icon is readable on any ground. */
 .marker-roshan { padding: 4px; border: 2px solid #f1c166; border-radius: 50%; background: rgba(20, 16, 24, 0.85); }
-.marker-campReserved img { filter: hue-rotate(220deg) saturate(1.4); }
+.marker-campFlooded img { filter: hue-rotate(220deg) saturate(1.4); }
+/* A power rune may appear at either river spot: both get a "?" badge. */
+.map-marker.maybe::after {
+    content: "?";
+    position: absolute;
+    top: -30%;
+    right: -30%;
+    width: 55%;
+    height: 55%;
+    display: grid;
+    place-items: center;
+    border-radius: 50%;
+    background: #f1c166;
+    color: #172127;
+    font: 700 clamp(8px, 1.4cqw, 14px) / 1 sans-serif;
+}
 /* Runes that are on the map right now pulse. */
 .marker-bounty:not(.waiting), .marker-river:not(.waiting), .marker-wisdom:not(.waiting) { animation: rune-pulse 1.2s ease-in-out infinite; }
 @keyframes rune-pulse {

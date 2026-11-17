@@ -36,17 +36,17 @@ export const objectTypes = {
         layer: "camps", label: "Ancient camp", icon: "images/map/camp-ancient.png",
         text: "Ancient neutral camp: the strongest creeps on the map and the biggest reward."
     },
-    campReserved: {
-        layer: "camps", label: "Reserved camp", icon: "images/map/camp-small.png",
-        text: "Reserved camp: its creeps become stronger as the match goes on."
+    campFlooded: {
+        layer: "camps", label: "Flooded camp", icon: "images/map/camp-small.png",
+        text: "Flooded camp: a neutral camp beside the water streams (added in patch 7.38). Every five minutes one of its creeps is upgraded to a stronger one for the rest of the match, so the camp grows over time. If the camp is blocked, it does not upgrade."
     },
     bounty: {
         layer: "runes", label: "Bounty rune", icon: "images/map/rune-bounty.webp",
-        text: "Bounty runes give gold to the whole team. They appear at 0:00 and then every 3 minutes."
+        text: "Bounty runes give gold to the whole team. At 0:00 they appear at the two river rune spots, only once. From 3:00 they appear here every 3 minutes."
     },
     river: {
         layer: "runes", label: "River rune", icon: "images/map/rune-water.webp",
-        text: "River rune spot. Water runes appear at 2:00 and 4:00. From 6:00 a power rune appears every 2 minutes at one of the two spots."
+        text: "River rune spot. Bounty runes appear here once at 0:00, water runes at 2:00 and 4:00. From 6:00 a power rune appears every 2 minutes at the top or the bottom spot: the game picks the spot at random, so watch both."
     },
     wisdom: {
         layer: "runes", label: "Wisdom rune", icon: "images/map/rune-wisdom.webp",
@@ -88,8 +88,9 @@ export const powerRunes = [
     { name: "Shield", icon: "images/map/rune-shield.webp" }
 ];
 
-// The reserved camp grows with time: from this minute it shows this icon.
-export const reservedCampStages = [
+// Icon of the flooded camp: it looks bigger as more of its creeps are upgraded.
+// One creep is upgraded every 5 minutes; the minutes for the icons are only a visual guide.
+export const floodedCampStages = [
     { from: 1, size: "small", icon: "images/map/camp-small.png" },
     { from: 10, size: "medium", icon: "images/map/camp-medium.png" },
     { from: 20, size: "large", icon: "images/map/camp-large.png" },
@@ -159,12 +160,12 @@ export const mapObjects = [
     { type: "campLarge", name: "Large camp", x: 72.7, y: 73.4 },
     { type: "campAncient", name: "Radiant ancient camp", x: 23.3, y: 53.6 },
     { type: "campAncient", name: "Dire ancient camp", x: 70.3, y: 53.3 },
-    { type: "campReserved", name: "Reserved camp", x: 43.9, y: 25.3 },
-    { type: "campReserved", name: "Reserved camp", x: 44.6, y: 93.5 },
+    { type: "campFlooded", name: "Flooded camp", x: 43.9, y: 25.3 },
+    { type: "campFlooded", name: "Flooded camp", x: 44.6, y: 93.5 },
 
     // Runes. "spot" tells the two river markers apart.
-    { type: "bounty", name: "Bounty rune", x: 33.5, y: 63.5 },
-    { type: "bounty", name: "Bounty rune", x: 63.0, y: 33.5 },
+    { type: "bounty", name: "Dire bounty rune", x: 43.5, y: 28.2 },
+    { type: "bounty", name: "Radiant bounty rune", x: 52.0, y: 79.4 },
     { type: "river", spot: "top", name: "Top river rune", x: 39.8, y: 47.5 },
     { type: "river", spot: "bottom", name: "Bottom river rune", x: 54.4, y: 60.2 },
     { type: "wisdom", name: "Wisdom rune", x: 7.5, y: 49.0 },

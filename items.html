@@ -56,14 +56,21 @@
     <main>
         <p class="eyebrow">THE SHOP</p>
         <h1>Items</h1>
-        <p class="items-lead">Every hero starts the match with 600 gold. Find the items you need, compare their prices and plan your first purchase below.</p>
+        <p class="items-lead">Every hero starts the match with 600 gold. Find the items you need, compare their prices and plan your first purchase below. Change the amount of gold to plan a later purchase.</p>
 
         <section class="starting-build" aria-labelledby="build-title">
             <div class="build-header">
                 <h2 id="build-title">Starting purchase</h2>
-                <p class="build-gold"><img src="images/items/gold.png" alt="Gold"> <span id="build-left">600</span> of 600 left</p>
+                <p class="build-gold"><img src="images/items/gold.png" alt="Gold"> <span id="build-left">600</span> of <span id="build-total">600</span> left</p>
                 <button id="build-clear" class="quiz-button" type="button">Clear</button>
             </div>
+            <form id="budget-form" class="budget-form" novalidate>
+                <label for="budget-input">Gold to spend</label>
+                <input id="budget-input" type="text" inputmode="numeric" autocomplete="off" aria-describedby="budget-error">
+                <button class="quiz-button" type="submit">Set</button>
+                <button id="budget-reset" class="quiz-button" type="button">Start of match (600)</button>
+                <span id="budget-error" class="field-error" role="alert"></span>
+            </form>
             <div class="build-bar" aria-hidden="true"><span id="build-bar-fill"></span></div>
             <ul id="build-list" class="build-list"></ul>
             <p id="build-status" role="status">Press + on an item card to add it. Click an item here to remove it.</p>

@@ -2391,3 +2391,20 @@ body:not(.home) header::before {
     #item-count { margin-left: 0; }
     .build-gold { margin-left: 0; }
 }
+
+/* Final: editable purchase budget */
+.budget-form { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-top: 12px; }
+.budget-form label { font-size: 0.85rem; color: rgb(var(--color-text-secondary)); }
+.budget-form input {
+    width: 110px;
+    padding: 7px 10px;
+    color: rgb(var(--color-text-main));
+    background: rgb(var(--color-background-main));
+    border: 1px solid rgb(var(--color-border));
+    border-radius: 4px;
+    font: inherit;
+    font-variant-numeric: tabular-nums;
+}
+.budget-form input[aria-invalid="true"] { border-color: #e0715f; }
+#budget-error { flex-basis: 100%; font-size: 0.85rem; }
+#budget-error:empty { display: none; }

@@ -591,5 +591,220 @@ export const items = [
             }
         ],
         "lore": "An unnerving stone unearthed beneath the Fields of Endless Carnage."
+    },
+    {
+        "name": "Orb of Venom",
+        "purpose": "Damage",
+        "image": "images/items/orb-of-venom.png",
+        "summary": "Poisons the enemy you hit: good for harassing in the lane.",
+        "cost": 350,
+        "properties": {
+            "Ability": "Passive",
+            "Dispellable": "Yes"
+        },
+        "abilities": [
+            {
+                "type": "Passive",
+                "name": "Poison Attack",
+                "metrics": {
+                    "Cooldown": "9 s"
+                },
+                "text": [
+                    "Poisons the target, dealing 12 magical damage per second. Lasts for 3 seconds."
+                ]
+            }
+        ],
+        "lore": "Envenoms your weapon with the venom of a venomous viper."
+    },
+    {
+        "name": "Iron Branch",
+        "purpose": "Attributes",
+        "image": "images/items/iron-branch.png",
+        "summary": "The cheapest stats in the shop. Most starting builds include one or two.",
+        "cost": 55,
+        "properties": {
+            "Ability": "Point Target"
+        },
+        "stats": [
+            "+1 All Attributes"
+        ],
+        "abilities": [
+            {
+                "type": "Use",
+                "name": "Plant Tree",
+                "metrics": {
+                    "Range": 400
+                },
+                "text": [
+                    "Targets the ground to plant a happy little tree that lasts for 20 seconds."
+                ]
+            }
+        ],
+        "lore": "A seemingly ordinary branch, its ironlike qualities are bestowed upon the bearer."
+    },
+    {
+        "name": "Gauntlets of Strength",
+        "purpose": "Attributes",
+        "image": "images/items/gauntlets-of-strength.png",
+        "summary": "Cheap strength: more health for a melee hero in the lane.",
+        "cost": 140,
+        "properties": {
+            "Ability": "Passive"
+        },
+        "stats": [
+            "+3 Strength"
+        ],
+        "abilities": [],
+        "lore": "Studded leather gloves that add brute strength."
+    },
+    {
+        "name": "Slippers of Agility",
+        "purpose": "Attributes",
+        "image": "images/items/slippers-of-agility.png",
+        "summary": "Cheap agility: a little armor and attack speed.",
+        "cost": 140,
+        "properties": {
+            "Ability": "Passive"
+        },
+        "stats": [
+            "+3 Agility"
+        ],
+        "abilities": [],
+        "lore": "Light boots made from spider skin that tingles your senses."
+    },
+    {
+        "name": "Mantle of Intelligence",
+        "purpose": "Attributes",
+        "image": "images/items/mantle-of-intelligence.png",
+        "summary": "Cheap intelligence: more mana for spell casters.",
+        "cost": 140,
+        "properties": {
+            "Ability": "Passive"
+        },
+        "stats": [
+            "+3 Intelligence"
+        ],
+        "abilities": [],
+        "lore": "A beautiful sapphire mantle worn by generations of queens."
+    },
+    {
+        "name": "Circlet",
+        "purpose": "Attributes",
+        "image": "images/items/circlet.png",
+        "summary": "A little of every attribute, used in many early items.",
+        "cost": 155,
+        "properties": {
+            "Ability": "Passive"
+        },
+        "stats": [
+            "+2 All Attributes"
+        ],
+        "abilities": [],
+        "lore": "An elegant circlet designed for human princesses."
+    },
+    {
+        "name": "Belt of Strength",
+        "purpose": "Attributes",
+        "image": "images/items/belt-of-strength.png",
+        "summary": "A bigger strength component for tanky builds.",
+        "cost": 450,
+        "properties": {
+            "Ability": "Passive"
+        },
+        "stats": [
+            "+6 Strength"
+        ],
+        "abilities": [],
+        "lore": "A valued accessory for improving vitality."
+    },
+    {
+        "name": "Band of Elvenskin",
+        "purpose": "Attributes",
+        "image": "images/items/band-of-elvenskin.png",
+        "summary": "A bigger agility component for carry items.",
+        "cost": 450,
+        "properties": {
+            "Ability": "Passive"
+        },
+        "stats": [
+            "+6 Agility"
+        ],
+        "abilities": [],
+        "lore": "A tensile fabric often used for its light weight and ease of movement."
+    },
+    {
+        "name": "Robe of the Magi",
+        "purpose": "Attributes",
+        "image": "images/items/robe-of-the-magi.png",
+        "summary": "A bigger intelligence component for casters.",
+        "cost": 450,
+        "properties": {
+            "Ability": "Passive"
+        },
+        "stats": [
+            "+6 Intelligence"
+        ],
+        "abilities": [],
+        "lore": "This robe corrupts the soul of the user, but provides wisdom in return."
+    },
+    {
+        "name": "Crown",
+        "purpose": "Attributes",
+        "image": "images/items/crown.png",
+        "summary": "Balanced stats, part of several mid-game items.",
+        "cost": 450,
+        "properties": {
+            "Ability": "Passive"
+        },
+        "stats": [
+            "+4 All Attributes"
+        ],
+        "abilities": [],
+        "lore": "A stately crown created to ensure a well-meaning but ungifted heir could fend off usurpers and govern with a strong hand."
+    },
+    {
+        "name": "Ogre Axe",
+        "purpose": "Attributes",
+        "image": "images/items/ogre-axe.png",
+        "summary": "Lots of strength in one slot. A part of Black King Bar.",
+        "cost": 1000,
+        "properties": {
+            "Ability": "Passive"
+        },
+        "stats": [
+            "+10 Strength"
+        ],
+        "abilities": [],
+        "lore": "You grow stronger just by holding it."
+    },
+    {
+        "name": "Blade of Alacrity",
+        "purpose": "Attributes",
+        "image": "images/items/blade-of-alacrity.png",
+        "summary": "Lots of agility in one slot for carry heroes.",
+        "cost": 1000,
+        "properties": {
+            "Ability": "Passive"
+        },
+        "stats": [
+            "+10 Agility"
+        ],
+        "abilities": [],
+        "lore": "A long blade imbued with time magic."
+    },
+    {
+        "name": "Staff of Wizardry",
+        "purpose": "Attributes",
+        "image": "images/items/staff-of-wizardry.png",
+        "summary": "Lots of intelligence in one slot for spell casters.",
+        "cost": 1000,
+        "properties": {
+            "Ability": "Passive"
+        },
+        "stats": [
+            "+10 Intelligence"
+        ],
+        "abilities": [],
+        "lore": "A staff of magical powers passed down from the eldest mages."
     }
 ];

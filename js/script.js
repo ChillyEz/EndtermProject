@@ -341,9 +341,13 @@ $(document).ready(function () {
         }
     }
 
-    // ---------- Starting purchase: 600 gold ----------
+    // ---------- Purchase planner: 600 gold at the start, the amount can be changed ----------
     const startingGold = 600;
+    const maxGold = 99999;
     const buildKey = "dota-wiki-starting-build";
+    const budgetKey = "dota-wiki-build-gold";
+    let budget = Number(localStorage.getItem(budgetKey));
+    if (!Number.isInteger(budget) || budget < 1 || budget > maxGold) budget = startingGold;
     let build = [];
     try {
         // Only names are saved; they are turned back into items here.
@@ -359,8 +363,9 @@ $(document).ready(function () {
 
     function renderBuild(message) {
         const spent = spentGold();
-        $("#build-left").text(startingGold - spent);
-        $("#build-bar-fill").css("width", `${(spent / startingGold) * 100}%`);
+        $("#build-left").text(budget - spent);
+        $("#build-total").text(budget);
+        $("#build-bar-fill").css("width", `${Math.min(spent / budget, 1) * 100}%`);
         const $list = $("#build-list").empty();
         build.forEach((item, position) => {
             $("<li>").append(
@@ -385,7 +390,7 @@ $(document).ready(function () {
     }
 
     function addToBuild(item) {
-        const left = startingGold - spentGold();
+        const left = budget - spentGold();
         if (item.cost > left) {
             renderBuild(`Not enough gold for ${item.name}: it costs ${item.cost}, you have ${left} left.`);
             return;
@@ -393,6 +398,29 @@ $(document).ready(function () {
         build.push(item);
         saveBuild(`${item.name} added.`);
     }
+
+    // The amount is checked in JavaScript: whole number, 1–99999, not less than the gold already spent.
+    const $budgetInput = $("#budget-input").val(budget);
+    function setBudget(value) {
+        const text = String(value).trim();
+        let error = "";
+        if (!text) error = "Enter an amount of gold.";
+        else if (!/^\d+$/.test(text)) error = "Use digits only, without spaces or letters.";
+        else if (Number(text) < 1 || Number(text) > maxGold) error = `Choose an amount from 1 to ${maxGold}.`;
+        else if (Number(text) < spentGold()) error = `You already spent ${spentGold()} gold. Remove items or enter a bigger amount.`;
+        $("#budget-error").text(error);
+        $budgetInput.attr("aria-invalid", String(Boolean(error)));
+        if (error) return;
+        budget = Number(text);
+        $budgetInput.val(budget);
+        localStorage.setItem(budgetKey, String(budget));
+        renderBuild(`You now have ${budget} gold to spend.`);
+    }
+    $("#budget-form").on("submit", (event) => {
+        event.preventDefault();
+        setBudget($budgetInput.val());
+    });
+    $("#budget-reset").on("click", () => setBudget(startingGold));
 
     $("#build-clear").on("click", () => {
         build = [];

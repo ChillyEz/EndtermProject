@@ -10,7 +10,7 @@
     <script src="js/vendor/jquery-4.0.0.min.js"></script>
     <script src="js/script.js" type="module" defer></script>
 </head>
-<body>
+<body class="items-page">
     <noscript><p>This website needs JavaScript for its catalogs and interactive features. Please enable it in your browser.</p></noscript>
     <div class="page-shell">
     <header>
@@ -56,26 +56,15 @@
     <main>
         <p class="eyebrow">THE SHOP</p>
         <h1>Items</h1>
-        <p class="items-lead">Every hero starts the match with 600 gold. Find the items you need, compare their prices and plan your first purchase below. Change the amount of gold to plan a later purchase.</p>
+        <p class="items-lead">Browse the shop. Select an item to inspect its abilities, or press + to plan your purchase.</p>
 
-        <section class="starting-build" aria-labelledby="build-title">
-            <div class="build-header">
-                <h2 id="build-title">Starting purchase</h2>
-                <p class="build-gold"><img src="images/items/gold.png" alt="Gold"> <span id="build-left">600</span> of <span id="build-total">600</span> left</p>
-                <button id="build-clear" class="quiz-button" type="button">Clear</button>
+        <div class="shop-layout">
+        <section class="shop-catalog" aria-label="Item shop">
+            <div class="shop-tabs" role="group" aria-label="Shop groups">
+                <button type="button" data-shop-group="" aria-pressed="true">All items</button>
+                <button type="button" data-shop-group="Basics" aria-pressed="false">Basics</button>
+                <button type="button" data-shop-group="Upgrades" aria-pressed="false">Upgrades</button>
             </div>
-            <form id="budget-form" class="budget-form" novalidate>
-                <label for="budget-input">Gold to spend</label>
-                <input id="budget-input" type="text" inputmode="numeric" autocomplete="off" aria-describedby="budget-error">
-                <button class="quiz-button" type="submit">Set</button>
-                <button id="budget-reset" class="quiz-button" type="button">Start of match (600)</button>
-                <span id="budget-error" class="field-error" role="alert"></span>
-            </form>
-            <div class="build-bar" aria-hidden="true"><span id="build-bar-fill"></span></div>
-            <ul id="build-list" class="build-list"></ul>
-            <p id="build-status" role="status">Press + on an item card to add it. Click an item here to remove it.</p>
-        </section>
-
         <form class="item-filters" novalidate>
             <div class="item-filter">
                 <label for="item-search">Search</label>
@@ -103,20 +92,39 @@
                 </select>
             </div>
             <span id="item-count" role="status"></span>
+            <a class="shop-purchase-link" href="#build-title">View your purchase ↓</a>
         </form>
         <p id="item-empty" class="empty-state" hidden>No items match your search.</p>
         <div class="item-grid"></div>
+        </section>
+        <section class="starting-build" aria-labelledby="build-title">
+            <div class="build-header">
+                <h2 id="build-title">Your purchase</h2>
+                <p class="build-gold"><img src="images/items/gold.png" alt="Gold"> <span id="build-left">600</span> of <span id="build-total">600</span> left</p>
+                <button id="build-clear" class="quiz-button" type="button">Clear</button>
+            </div>
+            <details class="shop-budget"><summary>Adjust gold</summary><form id="budget-form" class="budget-form" novalidate>
+                <label for="budget-input">Gold to spend</label>
+                <input id="budget-input" type="text" inputmode="numeric" autocomplete="off" aria-describedby="budget-error">
+                <button class="quiz-button" type="submit">Set</button>
+                <button id="budget-reset" class="quiz-button" type="button">Start of match (600)</button>
+                <span id="budget-error" class="field-error" role="alert"></span>
+            </form></details>
+            <div class="build-bar" aria-hidden="true"><span id="build-bar-fill"></span></div>
+            <ul id="build-list" class="build-list"></ul>
+            <p id="build-status" role="status">Press + on an item card to add it. Click an item here to remove it.</p>
+        </section>
+
+        </div>
         <template id="item-card-template">
             <article class="item-card">
-                <div class="item-basic">
-                    <h3 class="item-name"></h3>
-                    <div class="item-image"><img alt=""><span class="item-tier"></span></div>
+                <button class="item-button" type="button" aria-haspopup="dialog">
+                    <span class="item-image"><img alt=""></span>
+                    <span class="item-name"></span>
+                </button>
+                <div class="item-actions">
                     <p class="item-price"><img src="images/items/gold.png" alt="Gold"> <span></span></p>
-                    <p class="item-description"></p>
-                    <div class="item-actions">
-                        <button class="item-button" type="button" aria-haspopup="dialog">View Details</button>
-                        <button class="item-add" type="button">+</button>
-                    </div>
+                    <button class="item-add" type="button">+</button>
                 </div>
             </article>
         </template>

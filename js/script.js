@@ -230,6 +230,13 @@ $(document).ready(function () {
     const template = document.getElementById("item-card-template");
     if (!$grid.length || !template) return;
 
+    // Storage is optional: the shop still works for this visit if saving is blocked.
+    function readShopValue(key) {
+        try { return localStorage.getItem(key); } catch { return null; }
+    }
+    function saveShopValue(key, value) {
+        try { localStorage.setItem(key, value); } catch { /* Keep the current in-memory selection. */ }
+    }
     function showDetails(item) {
         $dialog.find(".detail-icon").attr({ src: item.image, alt: item.name });
         $dialog.find("#detail-name").text(item.name);
@@ -288,29 +295,19 @@ $(document).ready(function () {
     });
     const groupOf = (section) => shopGroups.find((group) => group.sections.includes(section)).name;
 
-    // Price tier shown on the card: cheap items for the lane, mid-game parts, big core items.
-    function priceTier(cost) {
-        if (cost <= 500) return { id: "cheap", label: "Cheap" };
-        if (cost <= 2500) return { id: "mid", label: "Mid" };
-        return { id: "core", label: "Core" };
-    }
-
     // Every card is created once; filters only hide them and change their order.
     const cards = items.map((item, index) => {
         const $card = $(template.content.firstElementChild.cloneNode(true));
         $card.attr("data-purpose", item.purpose);
         $card.find(".item-name").text(item.name);
         $card.find(".item-image img").attr({ src: item.image, alt: item.name });
-        $card.find(".item-description").text(item.summary);
         $card.find(".item-button").on("click", () => showDetails(item));
         if (item.cost != null) {
-            const tier = priceTier(item.cost);
-            $card.find(".item-tier").addClass(tier.id).text(tier.label);
             $card.find(".item-price span").text(item.cost);
             $card.find(".item-add").attr("aria-label", `Add ${item.name} to the starting purchase`)
                 .on("click", () => addToBuild(item));
         } else {
-            $card.find(".item-tier, .item-price, .item-add").remove();
+            $card.find(".item-price, .item-add").remove();
         }
         $grid.append($card);
         return { item, index, $card };
@@ -321,6 +318,7 @@ $(document).ready(function () {
     const $sort = $("#item-sort");
     const filtersKey = "dota-wiki-item-filters";
 
+    let activeGroup = "";
     function filterItems() {
         const text = $search.val().trim().toLowerCase();
         const purpose = $purpose.val();
@@ -328,7 +326,7 @@ $(document).ready(function () {
         const sort = $sort.val();
         const visible = cards.filter(({ item }) =>
             item.name.toLowerCase().includes(text) && (!purpose || item.purpose === purpose) &&
-            (!section || item.section === section));
+            (!section || item.section === section) && (!activeGroup || groupOf(item.section) === activeGroup));
         // Items without a price go to the end when sorting by price.
         const price = (entry, empty) => entry.item.cost ?? empty;
         if (sort === "priceLow") visible.sort((a, b) => price(a, Infinity) - price(b, Infinity));
@@ -354,20 +352,20 @@ $(document).ready(function () {
         const count = visible.length;
         $("#item-count").text(count === 1 ? "1 item" : `${count} items`);
         $("#item-empty").prop("hidden", count > 0);
-        localStorage.setItem(filtersKey, JSON.stringify({ text: $search.val(), purpose, section, sort }));
+        saveShopValue(filtersKey, JSON.stringify({ text: $search.val(), purpose, section, sort }));
         $(document).trigger("pagecontentchange");
     }
 
     function restoreFilters() {
         try {
-            const saved = JSON.parse(localStorage.getItem(filtersKey)) || {};
+            const saved = JSON.parse(readShopValue(filtersKey)) || {};
             $search.val(saved.text || "");
             // Only restore values that still exist in the lists.
             if ($purpose.find(`option[value="${saved.purpose}"]`).length) $purpose.val(saved.purpose);
             if ($sort.find(`option[value="${saved.sort}"]`).length) $sort.val(saved.sort);
             if ($section.find(`option[value="${saved.section}"]`).length) $section.val(saved.section);
         } catch {
-            localStorage.removeItem(filtersKey);
+            saveShopValue(filtersKey, "{}");
         }
     }
 
@@ -376,12 +374,12 @@ $(document).ready(function () {
     const maxGold = 99999;
     const buildKey = "dota-wiki-starting-build";
     const budgetKey = "dota-wiki-build-gold";
-    let budget = Number(localStorage.getItem(budgetKey));
+    let budget = Number(readShopValue(budgetKey));
     if (!Number.isInteger(budget) || budget < 1 || budget > maxGold) budget = startingGold;
     let build = [];
     try {
         // Only names are saved; they are turned back into items here.
-        build = (JSON.parse(localStorage.getItem(buildKey)) || [])
+        build = (JSON.parse(readShopValue(buildKey)) || [])
             .map((name) => items.find((item) => item.name === name)).filter(Boolean);
     } catch {
         build = [];
@@ -415,7 +413,7 @@ $(document).ready(function () {
     }
 
     function saveBuild(message) {
-        localStorage.setItem(buildKey, JSON.stringify(build.map((item) => item.name)));
+        saveShopValue(buildKey, JSON.stringify(build.map((item) => item.name)));
         renderBuild(message);
     }
 
@@ -423,10 +421,12 @@ $(document).ready(function () {
         const left = budget - spentGold();
         if (item.cost > left) {
             renderBuild(`Not enough gold for ${item.name}: it costs ${item.cost}, you have ${left} left.`);
+            showToast(`Not enough gold for ${item.name}. ${left} gold left.`);
             return;
         }
         build.push(item);
         saveBuild(`${item.name} added.`);
+        showToast(`${item.name} added. ${budget - spentGold()} gold left.`);
     }
 
     // The amount is checked in JavaScript: whole number, 1–99999, not less than the gold already spent.
@@ -443,7 +443,7 @@ $(document).ready(function () {
         if (error) return;
         budget = Number(text);
         $budgetInput.val(budget);
-        localStorage.setItem(budgetKey, String(budget));
+        saveShopValue(budgetKey, String(budget));
         renderBuild(`You now have ${budget} gold to spend.`);
     }
     $("#budget-form").on("submit", (event) => {
@@ -474,6 +474,13 @@ $(document).ready(function () {
     $sort.on("change", filterItems);
     $search.on("input", filterItems);
     $(".item-filters").on("submit", (event) => event.preventDefault());
+    $("[data-shop-group]").on("click", function () {
+        activeGroup = $(this).attr("data-shop-group");
+        $("[data-shop-group]").attr("aria-pressed", "false");
+        $(this).attr("aria-pressed", "true");
+        $section.val("");
+        filterItems();
+    });
     restoreFilters();
     filterItems();
     renderBuild();

@@ -2464,3 +2464,5 @@ body:not(.home) header::before {
     .shop-purchase-link { display: block; grid-column: 1 / -1; font-size: 13px; }
     .items-page .item-name { font-size: 12px; }
 }
+/* In the Radiant theme the gold is dark, so badge text is light. */
+:root[data-theme="radiant"] .match-win, :root[data-theme="radiant"] .ti-badge { color: #fff; }

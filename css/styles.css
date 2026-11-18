@@ -26,7 +26,7 @@
     --font-family-2: "DotaFont2", sans-serif;
     --container-max-width: 1100px;
     --background: radial-gradient(ellipse at 85% 8%, rgba(165, 43, 30, 0.18), transparent 60%),
-        linear-gradient(rgba(7, 13, 20, 0.28), rgba(7, 13, 20, 0.56)), var(--faction-scenery);
+        linear-gradient(rgba(7, 13, 20, 0.58), rgba(7, 13, 20, 0.8)), var(--faction-scenery);
     
     /* Backgrounds */
     --color-background-main: 17, 25, 32;

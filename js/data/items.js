@@ -2,6 +2,7 @@ export const items = [
     {
         "name": "Town Portal Scroll",
         "purpose": "Mobility",
+        "section": "Consumables",
         "image": "images/items/town-portal-scroll.png",
         "summary": "Carry a scroll to reinforce a lane or return to base.",
         "cost": 100,
@@ -28,6 +29,7 @@ export const items = [
     {
         "name": "Clarity",
         "purpose": "Recovery",
+        "section": "Consumables",
         "image": "images/items/clarity.png",
         "summary": "Recover mana between fights while you can avoid enemy attacks.",
         "cost": 60,
@@ -54,6 +56,7 @@ export const items = [
     {
         "name": "Faerie Fire",
         "purpose": "Recovery",
+        "section": "Consumables",
         "image": "images/items/faerie-fire.jpg",
         "summary": "Carry a Faerie Fire for a burst of healing during an early trade.",
         "cost": 65,
@@ -81,6 +84,7 @@ export const items = [
     {
         "name": "Smoke of Deceit",
         "purpose": "Utility",
+        "section": "Consumables",
         "image": "images/items/smoke-of-deceit.png",
         "summary": "Move your team together for a surprise attack.",
         "cost": 50,
@@ -109,6 +113,7 @@ export const items = [
     {
         "name": "Observer Ward",
         "purpose": "Vision",
+        "section": "Consumables",
         "image": "images/items/observer-ward.png",
         "summary": "Watch an approach to a lane or objective before enemies arrive.",
         "properties": {
@@ -134,6 +139,7 @@ export const items = [
     {
         "name": "Sentry Ward",
         "purpose": "Vision",
+        "section": "Consumables",
         "image": "images/items/sentry-ward.png",
         "summary": "Reveal hidden wards where your team already has vision.",
         "cost": 50,
@@ -161,6 +167,7 @@ export const items = [
     {
         "name": "Enchanted Mango",
         "purpose": "Recovery",
+        "section": "Consumables",
         "image": "images/items/enchanted-mango.png",
         "summary": "Keep enough mana on hand for one more spell.",
         "cost": 65,
@@ -188,6 +195,7 @@ export const items = [
     {
         "name": "Healing Salve",
         "purpose": "Recovery",
+        "section": "Consumables",
         "image": "images/items/healing-salve.png",
         "summary": "Heal up between fights when you can avoid incoming attacks.",
         "cost": 100,
@@ -215,6 +223,7 @@ export const items = [
     {
         "name": "Tango",
         "purpose": "Recovery",
+        "section": "Consumables",
         "image": "images/items/tango.jpg",
         "summary": "Bring Tangos to recover between trades without leaving your lane.",
         "cost": 90,
@@ -233,6 +242,7 @@ export const items = [
     {
         "name": "Bloodthorn",
         "purpose": "Damage",
+        "section": "Weapons",
         "image": "images/items/bloodthorn.jpg",
         "summary": "Choose Bloodthorn when your team can focus attacks on a silenced target.",
         "cost": 6800,
@@ -266,6 +276,7 @@ export const items = [
     {
         "name": "Black King Bar",
         "purpose": "Defense",
+        "section": "Armor",
         "image": "images/items/black_king_bar.jpg",
         "summary": "Activate Black King Bar before committing to a fight against enemy disables.",
         "cost": 4050,
@@ -289,6 +300,7 @@ export const items = [
     {
         "name": "Blink Dagger",
         "purpose": "Mobility",
+        "section": "Miscellaneous",
         "image": "images/items/blink_dagger.png",
         "summary": "Use Blink Dagger to close the gap before an initiation spell.",
         "cost": 2250,
@@ -307,6 +319,7 @@ export const items = [
     {
         "name": "Monkey King Bar",
         "purpose": "Damage",
+        "section": "Weapons",
         "image": "images/items/Monkey_King_Bar.jpg",
         "summary": "Consider Monkey King Bar when evasion makes your attacks miss.",
         "cost": 4700,
@@ -328,6 +341,7 @@ export const items = [
     {
         "name": "Magic Stick",
         "purpose": "Recovery",
+        "section": "Miscellaneous",
         "image": "images/items/stick.jpg",
         "summary": "Pick up a Magic Stick in a lane where opponents cast spells frequently.",
         "cost": 200,
@@ -344,6 +358,7 @@ export const items = [
     {
         "name": "Blood Grenade",
         "purpose": "Damage",
+        "section": "Consumables",
         "image": "images/items/blood-grenade.png",
         "summary": "A cheap support item: throw it to harass and slow enemies in the lane.",
         "cost": 50,
@@ -373,6 +388,7 @@ export const items = [
     {
         "name": "Dust of Appearance",
         "purpose": "Vision",
+        "section": "Consumables",
         "image": "images/items/dust-of-appearance.png",
         "summary": "Buy it against invisible heroes: it reveals and slows them around you.",
         "cost": 80,
@@ -399,6 +415,7 @@ export const items = [
     {
         "name": "Bottle",
         "purpose": "Recovery",
+        "section": "Consumables",
         "image": "images/items/bottle.png",
         "summary": "A mid lane favourite: refill it at the fountain and store runes inside.",
         "cost": 675,
@@ -433,6 +450,7 @@ export const items = [
     {
         "name": "Infused Raindrops",
         "purpose": "Defense",
+        "section": "Consumables",
         "image": "images/items/infused-raindrops.png",
         "summary": "Cheap protection against heroes with strong magic burst in the lane.",
         "cost": 225,
@@ -460,6 +478,7 @@ export const items = [
     {
         "name": "Quelling Blade",
         "purpose": "Utility",
+        "section": "Equipment",
         "image": "images/items/quelling-blade.png",
         "summary": "A melee core's first item: last-hit creeps more easily and cut trees.",
         "cost": 100,
@@ -492,6 +511,7 @@ export const items = [
     {
         "name": "Ring of Protection",
         "purpose": "Defense",
+        "section": "Equipment",
         "image": "images/items/ring-of-protection.png",
         "summary": "Cheap armor for the lane, later used in bigger defensive items.",
         "cost": 175,
@@ -507,6 +527,7 @@ export const items = [
     {
         "name": "Blades of Attack",
         "purpose": "Damage",
+        "section": "Equipment",
         "image": "images/items/blades-of-attack.png",
         "summary": "A small damage component that helps with last hits.",
         "cost": 450,
@@ -522,6 +543,7 @@ export const items = [
     {
         "name": "Orb of Frost",
         "purpose": "Damage",
+        "section": "Equipment",
         "image": "images/items/orb-of-frost.png",
         "summary": "Slows the enemy you hit, so it is harder for them to escape.",
         "cost": 300,
@@ -542,6 +564,7 @@ export const items = [
     {
         "name": "Chainmail",
         "purpose": "Defense",
+        "section": "Equipment",
         "image": "images/items/chainmail.png",
         "summary": "More armor than the ring: good against heroes that attack a lot.",
         "cost": 500,
@@ -558,6 +581,7 @@ export const items = [
     {
         "name": "Broadsword",
         "purpose": "Damage",
+        "section": "Equipment",
         "image": "images/items/broadsword.png",
         "summary": "A solid damage component for many carry items.",
         "cost": 1000,
@@ -573,6 +597,7 @@ export const items = [
     {
         "name": "Orb of Blight",
         "purpose": "Damage",
+        "section": "Equipment",
         "image": "images/items/orb-of-blight.png",
         "summary": "Lowers the armor of the enemy you attack, so your team hits harder.",
         "cost": 300,
@@ -595,6 +620,7 @@ export const items = [
     {
         "name": "Orb of Venom",
         "purpose": "Damage",
+        "section": "Equipment",
         "image": "images/items/orb-of-venom.png",
         "summary": "Poisons the enemy you hit: good for harassing in the lane.",
         "cost": 350,
@@ -619,6 +645,7 @@ export const items = [
     {
         "name": "Iron Branch",
         "purpose": "Attributes",
+        "section": "Attributes",
         "image": "images/items/iron-branch.png",
         "summary": "The cheapest stats in the shop. Most starting builds include one or two.",
         "cost": 55,
@@ -645,6 +672,7 @@ export const items = [
     {
         "name": "Gauntlets of Strength",
         "purpose": "Attributes",
+        "section": "Attributes",
         "image": "images/items/gauntlets-of-strength.png",
         "summary": "Cheap strength: more health for a melee hero in the lane.",
         "cost": 140,
@@ -660,6 +688,7 @@ export const items = [
     {
         "name": "Slippers of Agility",
         "purpose": "Attributes",
+        "section": "Attributes",
         "image": "images/items/slippers-of-agility.png",
         "summary": "Cheap agility: a little armor and attack speed.",
         "cost": 140,
@@ -675,6 +704,7 @@ export const items = [
     {
         "name": "Mantle of Intelligence",
         "purpose": "Attributes",
+        "section": "Attributes",
         "image": "images/items/mantle-of-intelligence.png",
         "summary": "Cheap intelligence: more mana for spell casters.",
         "cost": 140,
@@ -690,6 +720,7 @@ export const items = [
     {
         "name": "Circlet",
         "purpose": "Attributes",
+        "section": "Attributes",
         "image": "images/items/circlet.png",
         "summary": "A little of every attribute, used in many early items.",
         "cost": 155,
@@ -705,6 +736,7 @@ export const items = [
     {
         "name": "Belt of Strength",
         "purpose": "Attributes",
+        "section": "Attributes",
         "image": "images/items/belt-of-strength.png",
         "summary": "A bigger strength component for tanky builds.",
         "cost": 450,
@@ -720,6 +752,7 @@ export const items = [
     {
         "name": "Band of Elvenskin",
         "purpose": "Attributes",
+        "section": "Attributes",
         "image": "images/items/band-of-elvenskin.png",
         "summary": "A bigger agility component for carry items.",
         "cost": 450,
@@ -735,6 +768,7 @@ export const items = [
     {
         "name": "Robe of the Magi",
         "purpose": "Attributes",
+        "section": "Attributes",
         "image": "images/items/robe-of-the-magi.png",
         "summary": "A bigger intelligence component for casters.",
         "cost": 450,
@@ -750,6 +784,7 @@ export const items = [
     {
         "name": "Crown",
         "purpose": "Attributes",
+        "section": "Attributes",
         "image": "images/items/crown.png",
         "summary": "Balanced stats, part of several mid-game items.",
         "cost": 450,
@@ -765,6 +800,7 @@ export const items = [
     {
         "name": "Ogre Axe",
         "purpose": "Attributes",
+        "section": "Attributes",
         "image": "images/items/ogre-axe.png",
         "summary": "Lots of strength in one slot. A part of Black King Bar.",
         "cost": 1000,
@@ -780,6 +816,7 @@ export const items = [
     {
         "name": "Blade of Alacrity",
         "purpose": "Attributes",
+        "section": "Attributes",
         "image": "images/items/blade-of-alacrity.png",
         "summary": "Lots of agility in one slot for carry heroes.",
         "cost": 1000,
@@ -795,6 +832,7 @@ export const items = [
     {
         "name": "Staff of Wizardry",
         "purpose": "Attributes",
+        "section": "Attributes",
         "image": "images/items/staff-of-wizardry.png",
         "summary": "Lots of intelligence in one slot for spell casters.",
         "cost": 1000,
@@ -806,5 +844,139 @@ export const items = [
         ],
         "abilities": [],
         "lore": "A staff of magical powers passed down from the eldest mages."
+    },
+    {
+        "name": "Ring of Regen",
+        "purpose": "Recovery",
+        "section": "Miscellaneous",
+        "image": "images/items/ring-of-regen.png",
+        "summary": "Steady health regeneration that helps you stay in the lane.",
+        "cost": 175,
+        "properties": {
+            "Ability": "Passive"
+        },
+        "stats": [
+            "+1.25 Health Regeneration"
+        ],
+        "abilities": [],
+        "lore": "This ring is considered a good luck charm among the Gnomes."
+    },
+    {
+        "name": "Sage's Mask",
+        "purpose": "Recovery",
+        "section": "Miscellaneous",
+        "image": "images/items/sages-mask.png",
+        "summary": "Steady mana regeneration for heroes who cast spells often.",
+        "cost": 175,
+        "properties": {
+            "Ability": "Passive"
+        },
+        "stats": [
+            "+0.7 Mana Regeneration"
+        ],
+        "abilities": [],
+        "lore": "A mask commonly used by mages and warlocks for various rituals."
+    },
+    {
+        "name": "Wind Lace",
+        "purpose": "Mobility",
+        "section": "Miscellaneous",
+        "image": "images/items/wind-lace.png",
+        "summary": "A little extra speed. Bonuses from several Wind Laces do not stack.",
+        "cost": 225,
+        "properties": {
+            "Ability": "Passive"
+        },
+        "stats": [
+            "+15 Movement Speed"
+        ],
+        "abilities": [],
+        "lore": "Hasten to battle on wind-touched heels."
+    },
+    {
+        "name": "Fluffy Hat",
+        "purpose": "Defense",
+        "section": "Miscellaneous",
+        "image": "images/items/fluffy-hat.png",
+        "summary": "Extra health that keeps a fragile hero alive a bit longer.",
+        "cost": 250,
+        "properties": {
+            "Ability": "Passive"
+        },
+        "stats": [
+            "+125 Health"
+        ],
+        "abilities": [],
+        "lore": "Fine and functional foppery for the fashion-forward fighter."
+    },
+    {
+        "name": "Wizard Hat",
+        "purpose": "Utility",
+        "section": "Miscellaneous",
+        "image": "images/items/wizard-hat.png",
+        "summary": "Extra mana for one more spell in a fight.",
+        "cost": 250,
+        "properties": {
+            "Ability": "Passive"
+        },
+        "stats": [
+            "+125 Mana"
+        ],
+        "abilities": []
+    },
+    {
+        "name": "Boots of Speed",
+        "purpose": "Mobility",
+        "section": "Miscellaneous",
+        "image": "images/items/boots-of-speed.png",
+        "summary": "The first boots: almost every hero buys them early. Bonuses from several pairs do not stack.",
+        "cost": 500,
+        "properties": {
+            "Ability": "Passive"
+        },
+        "stats": [
+            "+45 Movement Speed"
+        ],
+        "abilities": [],
+        "lore": "Fleet footwear, increasing movement."
+    },
+    {
+        "name": "Voodoo Mask",
+        "purpose": "Recovery",
+        "section": "Miscellaneous",
+        "image": "images/items/voodoo-mask.png",
+        "summary": "Heals you for part of the spell damage you deal to enemies.",
+        "cost": 650,
+        "properties": {
+            "Ability": "Passive"
+        },
+        "stats": [
+            "+15% Spell Lifesteal"
+        ],
+        "abilities": [
+            {
+                "type": "Passive",
+                "name": "Spell Lifesteal",
+                "text": [
+                    "Heals the wearer for a percentage of spell damage dealt to enemies."
+                ]
+            }
+        ],
+        "lore": "A mask tuned to sip the arcane bindings that pass between caster and foe."
+    },
+    {
+        "name": "Shawl",
+        "purpose": "Defense",
+        "section": "Miscellaneous",
+        "image": "images/items/shawl.png",
+        "summary": "Magic resistance against heroes with strong spells.",
+        "cost": 450,
+        "properties": {
+            "Ability": "Passive"
+        },
+        "stats": [
+            "+10% Magic Resistance"
+        ],
+        "abilities": []
     }
 ];

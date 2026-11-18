@@ -273,6 +273,21 @@ $(document).ready(function () {
         $purpose.append(new Option(purpose, purpose));
     }
 
+    // Sections of the in-game shop. Only sections that have items are shown in the list.
+    const shopGroups = [
+        { name: "Basics", sections: ["Consumables", "Attributes", "Equipment", "Miscellaneous", "Secret Shop"] },
+        { name: "Upgrades", sections: ["Accessories", "Support", "Magical", "Armor", "Weapons", "Armaments"] }
+    ];
+    const sectionOrder = shopGroups.flatMap((group) => group.sections);
+    const $section = $("#item-section");
+    shopGroups.forEach((group) => {
+        const used = group.sections.filter((section) => items.some((item) => item.section === section));
+        if (!used.length) return;
+        const $group = $("<optgroup>").attr("label", group.name).appendTo($section);
+        used.forEach((section) => $group.append(new Option(section, section)));
+    });
+    const groupOf = (section) => shopGroups.find((group) => group.sections.includes(section)).name;
+
     // Price tier shown on the card: cheap items for the lane, mid-game parts, big core items.
     function priceTier(cost) {
         if (cost <= 500) return { id: "cheap", label: "Cheap" };
@@ -309,23 +324,37 @@ $(document).ready(function () {
     function filterItems() {
         const text = $search.val().trim().toLowerCase();
         const purpose = $purpose.val();
+        const section = $section.val();
         const sort = $sort.val();
         const visible = cards.filter(({ item }) =>
-            item.name.toLowerCase().includes(text) && (!purpose || item.purpose === purpose));
+            item.name.toLowerCase().includes(text) && (!purpose || item.purpose === purpose) &&
+            (!section || item.section === section));
         // Items without a price go to the end when sorting by price.
         const price = (entry, empty) => entry.item.cost ?? empty;
         if (sort === "priceLow") visible.sort((a, b) => price(a, Infinity) - price(b, Infinity));
         else if (sort === "priceHigh") visible.sort((a, b) => price(b, -1) - price(a, -1));
         else if (sort === "name") visible.sort((a, b) => a.item.name.localeCompare(b.item.name));
-        else visible.sort((a, b) => a.index - b.index);
+        // Shop order: by section as in the game, then by the order in the data file.
+        else visible.sort((a, b) => sectionOrder.indexOf(a.item.section) - sectionOrder.indexOf(b.item.section) || a.index - b.index);
 
         cards.forEach(({ $card }) => $card.prop("hidden", true));
+        $grid.find(".item-section-title").remove();
         // append() moves the existing cards into the new order.
-        visible.forEach(({ $card }) => $grid.append($card.prop("hidden", false)));
+        let lastSection = "";
+        visible.forEach(({ item, $card }) => {
+            // In shop order every section starts with a title, like the shop in the game.
+            if (sort === "default" && item.section !== lastSection) {
+                lastSection = item.section;
+                $("<h2>").addClass("item-section-title")
+                    .append($("<span>").text(groupOf(item.section)), ` ${item.section}`)
+                    .appendTo($grid);
+            }
+            $grid.append($card.prop("hidden", false));
+        });
         const count = visible.length;
         $("#item-count").text(count === 1 ? "1 item" : `${count} items`);
         $("#item-empty").prop("hidden", count > 0);
-        localStorage.setItem(filtersKey, JSON.stringify({ text: $search.val(), purpose, sort }));
+        localStorage.setItem(filtersKey, JSON.stringify({ text: $search.val(), purpose, section, sort }));
         $(document).trigger("pagecontentchange");
     }
 
@@ -336,6 +365,7 @@ $(document).ready(function () {
             // Only restore values that still exist in the lists.
             if ($purpose.find(`option[value="${saved.purpose}"]`).length) $purpose.val(saved.purpose);
             if ($sort.find(`option[value="${saved.sort}"]`).length) $sort.val(saved.sort);
+            if ($section.find(`option[value="${saved.section}"]`).length) $section.val(saved.section);
         } catch {
             localStorage.removeItem(filtersKey);
         }
@@ -440,6 +470,7 @@ $(document).ready(function () {
     });
     $dialog.on("close", () => $(document).trigger("pagecontentchange"));
     $purpose.on("change", filterItems);
+    $section.on("change", filterItems);
     $sort.on("change", filterItems);
     $search.on("input", filterItems);
     $(".item-filters").on("submit", (event) => event.preventDefault());

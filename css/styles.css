@@ -2408,3 +2408,16 @@ body:not(.home) header::before {
 .budget-form input[aria-invalid="true"] { border-color: #e0715f; }
 #budget-error { flex-basis: 100%; font-size: 0.85rem; }
 #budget-error:empty { display: none; }
+
+/* Final: shop sections on the items page */
+.item-section-title {
+    grid-column: 1 / -1;
+    margin: var(--space-2) 0 0;
+    padding-bottom: 6px;
+    border-bottom: 1px solid rgb(var(--color-border));
+    font-size: 1rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+}
+.item-section-title:first-child { margin-top: 0; }
+.item-section-title span { margin-right: 6px; color: rgb(var(--color-text-gold)); font-size: 0.75rem; }

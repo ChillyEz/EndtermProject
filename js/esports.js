@@ -25,7 +25,7 @@ function timeAgo(seconds) {
 // Team logo, or a round badge with the first letters of the name when there is no logo.
 function teamLogo(name, team) {
     const initials = name.split(/\s+/).map((word) => word[0]).join("").slice(0, 3).toUpperCase();
-    const $badge = $("<span>").addClass("team-logo").text(initials);
+    const $badge = $("<span>").addClass("team-logo").append($("<span>").text(initials));
     if (team && team.logo_url) {
         $("<img>").attr({ src: team.logo_url, alt: "", loading: "lazy" })
             // If the image cannot be loaded, the initials stay visible.

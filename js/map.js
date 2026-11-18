@@ -83,7 +83,10 @@ export function initMap() {
         checkbox.addEventListener("change", () => {
             stage.classList.toggle(`hide-${layer.id}`, !checkbox.checked);
         });
-        label.append(checkbox, ` ${layer.label}`);
+        // The text is wrapped in a span: then search highlights inside it do not split the flex row.
+        const text = document.createElement("span");
+        text.textContent = layer.label;
+        label.append(checkbox, text);
         // Hovering a layer name highlights all of its markers.
         label.addEventListener("mouseenter", () => stage.dataset.highlight = layer.id);
         label.addEventListener("mouseleave", () => delete stage.dataset.highlight);

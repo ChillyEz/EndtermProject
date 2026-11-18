@@ -42,17 +42,18 @@ export function initProMatches() {
     const $status = $("#matches-status");
     const $list = $("#match-list");
     let loading = false;
-    let teams = null; // team_id -> team, loaded once
+    let teams = new Map(); // team_id -> team
+    let teamsLoaded = false;
 
     async function loadTeams() {
-        if (teams) return teams;
+        if (teamsLoaded) return teams;
         try {
             const data = await getJson("https://api.opendota.com/api/teams");
             teams = new Map(data.map((team) => [team.team_id, team]));
+            teamsLoaded = true;
             renderTopTeams(data);
         } catch {
             // Logos are only decoration: the matches are shown without them.
-            teams = new Map();
             $("#top-teams-status").text("Could not load the team rating.");
         }
         return teams;
@@ -134,6 +135,7 @@ export function initProMatches() {
     function renderTopTeams(data) {
         const $top = $("#top-teams");
         if (!$top.length) return;
+        $top.empty();
         const best = [...data].sort((a, b) => b.rating - a.rating).slice(0, 5);
         best.forEach((team, index) => {
             const games = team.wins + team.losses;

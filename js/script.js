@@ -12,7 +12,7 @@ $(document).ready(() => { initAccount(); initProMatches(); initHeroDetails(); in
 // ==================== [1] HERO CATALOG, LIVE SEARCH & AUTOCOMPLETE (heroes.html | A6 Tasks 0-2) ====================
 $(document).ready(function () {
 
-    if (window.location.pathname.endsWith("heroes.html")) {
+    if (document.getElementById("hero-sections")) {
         const $heroSections = $("#hero-sections");
         const $searchInput = $("#hero-search");
         const $attributeFilter = $("#attribute-filter");
@@ -352,8 +352,12 @@ $(document).ready(function () {
         const count = visible.length;
         $("#item-count").text(count === 1 ? "1 item" : `${count} items`);
         $("#item-empty").prop("hidden", count > 0);
-        saveShopValue(filtersKey, JSON.stringify({ text: $search.val(), purpose, section, sort }));
+        saveShopValue(filtersKey, JSON.stringify({ text: $search.val(), purpose, section, sort, group: activeGroup }));
         $(document).trigger("pagecontentchange");
+    }
+
+    function hasOption($select, value) {
+        return typeof value === "string" && $select.find("option").toArray().some((opt) => opt.value === value);
     }
 
     function restoreFilters() {
@@ -361,9 +365,15 @@ $(document).ready(function () {
             const saved = JSON.parse(readShopValue(filtersKey)) || {};
             $search.val(saved.text || "");
             // Only restore values that still exist in the lists.
-            if ($purpose.find(`option[value="${saved.purpose}"]`).length) $purpose.val(saved.purpose);
-            if ($sort.find(`option[value="${saved.sort}"]`).length) $sort.val(saved.sort);
-            if ($section.find(`option[value="${saved.section}"]`).length) $section.val(saved.section);
+            if (hasOption($purpose, saved.purpose)) $purpose.val(saved.purpose);
+            if (hasOption($sort, saved.sort)) $sort.val(saved.sort);
+            if (hasOption($section, saved.section)) $section.val(saved.section);
+            if (typeof saved.group === "string" &&
+                $("[data-shop-group]").toArray().some((btn) => btn.dataset.shopGroup === saved.group)) {
+                activeGroup = saved.group;
+                $("[data-shop-group]").attr("aria-pressed", "false")
+                    .filter((_, btn) => btn.dataset.shopGroup === activeGroup).attr("aria-pressed", "true");
+            }
         } catch {
             saveShopValue(filtersKey, "{}");
         }

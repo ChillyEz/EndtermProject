@@ -133,10 +133,16 @@ export function initHeroDetails() {
         if (hero) showHero(hero);
     });
 
+    let mouseDownOutside = false;
     $retry.on("click", () => { if (openHero) showLiveStats(openHero); });
     $dialog.find(".close-item").on("click", () => $dialog[0].close());
-    // A click on the dark backdrop lands on the dialog element itself.
+    // Close only when both press and release happen on the backdrop outside the panel.
+    $dialog.on("mousedown", function (event) {
+        mouseDownOutside = !$(event.target).closest(".item-details-panel").length;
+    });
     $dialog.on("click", function (event) {
-        if (event.target === this) this.close();
+        if (mouseDownOutside && !$(event.target).closest(".item-details-panel").length) {
+            this.close();
+        }
     });
 }
